@@ -1,6 +1,5 @@
 package com.example.youropinion.dto;
 
-import com.example.youropinion.entity.UserRoleEnum;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

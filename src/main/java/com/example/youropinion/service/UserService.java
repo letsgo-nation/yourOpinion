@@ -19,7 +19,6 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
 
     private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
@@ -57,8 +56,8 @@ public class UserService {
         }
 
         // 5. 회원 가입 진행
-            User user = new User(requestDto, password, role);
-            userRepository.save(user);
+        User user = new User(requestDto, password, role);
+        userRepository.save(user);
 
         log.info(inputUsername + "님이 회원 가입에 성공하였습니다");
     }
