@@ -1,15 +1,10 @@
 package com.example.youropinion.dto;
 
-import com.example.youropinion.entity.Comment;
 import com.example.youropinion.entity.Post;
-import com.example.youropinion.entity.Timestamped;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
