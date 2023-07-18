@@ -64,7 +64,11 @@ public class ProFileService {
     }
 
     private boolean isPreviousPassword(User user, String newPassword) {
-        String hashedNewPassword = passwordEncoder.encode(newPassword);
-        return user.getPreviousPasswords().contains(hashedNewPassword);
+        for (String prevPassword : user.getPreviousPasswords()) {
+            if (passwordEncoder.matches(newPassword, prevPassword)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
