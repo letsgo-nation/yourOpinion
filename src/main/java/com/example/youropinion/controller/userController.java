@@ -34,4 +34,16 @@ public class userController {
     public String loginPage() {
         return "login";
     }
+
+    // 프로필 확인
+    @GetMapping("/profile-page")
+    public String getProfilePage() {
+        return "profile";
+    }
+
+    //비밀번호 변경
+    @GetMapping("/profile-page/pwchange")
+    public String getPwChangePage() {
+        return "pwchange";
+    }
 }
