@@ -40,9 +40,9 @@ public class ProFileController {
     }
 
     @PutMapping("/password")
-    public ResponseEntity<ProFileResponseDto> changePassword(
+    public ResponseEntity<pwChangeResponseDto> changePassword(
             @Valid
-            @RequestBody ProFileRequestDto updateProfile,
+            @RequestBody pwChangeRequestDto updateProfile,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
         String loggedInUsername = userDetails.getUser().getUsername();
@@ -50,7 +50,7 @@ public class ProFileController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        ProFileResponseDto responseDto = profileService.changePassword(loggedInUsername, updateProfile);
+        pwChangeResponseDto responseDto = profileService.changePassword(loggedInUsername, updateProfile);
         return ResponseEntity.ok(responseDto);
     }
 }

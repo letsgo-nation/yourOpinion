@@ -2,6 +2,8 @@ package com.example.youropinion.service;
 
 import com.example.youropinion.dto.ProFileRequestDto;
 import com.example.youropinion.dto.ProFileResponseDto;
+import com.example.youropinion.dto.pwChangeRequestDto;
+import com.example.youropinion.dto.pwChangeResponseDto;
 import com.example.youropinion.entity.User;
 import com.example.youropinion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +35,7 @@ public class ProFileService {
         return new ProFileResponseDto(user);
     }
 
-    public ProFileResponseDto changePassword(String username, ProFileRequestDto updateProfile) {
+    public pwChangeResponseDto changePassword(String username, pwChangeRequestDto updateProfile) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("회원정보가 존재하지 않습니다."));
 
@@ -60,7 +62,7 @@ public class ProFileService {
         user.setPassword(hashedPassword);
         user = userRepository.save(user);
 
-        return new ProFileResponseDto(user);
+        return new pwChangeResponseDto(user);
     }
 
     private boolean isPreviousPassword(User user, String newPassword) {

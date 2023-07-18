@@ -56,6 +56,12 @@ public class UserService {
 
         // 5. 회원 가입 진행
         User user = new User(requestDto, password, role);
+
+        user.getPreviousPasswords().add(password);
+        if (user.getPreviousPasswords().size() > 3) {
+            user.getPreviousPasswords().remove(0);
+        }
+
         userRepository.save(user);
 
         log.info(inputUsername + "님이 회원 가입에 성공하였습니다");
