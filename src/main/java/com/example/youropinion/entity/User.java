@@ -28,14 +28,14 @@ public class User {
     @Column(nullable = false)
     private String password; // 비밀번호
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nickname; //사용자 이름
 
     @Column(nullable = false)
     private String introduce; // 사용자 자기소개
 
     @ElementCollection
-    @CollectionTable(name = "previous_passwords", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "previous_passwords", joinColumns = @JoinColumn(name = "users_id"))
     @Column(name = "password")
     private List<String> previousPasswords = new ArrayList<>();
 }
