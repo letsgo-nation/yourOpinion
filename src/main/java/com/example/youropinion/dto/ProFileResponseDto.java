@@ -11,7 +11,6 @@ public class ProFileResponseDto {
     private String email;
     private String introduce;
 
-
     public ProFileResponseDto(User user) {
         this.nickname = user.getNickname();
         this.email = user.getEmail();
