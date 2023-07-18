@@ -21,6 +21,7 @@ public class ProFileService {
     public ProFileResponseDto getUsers(String username) {
         User user = userRepository.findByUsername(username)
         .orElseThrow(() -> new IllegalStateException("회원정보가 존재하지 않습니다."));
+        log.info("프로필이 조회되었습니다.");
         return new ProFileResponseDto(user);
     }
 
