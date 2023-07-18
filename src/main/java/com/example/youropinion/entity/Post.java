@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -42,6 +44,9 @@ public class Post extends Timestamped{
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @OneToMany(mappedBy = "post")
+    private List<Comment> commentList;
+
     public Post(PostRequestDto requestDto, User user) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
@@ -59,4 +64,5 @@ public class Post extends Timestamped{
         this.opinionA = requestDto.getOpinionA();
         this.opinionB = requestDto.getOpinionB();
     }
+
 }
