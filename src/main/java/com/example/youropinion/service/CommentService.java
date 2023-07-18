@@ -7,6 +7,8 @@ import com.example.youropinion.entity.Comment;
 import com.example.youropinion.entity.Post;
 import com.example.youropinion.entity.User;
 import com.example.youropinion.entity.UserRoleEnum;
+import com.example.youropinion.exception.CommentNotFoundException;
+import com.example.youropinion.exception.PostNotFoundException;
 import com.example.youropinion.repository.CommentRepository;
 import com.example.youropinion.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +28,7 @@ public class CommentService {
     public ResponseEntity<RestApiResponseDto> createComment(Long id, CommentRequestDto requestDto, User user) {
         // 게시글이 있는지
         Post post = postRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 게시글이 없습니다."));
+                () -> new PostNotFoundException("해당 게시글이 없습니다."));
 
         // 댓글 작성
         Comment comment = new Comment(requestDto,post,user);
@@ -39,7 +41,7 @@ public class CommentService {
     public ResponseEntity<RestApiResponseDto> updateComment(Long id, CommentRequestDto requestDto, User user) {
         // 댓글이 있는지
         Comment comment = commentRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("해당 댓글이 없습니다."));
+                new CommentNotFoundException("해당 댓글이 없습니다."));
 
         // 댓글 작성자 혹은 관리자인지
         Long writerId = comment.getId();
@@ -57,7 +59,7 @@ public class CommentService {
     public ResponseEntity<RestApiResponseDto> deleteComment(Long id, User user) {
         // 댓글이 있는지
         Comment comment = commentRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("해당 댓글이 없습니다."));
+                new CommentNotFoundException("해당 댓글이 없습니다."));
 
         // 댓글 작성자 혹은 관리자인지
         Long writerId = comment.getId();

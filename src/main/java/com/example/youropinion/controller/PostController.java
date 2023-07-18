@@ -2,6 +2,7 @@ package com.example.youropinion.controller;
 
 import com.example.youropinion.dto.PostRequestDto;
 import com.example.youropinion.dto.RestApiResponseDto;
+import com.example.youropinion.exception.TokenNotValidateException;
 import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,7 @@ public class PostController {
     public @ResponseBody ResponseEntity<RestApiResponseDto> createPost(
             @RequestBody PostRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        this.tokenValidate(userDetails);
         return postService.createPost(requestDto,userDetails.getUser());
 
     }
@@ -47,6 +49,7 @@ public class PostController {
             @PathVariable Long id,
             @RequestBody PostRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        this.tokenValidate(userDetails);
         return postService.updatePost(id, requestDto, userDetails.getUser());
     }
 
@@ -56,7 +59,16 @@ public class PostController {
     public @ResponseBody ResponseEntity<RestApiResponseDto> deletePost(
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        this.tokenValidate(userDetails);
         return postService.deletePost(id, userDetails.getUser());
+    }
+
+    public void tokenValidate(UserDetailsImpl userDetails) {
+        try{
+            userDetails.getUser();
+        }catch (Exception ex){
+            throw new TokenNotValidateException("토큰이 유효하지 않습니다.");
+        }
     }
 
 }

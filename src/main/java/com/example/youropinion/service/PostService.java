@@ -6,6 +6,7 @@ import com.example.youropinion.dto.RestApiResponseDto;
 import com.example.youropinion.entity.Post;
 import com.example.youropinion.entity.User;
 import com.example.youropinion.entity.UserRoleEnum;
+import com.example.youropinion.exception.PostNotFoundException;
 import com.example.youropinion.repository.PostRepository;
 import com.example.youropinion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +36,7 @@ public class PostService {
 
     public ResponseEntity<RestApiResponseDto> getPost(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+                new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
         return this.resultResponse(HttpStatus.OK,"게시글 상세 조회",new PostResponseDto(post));
     }
 
@@ -50,7 +51,7 @@ public class PostService {
     public ResponseEntity<RestApiResponseDto> updatePost(Long id, PostRequestDto requestDto, User user) {
         // 게시글이 있는지
         Post post = postRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("해당 게시글이 존재하지 않습니다"));
+                new PostNotFoundException("해당 게시글이 존재하지 않습니다"));
 
         // 게시글 작성자인지
         Long writerId = post.getUser().getId(); // 게시글 작성자 id
@@ -68,7 +69,7 @@ public class PostService {
     public ResponseEntity<RestApiResponseDto> deletePost(Long id, User user) {
         // 게시글이 있는지
         Post post = postRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("해당 게시글이 없습니다."));
+                new PostNotFoundException("해당 게시글이 없습니다."));
 
         // 게시글 작성자인지
         Long writerId = post.getUser().getId();
