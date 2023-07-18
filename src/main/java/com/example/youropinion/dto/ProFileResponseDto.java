@@ -1,20 +1,24 @@
 package com.example.youropinion.dto;
 
+import com.example.youropinion.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class ProFileResponseDto {
-    private String user_id;
-    private String userName;
+    private String username;
+    private String nickname;
+    private String email;
     private String password;
-    private String intro;
+    private String introduce;
 
-//    public ProfileResponseDto(User user) {
-//        this.user_id = user.getUserId();
-//        this.userName = user.getUsername();
-//        this.password = user.getPassword();
-//        this.intro = user.getIntro();
-//    }
+
+    public ProFileResponseDto(User user) {
+        this.username = user.getUsername();
+        this.nickname = user.getNickname();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.introduce = user.getIntroduce();
+    }
 }
