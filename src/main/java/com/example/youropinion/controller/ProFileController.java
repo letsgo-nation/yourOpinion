@@ -1,8 +1,6 @@
 package com.example.youropinion.controller;
 
-import com.example.youropinion.dto.ProFileRequestDto;
-import com.example.youropinion.dto.ProFileResponseDto;
-import com.example.youropinion.dto.UserInfoDto;
+import com.example.youropinion.dto.*;
 import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.ProFileService;
 import jakarta.validation.Valid;
@@ -42,9 +40,9 @@ public class ProFileController {
     }
 
     @PutMapping("/password")
-    public ResponseEntity<ProFileResponseDto> changePassword(
+    public ResponseEntity<pwChangeResponseDto> changePassword(
             @Valid
-            @RequestBody ProFileRequestDto updateProfile,
+            @RequestBody pwChangeRequestDto updateProfile,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
         String loggedInUsername = userDetails.getUser().getUsername();
@@ -52,7 +50,7 @@ public class ProFileController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        ProFileResponseDto responseDto = profileService.changePassword(loggedInUsername, updateProfile);
+        pwChangeResponseDto responseDto = profileService.changePassword(loggedInUsername, updateProfile);
         return ResponseEntity.ok(responseDto);
     }
 }
