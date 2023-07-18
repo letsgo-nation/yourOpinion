@@ -34,8 +34,21 @@ public class User {
     @Column(nullable = false)
     private String introduce; // 사용자 자기소개
 
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private UserRoleEnum role;
+
     @ElementCollection
     @CollectionTable(name = "previous_passwords", joinColumns = @JoinColumn(name = "users_id"))
     @Column(name = "password")
     private List<String> previousPasswords = new ArrayList<>();
+
+    public User(SignupRequestDto signupRequestDto, String password, UserRoleEnum role) {
+        this.username = signupRequestDto.getUsername();
+        this.nickname = signupRequestDto.getNickname();
+        this.password = password;
+        this.email = signupRequestDto.getEmail();
+        this.introduce = signupRequestDto.getIntroduce();
+        this.role = role;
+    }
 }
