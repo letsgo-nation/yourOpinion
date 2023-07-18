@@ -4,10 +4,13 @@ import com.example.youropinion.entity.Comment;
 import com.example.youropinion.entity.Post;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Getter
 @Setter
 public class PostResponseDto {
@@ -21,7 +24,7 @@ public class PostResponseDto {
     private Long opinionACnt;
     private Long opinionBCnt;
     private LocalDateTime modifiedAt;
-    private List<Comment> commentList;
+    private List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
 
     public PostResponseDto(Post post) {
         this.id = post.getId();
@@ -34,4 +37,12 @@ public class PostResponseDto {
         this.opinionBCnt = post.getOpinionBCnt();
         this.modifiedAt = post.getModifiedAt();
     }
+
+    public void setCommentResponseDtoList(List<Comment> sortedCommentList) {
+        for (Comment comment : sortedCommentList) {
+            log.info(comment.getContent());
+            this.commentResponseDtoList.add(new CommentResponseDto(comment));
+        }
+    }
+
 }

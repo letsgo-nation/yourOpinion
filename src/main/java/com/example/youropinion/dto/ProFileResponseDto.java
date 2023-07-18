@@ -17,7 +17,6 @@ public class ProFileResponseDto {
     public ProFileResponseDto(User user) {
         this.username = user.getUsername();
         this.nickname = user.getNickname();
-        this.password = user.getPassword();
         this.email = user.getEmail();
         this.introduce = user.getIntroduce();
     }

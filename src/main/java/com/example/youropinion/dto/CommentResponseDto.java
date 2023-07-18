@@ -1,9 +1,10 @@
 package com.example.youropinion.dto;
 
 import com.example.youropinion.entity.Comment;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
-
+@Getter
 public class CommentResponseDto {
     private Long id;
     private String content;
@@ -20,6 +21,7 @@ public class CommentResponseDto {
         this.dislikeCnt = comment.getDislikeCnt();
         this.post_id = comment.getPost().getId();
         this.user_id = comment.getUser().getId();
+        this.modifiedAt = comment.getModifiedAt();
     }
 
 }

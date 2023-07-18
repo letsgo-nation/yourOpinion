@@ -1,8 +1,6 @@
 package com.example.youropinion.controller;
 
-import com.example.youropinion.dto.ProFileRequestDto;
-import com.example.youropinion.dto.ProFileResponseDto;
-import com.example.youropinion.dto.UserInfoDto;
+import com.example.youropinion.dto.*;
 import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.ProFileService;
 import jakarta.validation.Valid;
