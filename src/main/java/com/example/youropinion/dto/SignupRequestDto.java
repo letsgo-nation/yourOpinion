@@ -28,7 +28,7 @@ public class SignupRequestDto {
     @Email(message = "올바른 이메일이 아닙니다.")
     private String email;
 
-    private boolean admin = false;
-    private String adminToken = "";
+    private boolean admin;
+    private String adminToken;
 
 }

@@ -2,7 +2,6 @@ package com.example.youropinion.entity;
 
 public enum UserRoleEnum {
 
-
     USER(Authority.USER),
 
     ADMIN(Authority.ADMIN);

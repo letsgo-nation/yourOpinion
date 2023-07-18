@@ -3,7 +3,6 @@ package com.example.youropinion.service;
 import com.example.youropinion.dto.SignupRequestDto;
 import com.example.youropinion.entity.User;
 import com.example.youropinion.entity.UserRoleEnum;
-import com.example.youropinion.jwt.JwtUtil;
 import com.example.youropinion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
