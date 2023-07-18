@@ -7,6 +7,7 @@ import com.example.youropinion.entity.Post;
 import com.example.youropinion.entity.User;
 import com.example.youropinion.entity.UserRoleEnum;
 import com.example.youropinion.exception.PostNotFoundException;
+import com.example.youropinion.repository.CommentRepository;
 import com.example.youropinion.repository.PostRepository;
 import com.example.youropinion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     public ResponseEntity<RestApiResponseDto> getPostList() {
         List<Post> postList = postRepository.findAll();
@@ -37,7 +39,10 @@ public class PostService {
     public ResponseEntity<RestApiResponseDto> getPost(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() ->
                 new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
-        return this.resultResponse(HttpStatus.OK,"게시글 상세 조회",new PostResponseDto(post));
+        PostResponseDto responseDto = new PostResponseDto(post);
+
+        responseDto.setCommentList(commentRepository.findAllByPostIdOrderByCreatedAtDesc(id));
+        return this.resultResponse(HttpStatus.OK,"게시글 상세 조회",responseDto);
     }
 
 
