@@ -7,11 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class pwChangeResponseDto {
-    private String username;
     private String password;
 
     public pwChangeResponseDto(User user) {
-        this.username = user.getUsername();
         this.password = user.getPassword();
     }
 }
