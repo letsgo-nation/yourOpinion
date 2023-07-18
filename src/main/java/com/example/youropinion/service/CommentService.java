@@ -44,7 +44,7 @@ public class CommentService {
                 new CommentNotFoundException("해당 댓글이 없습니다."));
 
         // 댓글 작성자 혹은 관리자인지
-        Long writerId = comment.getId();
+        Long writerId = comment.getUser().getId();
         Long loginId = user.getId();
         if(!writerId.equals(loginId) && !user.getRole().equals(UserRoleEnum.ADMIN)){
             throw new IllegalArgumentException("작성자 혹은 관리자만 삭제/수정 할 수 있습니다.");
@@ -62,7 +62,7 @@ public class CommentService {
                 new CommentNotFoundException("해당 댓글이 없습니다."));
 
         // 댓글 작성자 혹은 관리자인지
-        Long writerId = comment.getId();
+        Long writerId = comment.getUser().getId();
         Long loginId = user.getId();
         
         if(!writerId.equals(loginId) && !user.getRole().equals(UserRoleEnum.ADMIN)){
