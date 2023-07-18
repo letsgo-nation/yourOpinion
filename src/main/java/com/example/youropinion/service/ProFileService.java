@@ -7,10 +7,12 @@ import com.example.youropinion.dto.pwChangeResponseDto;
 import com.example.youropinion.entity.User;
 import com.example.youropinion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ProFileService {
     private final UserRepository userRepository;
@@ -31,6 +33,7 @@ public class ProFileService {
         user.setIntroduce(updateProfile.getIntroduce());
 
         user = userRepository.save(user);
+        log.info("프로필 수정이 완료되었습니다.");
 
         return new ProFileResponseDto(user);
     }
@@ -61,6 +64,7 @@ public class ProFileService {
 
         user.setPassword(hashedPassword);
         user = userRepository.save(user);
+        log.info("비밀번호 변경이 완료되었습니다.");
 
         return new pwChangeResponseDto(user);
     }
