@@ -7,14 +7,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProFileResponseDto {
-    private String username;
     private String nickname;
     private String email;
     private String introduce;
 
 
     public ProFileResponseDto(User user) {
-        this.username = user.getUsername();
         this.nickname = user.getNickname();
         this.email = user.getEmail();
         this.introduce = user.getIntroduce();
