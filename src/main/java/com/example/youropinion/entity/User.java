@@ -38,12 +38,4 @@ public class User {
     @CollectionTable(name = "previous_passwords", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "password")
     private List<String> previousPasswords = new ArrayList<>();
-
-    public User(String username, String email, String password, String nickname, String introduce) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.nickname = nickname;
-        this.introduce = introduce;
-    }
 }

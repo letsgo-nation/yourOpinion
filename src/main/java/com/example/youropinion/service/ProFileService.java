@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ProfileService {
+public class ProFileService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     public ProFileResponseDto getUsers(String username) {
         User user = userRepository.findByUsername(username)
-        .orElseThrow(() -> new IllegalStateException("회원정보가 존재하지않습니다."));
+        .orElseThrow(() -> new IllegalStateException("회원정보가 존재하지 않습니다."));
         return new ProFileResponseDto(user);
     }
 
@@ -46,7 +46,7 @@ public class ProfileService {
         String newPassword = updateProfile.getNewPassword();
 
         if (isPreviousPassword(user, newPassword)) {
-            throw new IllegalArgumentException("최근 3번의 비밀번호와 중복됩니다.");
+            throw new IllegalArgumentException("최근 변경한 3개의 비밀번호와 중복됩니다. 다른 비밀번호로 작성해주세요.");
         }
 
         String hashedPassword = passwordEncoder.encode(newPassword);

@@ -4,8 +4,7 @@ import com.example.youropinion.dto.ProFileRequestDto;
 import com.example.youropinion.dto.ProFileResponseDto;
 import com.example.youropinion.dto.UserInfoDto;
 import com.example.youropinion.security.UserDetailsImpl;
-import com.example.youropinion.service.ProfileService;
-import jakarta.servlet.http.HttpServletResponse;
+import com.example.youropinion.service.ProFileService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,17 +15,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class ProfileController {
-    private final ProfileService profileService;
+public class ProFileController {
+    private final ProFileService profileService;
 
     @GetMapping("/profile")
-    public UserInfoDto getProfile(@AuthenticationPrincipal UserDetailsImpl userDetails, HttpServletResponse response) {
-        String nickname = userDetails.getUser().getNickname();
-
+    public UserInfoDto getProfile(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         String username = userDetails.getUser().getUsername();
         ProFileResponseDto proFileResponseDto = profileService.getUsers(username);
 
-        return new UserInfoDto(nickname, proFileResponseDto);
+        return new UserInfoDto(proFileResponseDto);
     }
 
     @PutMapping("/profile")
