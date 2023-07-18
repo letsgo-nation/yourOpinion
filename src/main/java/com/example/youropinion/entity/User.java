@@ -1,5 +1,6 @@
 package com.example.youropinion.entity;
 
+import com.example.youropinion.dto.SignupRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
