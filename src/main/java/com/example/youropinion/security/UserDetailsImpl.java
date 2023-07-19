@@ -1,6 +1,5 @@
 package com.example.youropinion.security;
 
-
 import com.example.youropinion.entity.User;
 import com.example.youropinion.entity.UserRoleEnum;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,11 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class UserDetailsImp implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
     private final User user;
 
-    public UserDetailsImp(User user) {
+    public UserDetailsImpl(User user) {
         this.user = user;
     }
 
@@ -23,13 +22,13 @@ public class UserDetailsImp implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return user.getPassword();
+    public String getUsername() {
+        return user.getUsername();
     }
 
     @Override
-    public String getUsername() {
-        return user.getUsername();
+    public String getPassword() {
+        return user.getPassword();
     }
 
     @Override

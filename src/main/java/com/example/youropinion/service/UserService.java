@@ -3,7 +3,6 @@ package com.example.youropinion.service;
 import com.example.youropinion.dto.SignupRequestDto;
 import com.example.youropinion.entity.User;
 import com.example.youropinion.entity.UserRoleEnum;
-import com.example.youropinion.jwt.JwtUtil;
 import com.example.youropinion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +57,12 @@ public class UserService {
 
         // 5. 회원 가입 진행
         User user = new User(requestDto, password, role);
+
+        user.getPreviousPasswords().add(password);
+        if (user.getPreviousPasswords().size() > 3) {
+            user.getPreviousPasswords().remove(0);
+        }
+
         userRepository.save(user);
 
         log.info(inputUsername + "님이 회원 가입에 성공하였습니다");

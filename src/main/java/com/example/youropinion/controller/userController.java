@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-//@
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
@@ -34,5 +34,17 @@ public class userController {
     @GetMapping("/login-page")
     public String loginPage() {
         return "login";
+    }
+
+    // 프로필 확인
+    @GetMapping("/profile-page")
+    public String getProfilePage() {
+        return "profile";
+    }
+
+    //비밀번호 변경
+    @GetMapping("/profile-page/pwchange")
+    public String getPwChangePage() {
+        return "pwchange";
     }
 }

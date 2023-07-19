@@ -20,7 +20,7 @@
 body {
     align-items: center;
     background-color: var(--white);
-    background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
+    background: url("https://images3.alphacoders.com/764/764967.png");
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -103,7 +103,7 @@ body {
 
 .overlay {
     background-color: var(--lightblue);
-    background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
+    background: url("https://images.alphacoders.com/736/736461.png");
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -209,4 +209,36 @@ body {
         opacity: 1;
         z-index: 5;
     }
+}
+/*vote html css*/
+.list-group-item {
+    height: auto;
+    min-height: 220px;
+}
+a.list-group-item.active small {
+    color: #fff;
+}
+a.list-group-item .vs-title {
+    font-size: 110px;
+}
+.fa {
+    font-size: 100px;
+    color: #ffffff;
+}
+.social a {
+    text-decoration: none;
+}
+.twitter {
+    background-color: #00acee;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+.facebook-like {
+    background-color: #3b5998;
+    border-radius: 4px;
+    margin-top: -3px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+.media {
+    padding:10px;
 }
