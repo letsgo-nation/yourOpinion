@@ -18,6 +18,12 @@ public class PostController {
 
     private final PostService postService;
 
+
+    @GetMapping("/post/write-page")
+    public String writePage(){
+        return "postWrite";
+    }
+
     // 전체 게시글 조회
     @GetMapping("/posts")
     public @ResponseBody ResponseEntity<RestApiResponseDto> getPostList() {
