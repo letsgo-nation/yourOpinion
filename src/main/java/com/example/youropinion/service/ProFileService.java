@@ -46,12 +46,14 @@ public class ProFileService {
         String checkPassword = updateProfile.getCheckPassword();
 
         if (!passwordEncoder.matches(checkPassword, user.getPassword())) {
+            log.info(username + "님의 현재 비밀번호가 일치하지 않습니다.");
             throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
         }
 
         String newPassword = updateProfile.getNewPassword();
 
         if (isPreviousPassword(user, newPassword)) {
+            log.info(username + "님의 최근 변경한 3개의 비밀번호와 중복됩니다. 다른 비밀번호로 작성해주세요.");
             throw new IllegalArgumentException("최근 변경한 3개의 비밀번호와 중복됩니다. 다른 비밀번호로 작성해주세요.");
         }
 

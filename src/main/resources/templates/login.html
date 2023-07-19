@@ -111,7 +111,7 @@
                     jqXHR.setRequestHeader('Authorization', token);
                 });
                 alert(loginUsername + " login success");
-                window.location.reload();
+                window.location.href = "/api/user/profile-page";
             })
             .fail(function (jqXHR, textStatus) {
                 alert("Login Fail");
