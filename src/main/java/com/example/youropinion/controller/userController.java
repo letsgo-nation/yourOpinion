@@ -2,12 +2,15 @@ package com.example.youropinion.controller;
 
 import com.example.youropinion.dto.ApiResponseDto;
 import com.example.youropinion.dto.SignupRequestDto;
+import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
