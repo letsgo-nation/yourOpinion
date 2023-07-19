@@ -51,7 +51,7 @@
             color: white;
             transition: transform 0.3s;
             font-variation-settings: 'FILL' 0,
-            'wght' 400,
+            'wght' 600,
             'GRAD' 0,
             'opsz' 48
         }
@@ -59,9 +59,15 @@
         .material-symbols-outlined:hover {
             transform: scale(1.1);
             font-variation-settings: 'FILL' 1,
-            'wght' 400,
+            'wght' 700,
             'GRAD' 0,
             'opsz' 48
+        }
+
+        .inputbox {
+            width: 30vh;
+            resize: none;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -102,7 +108,7 @@
             <tr>
                 <th class="p-3" style="color: white">자기소개</th>
                 <td>
-                        <textarea style="color: midnightblue" type="text" id="intro"
+                        <textarea style="color: white;" type="text" id="intro"
                                   class="inputbox form-control-lg text-center"
                                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </textarea>
@@ -123,6 +129,18 @@
 </body>
 
 <script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center-center',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
     $(document).ready(function () {
         // Cookie에서 JWT를 가져옴
         const token = Cookies.get('Authorization');
@@ -135,6 +153,13 @@
             getProfile(token);
         } else {
             console.log("JWT 토큰이 없습니다. 프로필 정보를 가져오지 않습니다.");
+            Toast.fire({
+                icon: 'error',
+                title: '토큰 오류',
+                text: 'JWT 토큰이 없습니다. 잠시후 로그인화면으로 되돌아갑니다.',
+            }).then(function () {
+                window.location.href = "/api/user/login-page"
+            });
         }
     });
 
@@ -225,7 +250,7 @@
                         return false;
                     }
 
-                    if (intro2.length <= 10 || intro2.length > 1000 ) {
+                    if (intro2.length <= 10 || intro2.length > 1000) {
                         Swal.fire({
                             icon: 'warning',
                             title: '자기소개 입력오류',
@@ -238,12 +263,14 @@
                 });
             },
             error: function (error) {
-                Swal.fire({
+                console.error("프로필 정보를 가져오는 데 실패했습니다.", error);
+                Toast.fire({
                     icon: 'error',
                     title: '토큰 오류',
-                    text: '프로필 정보를 가져오는 데 실패했습니다.',
+                    text: '프로필 정보를 가져오는 데 실패했습니다. 잠시후 로그인 화면으로 되돌아갑니다.',
+                }).then(function () {
+                    window.location.href = "/api/user/login-page"
                 });
-                console.error("프로필 정보를 가져오는 데 실패했습니다.", error);
             }
         });
     }
@@ -265,9 +292,11 @@
             cancelButtonText: '취소'
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire(
-                    '프로필 정보가 성공적으로 업데이트되었습니다.',
-                    'success'
+                Swal.fire({
+                        icon: 'success',
+                        title: '수정 성공',
+                        text: '프로필 정보가 성공적으로 업데이트되었습니다.'
+                    }
                 )
                 $.ajax({
                     url: "/api/profile",
@@ -288,12 +317,14 @@
                         displayUpdatedProfile(data);
                     },
                     error: function (error) {
-                        Swal.fire({
+                        console.error("프로필 정보를 가져오는 데 실패했습니다.", error);
+                        Toast.fire({
                             icon: 'error',
                             title: '토큰 오류',
-                            text: '프로필 정보를 가져오는 데 실패했습니다.',
+                            text: '프로필 정보를 가져오는 데 실패했습니다. 잠시후 로그인 화면으로 되돌아갑니다.',
+                        }).then(function () {
+                            window.location.href = "/api/user/login-page"
                         });
-                        console.error("프로필 정보 업데이트에 실패했습니다.", error);
                     }
                 });
             }
@@ -307,6 +338,7 @@
         $("#cancel").hide();
         $("#changebtnsuccess").hide();
         $(".inputbox").prop("disabled", true);
+        $("#intro").css("color", "white");
     }
 
     // 수정 버튼 클릭 이벤트 처리
@@ -315,6 +347,18 @@
         $("#changebtn").hide();
         $("#changebtnsuccess").show();
         $(".inputbox").prop("disabled", false);
+        $("#intro").css("color", "black");
+
+        const DEFAULT_HEIGHT = 30; // textarea 기본 height
+
+        const $textarea = document.querySelector('#intro');
+
+        $textarea.oninput = (event) => {
+            const $target = event.target;
+
+            $target.style.height = 0;
+            $target.style.height = DEFAULT_HEIGHT + $target.scrollHeight + 'px';
+        };
     });
 
     // 취소 버튼 클릭 이벤트 처리
