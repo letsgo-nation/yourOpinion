@@ -39,33 +39,15 @@ public class PostController {
         return postService.getPost(id);
     }
 
-    // 상세 게시물 예시
-    @GetMapping("/single-page")
-    public String singlePage() {
-        return "single-page";
-    }
 
-//    // vote 예시 화면
-//    @GetMapping("/vs-page")
-//    public String vsPage() {
-//        return "vs_voting_system";
-//    }
-
-    // vote 게시물 작성
-//    @GetMapping("/vs-page")
-//    public String createPostView(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        model.addAttribute("info_username", userDetails.getUser().getUsername());
-//        return "vs_voting_system";
-//    }
-
-    @GetMapping("/vs-page/{id}")
+    @GetMapping("/post/detail-page/{id}")
     public String bringPost(@PathVariable Long id,
                           Model model) {
         PostResponseDto result = postService.bringPost(id);
         model.addAttribute("post", result);
 //        model.addAttribute("commentList", responseDto.getCommentResponseDtoList());
 
-        return "vs_voting_system";
+        return "postDetail";
     }
 
     // 게시글 작성

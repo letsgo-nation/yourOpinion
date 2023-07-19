@@ -129,10 +129,13 @@
 					<div>
                         <div class="container bootstrap snippets bootdey">
                             <div class="row">
-                                <div class="well">
+                                <div class="well" style="width: 85%;">
                                     <h1 class="text-center text-primary">
                                         <b><span th:text="${post.title}"></span></b>
                                     </h1>
+                                    <br/>
+                                    <p th:text="${post.content}"></p>
+
                                     <div class="list-group">
                                         <a href="#" class="list-group-item">
                                             <div class="col-md-3">
@@ -173,9 +176,9 @@
                         </div>
 					</div>
 
-                    <img src="images/single-post-pic.jpg" title="banner1">
+                    <!--<img src="images/single-post-pic.jpg" title="banner1">
 
-<!--                    <h3><a href="#">incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</a></h3>-->
+&lt;!&ndash;                    <h3><a href="#">incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</a></h3>&ndash;&gt;
 					<h3 id="title"> </h3>
 					<p id="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -192,24 +195,9 @@
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
                         laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>-->
                 </div>
-                <div class="artical-links">
-                    <ul>
-                        <li><a href="#"><img src="images/blog-icon2.png" title="Admin"><span>admin</span></a></li>
-                        <li><a href="#"><img src="images/blog-icon3.png" title="Comments"><span>No comments</span></a>
-                        </li>
-                        <li><a href="#"><img src="images/blog-icon4.png" title="Lables"><span>View posts</span></a></li>
-                    </ul>
-                </div>
-                <div class="share-artical">
-                    <ul>
-                        <li><a href="#"><img src="images/facebooks.png" title="facebook">Facebook</a></li>
-                        <li><a href="#"><img src="images/twiter.png" title="Twitter">Twiiter</a></li>
-                        <li><a href="#"><img src="images/google+.png" title="google+">Google+</a></li>
-                        <li><a href="#"><img src="images/rss.png" title="rss">Rss</a></li>
-                    </ul>
-                </div>
+
                 <div class="clear"></div>
             </div>
             <!---start-comments-section--->
