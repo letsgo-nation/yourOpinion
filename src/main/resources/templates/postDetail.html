@@ -74,7 +74,7 @@
     <div class="wrap">
 
         <div class="logo">
-            <button type="button" class="btn btn-secondary" onclick="location.href='index.html'" style="margin: 20px;">
+            <button type="button" class="btn btn-secondary" onclick="location.href='/index.html'" style="margin: 20px;">
                 Back
             </button>
         </div>
@@ -206,7 +206,7 @@
                     <h2>Comments</h2>
                     <div class="grid1_of_2">
                         <div class="grid_img">
-                            <a href=""><img src="images/pic10.jpg" alt=""></a>
+                            <a href=""><img src="" alt=""></a>
                         </div>
                         <div class="grid_text">
                             <h4 class="style1 list"><a href="#">Uku Mason</a></h4>
@@ -221,7 +221,7 @@
                     </div>
                     <div class="grid1_of_2 left">
                         <div class="grid_img">
-                            <a href=""><img src="images/pic10.jpg" alt=""></a>
+                            <a href=""><img src="" alt=""></a>
                         </div>
                         <div class="grid_text">
                             <h4 class="style1 list"><a href="#">Designer First</a></h4>
@@ -236,7 +236,7 @@
                     </div>
                     <div class="grid1_of_2">
                         <div class="grid_img">
-                            <a href=""><img src="images/pic12.jpg" alt=""></a>
+                            <a href=""><img src="" alt=""></a>
                         </div>
                         <div class="grid_text">
                             <h4 class="style1 list"><a href="#">Ro Kanth</a></h4>
@@ -288,6 +288,7 @@
 <script>
     $(document).ready(function () {
         const token = Cookies.get('Authorization');
+        console.log(token);
 
         if (token) { // 모든 AJAX 요청에 헤더에 JWT를 포함하기 위한 설정
             $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
