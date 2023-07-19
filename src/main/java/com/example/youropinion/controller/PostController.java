@@ -40,8 +40,7 @@ public class PostController {
     }
 
     // 투표 상세 게시물
-
-    @GetMapping("/single-page")
+    @GetMapping("/post/detail-page")
     public String singlePage() {
         return "single-page";
     }
