@@ -23,6 +23,7 @@
     <!--    Button css-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
     <!--    Button css-->
 
     <!----webfonts---->
@@ -30,29 +31,42 @@
     <!----//webfonts---->
     <!---start-click-drop-down-menu----->
     <script src="/js/single-page/jquery.min.js"></script>
-    <!----start-dropdown--->
-    <script type="text/javascript">
-        var $ = jQuery.noConflict();
-        $(function () {
-            $('#activator').click(function () {
-                $('#box').animate({'top': '0px'}, 500);
-            });
-            $('#boxclose').click(function () {
-                $('#box').animate({'top': '-700px'}, 500);
-            });
-        });
-        $(document).ready(function () {
-            //Hide (Collapse) the toggle containers on load
-            $(".toggle_container").hide();
-            //Switch the "Open" and "Close" state per click then slide up/down (depending on open/close state)
-            $(".trigger").click(function () {
-                $(this).toggleClass("active").next().slideToggle("slow");
-                return false; //Prevent the browser jump to the link anchor
-            });
-
-        });
-    </script>
     <!----//End-dropdown--->
+
+    <style type="text/css">
+        a.list-group-item {
+            height: auto;
+            min-height: 220px;
+        }
+        a.list-group-item.active small {
+            color: #fff;
+        }
+        a.list-group-item .vs-title {
+            font-size: 110px;
+        }
+        .fa {
+            font-size: 100px;
+            color: #ffffff;
+        }
+        .social a {
+            text-decoration: none;
+        }
+        .twitter {
+            background-color: #00acee;
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        .facebook-like {
+            background-color: #3b5998;
+            border-radius: 4px;
+            margin-top: -3px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        .media {
+            padding:10px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -113,7 +127,50 @@
 					</div>
 
 					<div>
-<!--						투표 넣을 공간-->
+                        <div class="container bootstrap snippets bootdey">
+                            <div class="row">
+                                <div class="well">
+                                    <h1 class="text-center text-primary">
+                                        <b><span th:text="${post.title}"></span></b>
+                                    </h1>
+                                    <div class="list-group">
+                                        <a href="#" class="list-group-item">
+                                            <div class="col-md-3">
+                                                <div class="media col-md-12 twitter">
+                                                    <figure class="pull-left">
+                                                        <i class="fa fa-twitter"></i>
+                                                    </figure>
+                                                </div>
+                                                <div class="media col-md-12">
+                                                    <button type="button" class="btn btn-default btn-lg btn-block"><span
+                                                            th:text="${post.opinionA}"></span></button>
+                                                    <button type="button" class="btn btn-default btn-lg btn-block"><span
+                                                            th:text="${post.opinionACnt}"></span></button>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 text-center">
+                                                <h1 class="vs-title">VS</h1>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="media col-md-12 facebook-like">
+                                                    <figure class="pull-left">
+                                                        <i class="fa fa-facebook"></i>
+                                                    </figure>
+                                                </div>
+                                                <div class="media col-md-12">
+                                                    <button type="button" class="btn btn-default btn-lg btn-block"><span
+                                                            th:text="${post.opinionB}"></span></button>
+                                                    <button type="button" class="btn btn-default btn-lg btn-block"><span
+                                                            th:text="${post.opinionBCnt}"></span></button>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 					</div>
 
                     <img src="images/single-post-pic.jpg" title="banner1">
@@ -288,7 +345,6 @@
             }
         });*/
     }
-
 </script>
 </html>
 
