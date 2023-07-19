@@ -26,7 +26,7 @@ public class PostController {
 
 
     // 선택 게시글 조회
-    @GetMapping("/post/{id}")
+    @GetMapping("/posts/{id}")
     public @ResponseBody ResponseEntity<RestApiResponseDto> getPost(
             @PathVariable Long id) {
         return postService.getPost(id);
@@ -44,7 +44,7 @@ public class PostController {
     }
 
     // 게시글 수정
-    @PutMapping("/post/{id}")
+    @PutMapping("/posts/{id}")
     public @ResponseBody ResponseEntity<RestApiResponseDto> updatePost(
             @PathVariable Long id,
             @RequestBody PostRequestDto requestDto,
@@ -55,7 +55,7 @@ public class PostController {
 
 
     // 게시글 삭제
-    @DeleteMapping("/post/{id}")
+    @DeleteMapping("/posts/{id}")
     public @ResponseBody ResponseEntity<RestApiResponseDto> deletePost(
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
