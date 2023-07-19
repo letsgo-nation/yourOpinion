@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
           integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/loginStyle.css">
   <title>Title</title>
 </head>
 <body>
@@ -85,6 +88,7 @@
     })
             .done(function (res, status, xhr) {
               alert("success");
+
             })
             .fail(function (jqXHR, textStatus) {
               alert("Login Fail");
@@ -110,6 +114,8 @@
                 jqXHR.setRequestHeader('Authorization', token);
               });
 
+              alert("Login");
+              window.location.href = '/';
             })
             .fail(function (jqXHR, textStatus) {
               alert("Login Fail");

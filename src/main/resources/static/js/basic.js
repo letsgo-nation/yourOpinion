@@ -1,16 +1,23 @@
-const signInBtn = document.getElementById("signIn");
-const signUpBtn = document.getElementById("signUp");
-const fistForm = document.getElementById("form1");
-const secondForm = document.getElementById("form2");
-const container = document.querySelector(".container");
+$(document).ready(function () {
+    const auth = getToken();
 
-signInBtn.addEventListener("click", () => {
-    container.classList.remove("right-panel-active");
+    if (auth !== undefined && auth !== '') {
+        $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            jqXHR.setRequestHeader('Authorization', auth);
+        });
+    } else {
+
+    }
 });
 
-signUpBtn.addEventListener("click", () => {
-    container.classList.add("right-panel-active");
-});
 
-fistForm.addEventListener("submit", (e) => e.preventDefault());
-secondForm.addEventListener("submit", (e) => e.preventDefault());
+function getToken() {
+
+    let auth = Cookies.get('Authorization');
+
+    if(auth === undefined) {
+        return '';
+    }
+
+    return auth;
+}
