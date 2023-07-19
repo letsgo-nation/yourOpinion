@@ -1,4 +1,11 @@
 /* Base */
+
+:root {
+  /* RADII */
+  --button-radius: 0.7rem;
+}
+
+
 body {
   background: url("https://images3.alphacoders.com/764/764967.png");
   line-height: 1.7;

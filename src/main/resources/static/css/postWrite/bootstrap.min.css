@@ -5,6 +5,8 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 :root {
+    /* RADII */
+    --button-radius: 0.7rem;
     --blue: #007bff;
     --indigo: #0d0cb5;
     --purple: #7971ea;
@@ -6444,6 +6446,7 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
 }
 
 .bg-white {
+    border-radius: var(--button-radius);
     background-color: #fff !important;
     margin-top: 50px;
 }
