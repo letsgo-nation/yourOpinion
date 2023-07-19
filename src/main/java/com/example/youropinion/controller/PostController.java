@@ -33,32 +33,34 @@ public class PostController {
         return postService.getPost(id);
     }
 
-    // 투표 상세 게시물
-
+    // 상세 게시물 예시
     @GetMapping("/single-page")
     public String singlePage() {
         return "single-page";
     }
 
-    @GetMapping("/vs-page")
-    public String vsPage() {
+//    // vote 예시 화면
+//    @GetMapping("/vs-page")
+//    public String vsPage() {
+//        return "vs_voting_system";
+//    }
+
+    // vote 게시물 작성
+//    @GetMapping("/vs-page")
+//    public String createPostView(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        model.addAttribute("info_username", userDetails.getUser().getUsername());
+//        return "vs_voting_system";
+//    }
+
+    @GetMapping("/vs-page/{id}")
+    public String bringPost(@PathVariable Long id,
+                          Model model) {
+        PostResponseDto result = postService.bringPost(id);
+        model.addAttribute("post", result);
+//        model.addAttribute("commentList", responseDto.getCommentResponseDtoList());
+
         return "vs_voting_system";
     }
-//    @GetMapping("/vote-page/{id}")
-//    @ResponseBody
-//    public String getPost(@PathVariable Long id,
-//                          Model model) {
-//        model.addAttribute("post", postService.getPost(id));
-//
-//        return "vote"; // vote.html view
-//    }
-//@GetMapping("/profile")
-//public String getPost(Model model,
-//                      @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//    model.addAttribute("user", userDetails.getUser());
-//    return "profile"; // profile.html view
-//}
-
 
     // 게시글 작성
     @PostMapping("/post")
