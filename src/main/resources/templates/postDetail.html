@@ -103,8 +103,8 @@
                     <div class="row form-group">
                         <div class="col-md-12" style="width: 95%;text-align: left;">
                             <div>
-                                <labal>작성자:${post.nickname}(${post.username})</labal>
-                                <label class="text-black h4" th:text="${post.nickname}" th:text="${post.username})" ></label>
+                                <label class="text-black h4">작성자</label> :
+                                <label class="text-black h4" th:text="${post.nickname} + ' (' + ${post.username} +')' "></label>
                             </div>
                             <div style="float:right;">
                                 <label class="text-black h4">작성일자</label> :
