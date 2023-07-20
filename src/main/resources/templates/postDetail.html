@@ -5,11 +5,11 @@
     <link rel="shortcut icon" href="#">
 
     <!-- ajax , cookies 사용 lib -->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <!-- ajax , cookies 사용 lib -->
 
+<!--    alert 창 import-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <link rel='stylesheet' href="/css/votestyle.css"/>
@@ -35,7 +35,7 @@
     <script src="/js/single-page/jquery.min.js"></script>
     <!----//End-dropdown--->
 
-    <style type="text/css">
+    <style>
         a.list-group-item {
             height: auto;
             min-height: 220px;
@@ -88,34 +88,6 @@
             </button>
         </div>
 
-        <!--
-
-                <div class="nav-icon">
-                    <a href="#" class="right_bt" id="activator"><span> </span> </a>
-                </div>
-
-                <div class="box" id="box">
-                    <div class="box_content">
-                        <div class="box_content_center">
-                            <div class="form_content">
-                                <div class="menu_box_list">
-                                    <ul>
-                                        <li><a href="#"><span>home</span></a></li>
-                                        <li><a href="#"><span>About</span></a></li>
-                                        <li><a href="#"><span>Works</span></a></li>
-                                        <li><a href="#"><span>Clients</span></a></li>
-                                        <li><a href="#"><span>Blog</span></a></li>
-                                        <li><a href="contact.html"><span>Contact</span></a></li>
-                                        <div class="clear"></div>
-                                    </ul>
-                                </div>
-                                <a class="boxclose" id="boxclose"> <span> </span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        -->
-
         <div class="clear"></div>
     </div>
 </div>
@@ -129,9 +101,15 @@
 
 
                     <div class="row form-group">
-                        <div class="col-md-12">
-                            <label class="text-black h4">작성자</label> :
-                            <label class="text-black h4" id="username"></label>
+                        <div class="col-md-12" style="width: 95%;text-align: left;">
+                            <div>
+                                <labal>작성자:${post.nickname}(${post.username})</labal>
+                                <label class="text-black h4" th:text="${post.nickname}" th:text="${post.username})" ></label>
+                            </div>
+                            <div style="float:right;">
+                                <label class="text-black h4">작성일자</label> :
+                                <label class="text-black h4" th:text="${#temporals.format(post.modifiedAt, 'yyyy-MM-dd HH:mm:ss')}"></label>
+                            </div>
                         </div>
                     </div>
 
@@ -181,72 +159,57 @@
                                         </a>
                                     </div>
                                 </div>
+                                <div style="width: 50%;">
+                                    <button type="button" class="btn btn-secondary" id="editBtn" style="margin-left: 20px;float: right;">수정</button>
+                                    <button type="button" class="btn btn-secondary" id="deleteBtn" style="margin-left: 20px;float: right;">삭제</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <!--<img src="images/single-post-pic.jpg" title="banner1">
-
-&lt;!&ndash;                    <h3><a href="#">incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</a></h3>&ndash;&gt;
-					<h3 id="title"> </h3>
-					<p id="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    <p class="para1" id="">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                        mollit anim id est laborum.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-                    <p class="para2">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                        mollit anim id est laborum.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>-->
                 </div>
 
                 <div class="clear"></div>
             </div>
             <!---start-comments-section--->
-            <div class="comment-section">
+            <br/><br/><br/><br/><br/>
+
+            <div class="comment-section" style="padding:30px;">
                 <div class="grids_of_2">
+                    <hr style="border-top: 1px solid #000;">
                     <h2>Comments</h2>
                     <div class="grid1_of_2">
-                        <div class="grid_img">
-                            <a href=""><img src="" alt=""></a>
-                        </div>
                         <div class="grid_text">
-                            <h4 class="style1 list"><a href="#">Uku Mason</a></h4>
-                            <h3 class="style">march 2, 2013 - 12.50 AM</h3>
-                            <p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat
+                            <h4 class="style1 list" th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
+                            <h3 class="style" style="margin-top:0px;"
+                                th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 - 4.00 PM</h3>
+                            <p class="para top" th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
+                                All the Lorem Ipsum generators on the Internet tend to repeat
                                 predefined chunks as necessary, making this the first true generator on the Internet. It
                                 uses a dictionary of over 200 Latin words, combined with a handful of model sentence
                                 structures, to generate Lorem Ipsum which looks reasonable.</p>
-                            <a href="" class="btn1">Click to Reply</a>
+                            <a href="#" class="btn1">수정</a>
+                            <a href="#" class="btn1">삭제</a>
+                            <a href="" class="btn1">Reply</a>
                         </div>
                         <div class="clear"></div>
                     </div>
                     <div class="grid1_of_2 left">
-                        <div class="grid_img">
-                            <a href=""><img src="" alt=""></a>
-                        </div>
                         <div class="grid_text">
-                            <h4 class="style1 list"><a href="#">Designer First</a></h4>
-                            <h3 class="style">march 3, 2013 - 4.00 PM</h3>
-                            <p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat
+                            <h4 class="style1 list" th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
+                            <h3 class="style" style="margin-top:0px;"
+                                th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 - 4.00 PM</h3>
+                            <p class="para top" th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
+                              All the Lorem Ipsum generators on the Internet tend to repeat
                                 predefined chunks as necessary, making this the first true generator on the Internet. It
                                 uses a dictionary of over 200 Latin words, combined with a handful of model sentence
                                 structures, to generate Lorem Ipsum which looks reasonable.</p>
-                            <a href="" class="btn1">Click to Reply</a>
+                            <a href="#" class="btn1" id="comEditBtn">수정</a>
+                            <a href="" class="btn1" id="comDeleteBtn">삭제</a>
+                            <a href="" class="btn1" id="" >Reply</a>
                         </div>
                         <div class="clear"></div>
                     </div>
                     <div class="grid1_of_2">
-                        <div class="grid_img">
-                            <a href=""><img src="" alt=""></a>
-                        </div>
                         <div class="grid_text">
                             <h4 class="style1 list"><a href="#">Ro Kanth</a></h4>
                             <h3 class="style">march 2, 2013 - 12.50 AM</h3>
@@ -264,19 +227,14 @@
                             <form action="#" method="post" name="post_comment">
                                 <div>
                                     <label>Name<span>*</span></label>
-                                    <input type="text" value=" ">
-                                </div>
-                                <div>
-                                    <label>Email<span>*</span></label>
-                                    <input type="text" value=" ">
+                                    <h4 th:text="${post.nickname}"></h4>
                                 </div>
                                 <div>
                                     <label>Your Comment<span>*</span></label>
-                                    <textarea> </textarea>
+                                    <textarea id="InputContent"> </textarea>
                                 </div>
                             </form>
-                            <input type="submit" value="submit">
-
+                            <button class="btn btn-secondary" type="button" onclick="createComment()">댓글 작성</button>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -290,60 +248,60 @@
 <div class="footer">
     <p>Design by <a href="http://w3layouts.com/">W3layouts</a></p>
 </div>
-<!----//End-footer--->
-<!---//End-wrap---->
 </body>
 
-<script>
+<script th:inline="javascript">
     $(document).ready(function () {
         const token = Cookies.get('Authorization');
         console.log(token);
 
-        if (token) { // 모든 AJAX 요청에 헤더에 JWT를 포함하기 위한 설정
+        const postId = [[${post.id}]];
+        const nickname = [[${post.nickname}]];
+        const commentUrl = "/api/posts/"+ postId + "/comment";
+        console.log(commentUrl);
+
+        if(token) {
             $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
                 jqXHR.setRequestHeader('Authorization', token);
             });
-            // 사용자 프로필 정보를 가져옴
             getUser(token);
-        } else {
-            alert("로그인이 안 되어있습니다.");
-            console.log("로그인이 안 되어있습니다.");
+        }else {
+            console.log('로그인이 안 되어있습니다.');
         }
-    });
+
+    })
 
     function getUser(token) {
-        const payload = JSON.parse(atob(token.split(".")[1]));
-        const username = payload.sub;
-        console.log(username);
-        document.getElementById('username').innerText = username + '님';
-        //document.getElementById('username').setAttribute('title',username);
+        console.log(token);
+        const editBtn = document.getElementById('editBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
 
-        /*        $.ajax({
-            url: "/api/profile",
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                // 서버로부터 받은 데이터를 처리하는 로직을 작성합니다.
-                // 예시: 프로필 정보를 표시하는 함수 호출
-                console.log(data)
-                let email = data['proFileResponseDto']['email'];
-                let intro = data['proFileResponseDto']['introduce'];
-                let nickname = data['proFileResponseDto']['nickname']; // 실제 사용자 ID값 가져오기
-                let textarea_str = $('#intro').val();
-                textarea_str = intro;
-                $('#userName').attr('value', nickname);
-                $('#email').attr('value', email);
-                $('#intro').html(textarea_str);
-                // 완료 버튼 클릭 이벤트 처리
-                $("#changebtnsuccess").click(function () {
-                    updateProfile(username);
-                });
-            },
-            error: function (error) {
-                console.error("프로필 정보를 가져오는 데 실패했습니다.", error);
-            }
-        });*/
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        const loginUsername = payload.sub; // 로그인한 id
+        console.log(loginUsername);
+
+        const writerUsername = [[${post.username}]];
+        console.log(writerUsername);
+
+        // 게시글 작성자일 경우
+        if (loginUsername === writerUsername) {
+            // 수정, 삭제 버튼 활성화
+            editBtn.style.display = 'block';
+            deleteBtn.style.display = 'block';
+        } else {
+            // 수정, 삭제 버튼 활성화
+            editBtn.style.display = 'none';
+            deleteBtn.style.display = 'none';
+        }
     }
+
+    // 게시글 수정하기
+    $.ajax({
+        url: "",
+        type: "",
+
+
+    })
 </script>
 </html>
 
