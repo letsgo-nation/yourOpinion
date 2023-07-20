@@ -5,6 +5,7 @@ import com.example.youropinion.dto.RestApiResponseDto;
 import com.example.youropinion.exception.TokenNotValidateException;
 import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.CommentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,7 +24,7 @@ CommentController {
     @PostMapping("/posts/{id}/comment")
     public ResponseEntity<RestApiResponseDto> createComment(
             @PathVariable Long id,
-            @RequestBody CommentRequestDto requestDto,
+            @Valid @RequestBody CommentRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         this.tokenValidate(userDetails);
         return commentService.createComment(id,requestDto, userDetails.getUser());
@@ -34,7 +35,7 @@ CommentController {
     @PutMapping("/comments/{id}")
     public ResponseEntity<RestApiResponseDto> updateComment(
             @PathVariable Long id,
-            @RequestBody CommentRequestDto requestDto,
+            @Valid  @RequestBody CommentRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         this.tokenValidate(userDetails);
         return commentService.updateComment(id,requestDto, userDetails.getUser());

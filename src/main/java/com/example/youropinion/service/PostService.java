@@ -36,14 +36,14 @@ public class PostService {
         return this.resultResponse(HttpStatus.OK,"게시글 전체 조회",postResponseDtoList);
     }
 
-    public ResponseEntity<RestApiResponseDto> getPost(Long id) {
+/*    public ResponseEntity<RestApiResponseDto> getPost(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() ->
                 new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
         PostResponseDto responseDto = new PostResponseDto(post);
 
         responseDto.setCommentResponseDtoList(commentRepository.findAllByPostIdOrderByCreatedAtDesc(id));
         return this.resultResponse(HttpStatus.OK,"게시글 상세 조회",responseDto);
-    }
+    }*/
 
 
     public ResponseEntity<RestApiResponseDto> createPost(PostRequestDto requestDto, User user) {
@@ -99,16 +99,26 @@ public class PostService {
         );
     }
 
-    public PostResponseDto bringPost(Long id) {
-        Post post = findPost(id);
-        return new PostResponseDto(post);
+    public PostResponseDto getPost(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(() ->
+                new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
+        PostResponseDto responseDto = new PostResponseDto(post);
+
+        responseDto.setCommentResponseDtoList(commentRepository.findAllByPostIdOrderByCreatedAtDesc(id));
+        return responseDto;
     }
-    private Post findPost(Long id) {
-        return postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("선택한 게시물은 존재하지 않습니다."));
-    }
+
+//  public PostResponseDto bringPost(Long id) {
+//        Post post = findPost(id);
+//        return new PostResponseDto(post);
+//    }
+//    private Post findPost(Long id) {
+//        return postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("선택한 게시물은 존재하지 않습니다."));
+//    }
 
 //    public PostResponseDto updatePost() {
 //        Post post = findPost(id);
 //        return new PostResponseDto(post);
+//    }
 //    }
 }

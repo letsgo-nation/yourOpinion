@@ -19,6 +19,7 @@ public class PostResponseDto {
     private String title;
     private String content;
     private String username;
+    private String nickname;
     private String opinionA;
     private String opinionB;
     private Long opinionACnt;
@@ -31,6 +32,7 @@ public class PostResponseDto {
         this.title = post.getTitle();
         this.content = post.getContent();
         this.username = post.getUser().getUsername();
+        this.nickname = post.getUser().getNickname();
         this.opinionA = post.getOpinionA();
         this.opinionB = post.getOpinionB();
         this.opinionACnt = post.getOpinionACnt();

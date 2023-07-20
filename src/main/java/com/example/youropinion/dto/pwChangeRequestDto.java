@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 public class pwChangeRequestDto {
     private String username;
-    private String password;
     @Pattern(regexp = "^[a-zA-Z0-9!@#$%^&*()_+{}:\"<>?,.\\\\/]{8,15}$",
             message = "최소 7  자 이상, 15자 이하이며 알파벳 대소문자, 숫자, 특수문자로 구성")
     private String checkPassword;

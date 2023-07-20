@@ -6,6 +6,7 @@ import com.example.youropinion.dto.RestApiResponseDto;
 import com.example.youropinion.exception.TokenNotValidateException;
 import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.PostService;
+import jakarta.validation.Valid;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,17 +35,17 @@ public class PostController {
     }
 
     // 선택 게시글 조회
-    @GetMapping("/posts/{id}")
+/*    @GetMapping("/posts/{id}")
     public @ResponseBody ResponseEntity<RestApiResponseDto> getPost(
             @PathVariable Long id) {
         return postService.getPost(id);
-    }
+    }*/
 
     // 게시글 페이지 보여주기
     @GetMapping("/post/detail-page/{id}")
     public String bringPost(@PathVariable Long id,
                           Model model) {
-        PostResponseDto result = postService.bringPost(id);
+        PostResponseDto result = postService.getPost(id);
         model.addAttribute("post", result);
 //        model.addAttribute("commentList", responseDto.getCommentResponseDtoList());
 
@@ -55,14 +56,14 @@ public class PostController {
     @GetMapping("/post/modify-page/{id}")
     public String modifyPost(Model model,  @PathVariable Long id)
             throws JsonProcessingException {
-        model.addAttribute("info_post",postService.bringPost(id));
+        model.addAttribute("info_post",postService.getPost(id));
         return "postModify";
     }
 
     // 게시글 작성
     @PostMapping("/post")
     public @ResponseBody ResponseEntity<RestApiResponseDto> createPost(
-            @RequestBody PostRequestDto requestDto,
+            @Valid @RequestBody PostRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         this.tokenValidate(userDetails);
         return postService.createPost(requestDto,userDetails.getUser());
@@ -73,7 +74,7 @@ public class PostController {
     @PutMapping("/posts/{id}")
     public @ResponseBody ResponseEntity<RestApiResponseDto> updatePost(
             @PathVariable Long id,
-            @RequestBody PostRequestDto requestDto,
+            @Valid @RequestBody PostRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         this.tokenValidate(userDetails);
         return postService.updatePost(id, requestDto, userDetails.getUser());
