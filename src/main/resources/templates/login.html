@@ -93,7 +93,7 @@
         })
             .done(function (res, status, xhr) {
                 alert("success");
-
+                window.location.reload();
             })
             .fail(function (jqXHR, textStatus) {
                 alert("Signup Fail");
@@ -124,7 +124,7 @@
             })
             .fail(function (jqXHR, textStatus) {
                 alert("Login Fail");
-
+                window.location.reload();
             });
     }
 
