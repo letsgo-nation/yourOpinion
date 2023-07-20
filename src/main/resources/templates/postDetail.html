@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <!-- ajax , cookies 사용 lib -->
 
-<!--    alert 창 import-->
+    <!--    alert 창 import-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <link rel='stylesheet' href="/css/votestyle.css"/>
@@ -17,11 +17,11 @@
 
 
     addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
+    setTimeout(hideURLbar, 0);
     }, false);
 
     function hideURLbar() {
-        window.scrollTo(0, 1);
+    window.scrollTo(0, 1);
     } </script>
 
 
@@ -107,11 +107,13 @@
                         <div class="col-md-12" style="width: 95%;text-align: left;">
                             <div>
                                 <label class="text-black h4">작성자</label> :
-                                <label class="text-black h4" th:text="${post.nickname} + ' (' + ${post.username} +')' "></label>
+                                <label class="text-black h4"
+                                       th:text="${post.nickname} + ' (' + ${post.username} +')' "></label>
                             </div>
                             <div style="float:right;">
                                 <label class="text-black h4">작성일자</label> :
-                                <label class="text-black h4" th:text="${#temporals.format(post.modifiedAt, 'yyyy-MM-dd HH:mm:ss')}"></label>
+                                <label class="text-black h4"
+                                       th:text="${#temporals.format(post.modifiedAt, 'yyyy-MM-dd HH:mm:ss')}"></label>
                             </div>
                         </div>
                     </div>
@@ -124,15 +126,17 @@
                                         <b><span th:text="${post.title}"></span></b>
                                     </h1>
                                     <br/>
-                                    <p th:text="${post.content}"></p>
+                                    <p class="txt-center" th:text="${post.content}"></p>
 
                                     <div class="list-group">
                                         <a href="#" class="list-group-item">
                                             <div class="col-md-3">
-                                                <div class="media col-md-12 twitter">
-                                                    <figure class="pull-left">
-                                                        <i class="fa fa-twitter"></i>
-                                                    </figure>
+                                                <p id="opinionPercentA" class="txt-center"></p>
+                                                <div class="progress">
+                                                    <div id="progressA"
+                                                         class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                                                         role="progressbar" style="width: 0%;" aria-valuenow="0"
+                                                         aria-valuemin="0" aria-valuemax="100" ></div>
                                                 </div>
                                                 <div class="media col-md-12">
                                                     <button type="button" class="btn btn-default btn-lg btn-block"><span
@@ -146,10 +150,12 @@
                                                 <h1 class="vs-title">VS</h1>
                                             </div>
                                             <div class="col-md-3">
-                                                <div class="media col-md-12 facebook-like">
-                                                    <figure class="pull-left">
-                                                        <i class="fa fa-facebook"></i>
-                                                    </figure>
+                                                <p id="opinionPercentB" class="txt-center"></p>
+                                                <div class="progress">
+                                                    <div id="progressB"
+                                                         class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+                                                         role="progressbar" style="width: 0%;" aria-valuenow="0"
+                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                                 <div class="media col-md-12">
                                                     <button type="button" class="btn btn-default btn-lg btn-block"><span
@@ -163,8 +169,12 @@
                                     </div>
                                 </div>
                                 <div style="width: 50%;">
-                                    <button type="button" class="btn btn-secondary" id="editBtn" style="margin-left: 20px;float: right;">수정</button>
-                                    <button type="button" class="btn btn-secondary" id="deleteBtn" style="margin-left: 20px;float: right;">삭제</button>
+                                    <button type="button" class="btn btn-secondary" id="editBtn"
+                                            style="margin-left: 20px;float: right;">수정
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" id="deleteBtn"
+                                            style="margin-left: 20px;float: right;">삭제
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -184,7 +194,8 @@
                         <div class="grid_text">
                             <h4 class="style1 list" th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
                             <h3 class="style" style="margin-top:0px;"
-                                th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 - 4.00 PM</h3>
+                                th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 -
+                                4.00 PM</h3>
                             <p class="para top" th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
                                 All the Lorem Ipsum generators on the Internet tend to repeat
                                 predefined chunks as necessary, making this the first true generator on the Internet. It
@@ -200,15 +211,16 @@
                         <div class="grid_text">
                             <h4 class="style1 list" th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
                             <h3 class="style" style="margin-top:0px;"
-                                th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 - 4.00 PM</h3>
+                                th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 -
+                                4.00 PM</h3>
                             <p class="para top" th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
-                              All the Lorem Ipsum generators on the Internet tend to repeat
+                                All the Lorem Ipsum generators on the Internet tend to repeat
                                 predefined chunks as necessary, making this the first true generator on the Internet. It
                                 uses a dictionary of over 200 Latin words, combined with a handful of model sentence
                                 structures, to generate Lorem Ipsum which looks reasonable.</p>
                             <a href="#" class="btn1" id="comEditBtn">수정</a>
                             <a href="" class="btn1" id="comDeleteBtn">삭제</a>
-                            <a href="" class="btn1" id="replyBtn" >Reply</a>
+                            <a href="" class="btn1" id="replyBtn">Reply</a>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -257,6 +269,35 @@
     // 게시글 id를 model 객체에서 가져와서 저장.
     const postId = [[${post.id}]];
 
+    //투표시 게이지와 퍼센트 반영 시작
+    const opinionA = [[${post.opinionACnt}]];
+    const opinionB = [[${post.opinionBCnt}]];
+
+    // console.log([[${post}]]);
+    // 서버로 부터 데이터를 받아옴
+    const opinionResult = {
+        opinionA: opinionA,
+        opinionB: opinionB,
+    };
+
+    // 전체 투표 수 합산
+    const totalOpinion = opinionResult.opinionA + opinionResult.opinionB;
+
+    // 퍼센트 계산 (반올림)
+    const opinionPercentA = Math.round((opinionResult.opinionA / totalOpinion) * 100);
+    // console.log(opinionPercentA)
+    const opinionPercentB = Math.round((opinionResult.opinionB / totalOpinion) * 100);
+    // console.log(opinionPercentB)
+
+    // 게이지 업데이트
+    $('#progressA').css('width', opinionPercentA + "%");
+    $('#progressB').css('width', opinionPercentB + "%");
+
+    // NaN 검사 후 표시
+    $('#opinionPercentA').text(isNaN(opinionPercentA) ? "투표를 시작하세요!" : opinionPercentA + "%");
+    $('#opinionPercentB').text(isNaN(opinionPercentB) ? "투표를 시작하세요!" : opinionPercentB + "%");
+    //꿑
+
     // 게시글 수정 버튼 클릭 시
     $('#editBtn').click(function () {
         window.location.href = "/api/post/modify-page/" + postId;
@@ -265,15 +306,15 @@
     // 게시글 삭제 버튼 클릭 시
     $('#deleteBtn').click(function () {
         const isConfirmed = confirm("정말로 삭제하시겠습니까?");
-        if(isConfirmed){
+        if (isConfirmed) {
             const url = "/api/posts/" + postId;
             deletePost(url);
         }
     });
 
     // 댓글 작성 버튼
-    $('#comCreateBtn').click(function() {
-        const commentUrl = "/api/posts/"+ postId + "/comment"; // 댓글 작성 url
+    $('#comCreateBtn').click(function () {
+        const commentUrl = "/api/posts/" + postId + "/comment"; // 댓글 작성 url
         createComment(commentUrl);
     })
 
@@ -285,7 +326,7 @@
     // 댓글 삭제 버튼 클릭 시
     $('#comDeleteBtn').click(function () {
         const isConfirmed = confirm("정말로 삭제하시겠습니까?");
-        if(isConfirmed){
+        if (isConfirmed) {
             // const url = window.location.href = "/api/comments/" + commentId;
             commentDelete(); // 함수 만들어야 함. 어떤 댓글인지 id 값이 필요
         }
@@ -299,12 +340,12 @@
     $(document).ready(function () {
         const token = Cookies.get('Authorization');
 
-        if(token) {
+        if (token) {
             $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
                 jqXHR.setRequestHeader('Authorization', token);
             });
             displayBtn(token);
-        }else {
+        } else {
             console.log('로그인이 안 되어있습니다.');
         }
     })
@@ -332,7 +373,7 @@
     }
 
     // 게시글 삭제하기
-    function deletePost(url){
+    function deletePost(url) {
         const token = Cookies.get('Authorization');
 
         $.ajax({
@@ -367,7 +408,7 @@
     }
 
     // 댓글 작성하기
-    function createComment(commentUrl){
+    function createComment(commentUrl) {
         const token = Cookies.get('Authorization');
         const commentContent = document.getElementById("InputContent").value();
 
