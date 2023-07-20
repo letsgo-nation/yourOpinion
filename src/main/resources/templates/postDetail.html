@@ -132,7 +132,7 @@
                                         <a href="#" class="list-group-item">
                                             <div class="col-md-3">
                                                 <p id="opinionPercentA" class="txt-center"></p>
-                                                <div class="progress">
+                                                <div id="progressAdiv" class="progress">
                                                     <div id="progressA"
                                                          class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
                                                          role="progressbar" style="width: 0%;" aria-valuenow="0"
@@ -151,7 +151,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <p id="opinionPercentB" class="txt-center"></p>
-                                                <div class="progress">
+                                                <div id="progressBdiv" class="progress">
                                                     <div id="progressB"
                                                          class="progress-bar progress-bar-striped progress-bar-animated bg-info"
                                                          role="progressbar" style="width: 0%;" aria-valuenow="0"
@@ -289,13 +289,26 @@
     const opinionPercentB = Math.round((opinionResult.opinionB / totalOpinion) * 100);
     // console.log(opinionPercentB)
 
-    // 게이지 업데이트
-    $('#progressA').css('width', opinionPercentA + "%");
-    $('#progressB').css('width', opinionPercentB + "%");
-
     // NaN 검사 후 표시
     $('#opinionPercentA').text(isNaN(opinionPercentA) ? "투표를 시작하세요!" : opinionPercentA + "%");
     $('#opinionPercentB').text(isNaN(opinionPercentB) ? "투표를 시작하세요!" : opinionPercentB + "%");
+
+    // 게이지 업데이트
+    // $('#progressA').css('width', opinionPercentA + "%");
+    // $('#progressB').css('width', opinionPercentB + "%");
+    if (isNaN(opinionPercentA)) {
+        $('#progressAdiv').hide();
+    } else {
+        $('#progressAdiv').show();
+        $('#progressA').css('width', opinionPercentA + "%");
+    }
+
+    if (isNaN(opinionPercentB)) {
+        $('#progressBdiv').hide();
+    } else {
+        $('#progressBdiv').show();
+        $('#progressB').css('width', opinionPercentB + "%");
+    }
     //꿑
 
     // 게시글 수정 버튼 클릭 시
