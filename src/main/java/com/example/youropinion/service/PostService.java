@@ -108,11 +108,17 @@ public class PostService {
         return responseDto;
     }
 
-/*    public PostResponseDto bringPost(Long id) {
-        Post post = findPost(id);
-        return new PostResponseDto(post);
-    }
-    private Post findPost(Long id) {
-        return postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("선택한 게시물은 존재하지 않습니다."));
-    }*/
+//  public PostResponseDto bringPost(Long id) {
+//        Post post = findPost(id);
+//        return new PostResponseDto(post);
+//    }
+//    private Post findPost(Long id) {
+//        return postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("선택한 게시물은 존재하지 않습니다."));
+//    }
+
+//    public PostResponseDto updatePost() {
+//        Post post = findPost(id);
+//        return new PostResponseDto(post);
+//    }
+//    }
 }
