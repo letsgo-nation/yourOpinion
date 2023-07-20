@@ -35,11 +35,11 @@ public class PostController {
     }
 
     // 선택 게시글 조회
-/*    @GetMapping("/posts/{id}")
-    public @ResponseBody ResponseEntity<RestApiResponseDto> getPost(
+   @GetMapping("/posts/{id}")
+    public @ResponseBody PostResponseDto getPost(
             @PathVariable Long id) {
         return postService.getPost(id);
-    }*/
+    }
 
     // 게시글 페이지 보여주기
     @GetMapping("/post/detail-page/{id}")
