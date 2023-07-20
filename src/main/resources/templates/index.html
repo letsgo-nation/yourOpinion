@@ -22,6 +22,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
             integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
             crossorigin="anonymous"></script>
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/NanumAJumMaJaYu.css" rel="stylesheet">
     <title>메인 페이지</title>
     <link href="/css/style.css" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,7 +49,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link rel="stylesheet" href="css/main.css">
     <!-- //Global CSS for the page and tiles -->
     <!---start-click-drop-down-menu----->
-<!--    <script src="js/jquery.min.js"></script>-->
+    <!--    <script src="js/jquery.min.js"></script>-->
     <!----start-dropdown--->
     <script type="text/javascript">
         var $ = jQuery.noConflict();
@@ -81,7 +82,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="header">
     <div class="wrap">
         <div class="logo">
-            <a href="/"><img src="images/logo.png" title="너의 이름은."/></a>
+            <div class="logo" style="font-family: 'NanumAJumMaJaYu'; bottom: 10px; color: white; font-size: 50px">너의
+                이름은?
+            </div>
         </div>
         <!--    <div class="nav-icon">-->
         <!--      <a href="#" class="right_bt" id="activator"><span> </span> </a>-->
@@ -89,7 +92,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="userinfo">
             <div class="user">
                 <ul>
-                    <li><a href="#"><img src="images/user-pic.png" title="user-name"/><span>Ipsum</span></a></li>
+                    <li style="color: white;"><span>Ipsum</span></li>
                 </ul>
             </div>
         </div>
@@ -115,7 +118,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 <div class="footer">
-    <button onclick="location.href='/api/post/write-page'">작성하기</button>
+    <button type="button" class="btn btn-secondary" onclick="location.href='/api/post/write-page'">작성하기</button>
 </div>
 </body>
 </html>
@@ -180,20 +183,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             /**
              * When scrolled all the way to the bottom, add more tiles
              */
+            // 스크롤 이벤트를 처리하는 함수
             function onScroll() {
-                // Check if we're within 100 pixels of the bottom edge of the broser window.
-                var winHeight = window.innerHeight ? window.innerHeight : $window.height(), // iphone fix
+                // 스크롤이 끝에 도달하고, 이미 스크롤 이벤트가 처리 중인 경우에만 실행
+                var winHeight = window.innerHeight ? window.innerHeight : $window.height(),
                     closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
 
-                if (closeToBottom) {
-                    // Get the first then items from the grid, clone them, and add them to the bottom of the grid
-                    var $items = $('li', $tiles),
-                        $firstTen = $items.slice(0, 10);
-                    $tiles.append($firstTen.clone());
-
-                    applyLayout();
+                if (closeToBottom && !scrollEventProcessing) {
+                    // 스크롤 이벤트가 처리 중인 상태를 저장
+                    scrollEventProcessing = true;
+                    // 새로운 게시물을 추가하는 비동기 요청 수행
+                    loadMorePosts(function () {
+                        // 비동기 요청이 완료된 후에 스크롤 이벤트 처리 상태를 초기화
+                        scrollEventProcessing = false;
+                    });
                 }
-            };
+            }
+
+            // 새로운 게시물을 추가하는 비동기 함수 (여기서는 예시로 빈 함수로 처리)
+            function loadMorePosts(callback) {
+                // TODO: 실제로 서버에서 새로운 게시물을 가져와서 $tiles에 추가하는 로직을 구현해야 합니다.
+                // 이 함수가 비동기 요청이므로, 콜백 함수를 이용해 스크롤 이벤트 처리 상태를 초기화.
+                // 즉, loadMorePosts 함수가 완료되면 콜백 함수가 실행.
+                // 콜백 함수를 사용하여 스크롤 이벤트 처리 상태를 초기화.
+                callback();
+            }
 
             // Call the layout function for the first time
             applyLayout();
@@ -227,26 +241,5 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     function detailPost(postId) {
         window.location.href = `/api/post/detail-page/${postId}`;
     }
-
-    // function detailPost() {
-    //     const token = Cookies.get('Authorization');
-    //
-    //     $.ajax({
-    //         type: "GET",
-    //         url: `/api/post/detail-page/1`,
-    //         headers: {              // Http header
-    //             "Content-Type": "application/json",
-    //             "Authorization": token
-    //         },
-    //       success: function (data) {
-    //         window.location.href = '/api/post/detail-page/1';
-    //         // 응답 데이터를 콘솔에 출력하거나 원하는 처리를 수행합니다.
-    //       },
-    //       error: function (xhr, status, error) {
-    //         console.error("Error:", error); // 오류가 발생한 경우 오류 메시지를 콘솔에 출력합니다.
-    //       }
-    //     });
-    // }
-
 </script>
 
