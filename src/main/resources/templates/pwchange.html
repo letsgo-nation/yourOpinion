@@ -45,8 +45,9 @@
         }
 
         .material-symbols-outlined {
-            padding-left: 5px;
-            padding-top: 5px;
+            position: relative;
+            left: 20px;
+            top: 20px;
             color: white;
             transition: transform 0.3s;
             font-variation-settings: 'FILL' 0,
@@ -75,7 +76,7 @@
 </div>
 <div class="text-center container">
     <form id="passwordForm" name="infobox" style="margin-right: 2%;">
-        <h1 style="color: white">&nbsp; 비밀번호 수정</h1>
+        <h1 style="color: white"><span class="myid"></span>님의 비밀번호 수정입니다.</h1>
         <br>
         <table>
             <tr>
@@ -135,6 +136,9 @@
             $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
                 jqXHR.setRequestHeader('Authorization', token);
             });
+
+            getid(token)
+
             // 사용자 프로필 정보를 가져옴
             $('#pwUpdate').click(function () {
                 for (let i = 1; i < 3; i++) {
@@ -218,6 +222,18 @@
         }
     });
 
+    const getid = (token) => {
+        // JWT 토큰 디코딩하여 페이로드 추출
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        // console.log(payload)
+
+        // 예시 {sub: 'qw12345611', auth: 'USER', exp: 1689745728, iat: 1689742128}
+        // 그중 username을 추출해야하니 sub를 가져옴. 만약 관리자 확인이면 auth를 가져올듯.
+        const username = payload.sub;
+
+        $('.myid').html(username);
+    }
+
 
     // 프로필 정보 업데이트하기
     function updatepassword(token) {
@@ -269,17 +285,25 @@
                         if (error.responseJSON && error.responseJSON.errorMessage) {
                             const errorMessage = error.responseJSON.errorMessage;
                             console.log("에러 메시지:", errorMessage);
+                            Swal.fire(
+                                {
+                                    icon: 'warning',
+                                    title: '수정 실패',
+                                    text: errorMessage
+                                }
+                            )
                         } else {
-                            console.error("비밀번호 변경에 실패했습니다.", error);
+                            const errorMessage = error.responseJSON.errorMessage;
+                            Swal.fire(
+                                {
+                                    icon: 'warning',
+                                    title: '수정 실패',
+                                    text: errorMessage
+                                }
+                            )
+                            console.error("비밀번호 변경에 실패했습니다.", errorMessage);
                         }
 
-                        Swal.fire(
-                            {
-                                icon: 'warning',
-                                title: '수정 실패',
-                                text: '이유 : ' + errorMessage
-                            }
-                        )
                     }
                 });
             }

@@ -25,6 +25,7 @@
 
     <title>프로필 수정</title>
     <style>
+
         body {
             background-color: var(--white);
             background: url("https://images5.alphacoders.com/737/737385.jpg");
@@ -46,8 +47,9 @@
         }
 
         .material-symbols-outlined {
-            padding-left: 5px;
-            padding-top: 5px;
+            position: relative;
+            left: 20px;
+            top: 20px;
             color: white;
             transition: transform 0.3s;
             font-variation-settings: 'FILL' 0,
@@ -82,7 +84,8 @@
 </div>
 <div class="text-center container">
     <form id="profileForm" name="infobox" style="margin-right: 5%;">
-        <h1 style="color: white">&nbsp; 마이페이지 정보수정</h1>
+        <h1 id="profilecheck" style="color: white">&nbsp;<span class="myid"></span>님의 정보 조회입니다.</h1>
+        <h1 id="profilechange" style="color: white; display: none;">&nbsp;<span class="myid"></span>님의 정보 수정입니다.</h1>
         <br>
         <table>
             <tr>
@@ -192,23 +195,23 @@
                 // 서버로부터 받은 데이터를 처리하는 로직을 작성합니다.
                 // 예시: 프로필 정보를 표시하는 함수 호출
                 // console.log(data)
-                let email = data['proFileResponseDto']['email'];
-                let intro = data['proFileResponseDto']['introduce'];
-                let nickname = data['proFileResponseDto']['nickname']; // 실제 사용자 ID값 가져오기
-                let textarea_str = $('#intro').val();
-                textarea_str = intro;
+                const email = data['proFileResponseDto']['email'];
+                const intro = data['proFileResponseDto']['introduce'];
+                const nickname = data['proFileResponseDto']['nickname']; // 실제 사용자 ID값 가져오기
+                const textarea_str = intro;
 
                 $('#userName').attr('value', nickname);
                 $('#email').attr('value', email);
                 $('#intro').html(textarea_str);
+                $('.myid').html(username);
 
                 // 완료 버튼 클릭 이벤트 처리
                 $("#changebtnsuccess").click(function () {
-                    let email2 = document.getElementById("email");
-                    let intro2 = document.getElementById("intro")
-                    let nickname2 = document.getElementById("userName");
-                    let RegExp = /^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{3,20}$/;
-                    let RegExp2 = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+                    const email2 = document.getElementById("email");
+                    const intro2 = document.getElementById("intro")
+                    const nickname2 = document.getElementById("userName");
+                    const RegExp = /^[a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{3,20}$/;
+                    const RegExp2 = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
                     if (nickname2.value == "") {
                         Swal.fire({
@@ -277,9 +280,9 @@
 
     // 프로필 정보 업데이트하기
     function updateProfile(username) {
-        let email = $('#email').val();
-        let intro = $('#intro').val();
-        let nickname = $('#userName').val();
+        const email = $('#email').val();
+        const intro = $('#intro').val();
+        const nickname = $('#userName').val();
 
         Swal.fire({
             title: '프로필을 수정하시겠습니까?',
@@ -292,12 +295,6 @@
             cancelButtonText: '취소'
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                        icon: 'success',
-                        title: '수정 성공',
-                        text: '프로필 정보가 성공적으로 업데이트되었습니다.'
-                    }
-                )
                 $.ajax({
                     url: "/api/profile",
                     type: "PUT",
@@ -314,7 +311,14 @@
                     success: function (data) {
                         // 업데이트 후 서버로부터 받은 데이터를 처리하는 로직을 작성합니다.
                         // 예시: 업데이트된 프로필 정보를 표시하는 함수 호출
-                        displayUpdatedProfile(data);
+                        Swal.fire({
+                                icon: 'success',
+                                title: '수정 성공',
+                                text: '프로필 정보가 성공적으로 업데이트되었습니다.'
+                            }
+                        ).then(function () {
+                            window.location.reload();
+                        })
                     },
                     error: function (error) {
                         console.error("프로필 정보를 가져오는 데 실패했습니다.", error);
@@ -331,16 +335,6 @@
         })
     };
 
-    // 업데이트된 프로필 정보를 가져와서 화면에 표시하는 함수
-    function displayUpdatedProfile(data) {
-        // 화면의 수정 버튼을 다시 표시하고, 입력란을 비활성화하는 로직
-        $("#changebtn").show();
-        $("#cancel").hide();
-        $("#changebtnsuccess").hide();
-        $(".inputbox").prop("disabled", true);
-        $("#intro").css("color", "white");
-    }
-
     // 수정 버튼 클릭 이벤트 처리
     $("#changebtn").click(function () {
         $("#cancel").show();
@@ -348,6 +342,8 @@
         $("#changebtnsuccess").show();
         $(".inputbox").prop("disabled", false);
         $("#intro").css("color", "black");
+        $('#profilecheck').hide();
+        $('#profilechange').show();
 
         const DEFAULT_HEIGHT = 30; // textarea 기본 height
 
