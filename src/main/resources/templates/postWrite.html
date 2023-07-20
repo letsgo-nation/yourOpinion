@@ -44,14 +44,6 @@
                             </div>
                         </div>
                         <div class="row form-group">
-                            <div class="col-md-12">
-                                <label class="text-black h4">작성자</label> :
-                                <label class="text-black h4" id="username"></label>
-                            </div>
-                        </div>
-
-
-                        <div class="row form-group">
                             <div class="col-md-6 mb-3 mb-md-0">
                                 <label class="text-black">First Option</label>
                                 <input type="text" id="opinionA" placeholder="첫번째 투표" class="form-control">
@@ -92,46 +84,6 @@
         </div>
     </section>
 
-
-    <footer class="site-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <h2 class="footer-heading mb-4">About Us</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque facere laudantium magnam
-                                voluptatum autem. Amet aliquid nesciunt veritatis aliquam.</p>
-                        </div>
-                        <div class="col-md-3 ml-auto">
-                            <h2 class="footer-heading mb-4">Features</h2>
-                            <ul class="list-unstyled">
-                                <li><a href="#">Admin Page</a></li>
-                                <li><a href="#">Services</a></li>
-                                <li><a href="#">Testimonials</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row pt-5 mt-5 text-center">
-                <div class="col-md-12">
-                    <div class="border-top pt-5">
-                        <p>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                            All rights reserved | This template is made with <i class="icon-heart text-danger"
-                                                                                aria-hidden="true"></i> by <a
-                                href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
 </div>
 
 <script>
@@ -158,8 +110,6 @@
         // 예시 {sub: 'qw12345611', auth: 'USER', exp: 1689745728, iat: 1689742128}
         // 그중 username을 추출해야하니 sub를 가져옴. 만약 관리자 확인이면 auth를 가져올듯.
         const username = payload.sub;
-        console.log(username);
-        document.getElementById("username").innerText = username;
         /*        $.ajax({
                     url: "/api/profile",
                     type: "GET",
