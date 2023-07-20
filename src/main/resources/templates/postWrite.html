@@ -77,11 +77,9 @@
 
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <button class="btn btn-secondary" onclick="createPost()">작성 완료</button>
+                                <button type="button" class="btn btn-secondary" onclick="createPost()">작성 완료</button>
                             </div>
                         </div>
-
-
                     </form>
 
                 </div>
@@ -193,7 +191,7 @@
         let opinionB = $('#opinionB').val();
 
         console.log("createPost() 메서드 진입");
-        if (title.value == "") {
+        if (title == "") {
             console.log("title.value null");
             Swal.fire({
                 icon: 'warning',
@@ -203,18 +201,17 @@
             title.focus();
             return false;
         }
-        if (content.value == "") {
+        if (content == "") {
             console.log("content.value null");
             Swal.fire({
                 icon: 'warning',
                 title: '내용 입력오류',
                 text: '내용이 공백입니다. 문자 입력해주세요.',
             });
-
             content.focus();
             return false;
         }
-        if (opinionA.value == "") {
+        if (opinionA == "") {
             console.log("opinionA.value null");
             Swal.fire({
                 icon: 'warning',
@@ -224,7 +221,7 @@
             opinionA.focus();
             return false;
         }
-        if (opinionB.value == "") {
+        if (opinionB == "") {
             console.log("opinionB.value null");
             Swal.fire({
                 icon: 'warning',
