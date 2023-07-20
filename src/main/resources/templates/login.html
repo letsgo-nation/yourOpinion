@@ -87,11 +87,11 @@
         nickname:nickname, introduce:introduce, adminToken:adminToken}),
     })
             .done(function (res, status, xhr) {
-              alert("success");
+              alert("회원가입이 완료되었습니다.");
 
             })
             .fail(function (jqXHR, textStatus) {
-              alert("Login Fail");
+              alert("회원가입이 실패하였습니다.");
             });
   }
 
@@ -114,11 +114,11 @@
                 jqXHR.setRequestHeader('Authorization', token);
               });
 
-              alert("Login");
+              alert(loginUsername + "님 환영합니다.");
               window.location.href = '/';
             })
             .fail(function (jqXHR, textStatus) {
-              alert("Login Fail");
+              alert("아이디 혹은 비밀번호가 틀렸습니다.");
 
             });
   }
