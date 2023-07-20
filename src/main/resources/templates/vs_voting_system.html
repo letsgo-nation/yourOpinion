@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+    <title>vs voting system - Bootdey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        a.list-group-item {
+            height: auto;
+            min-height: 220px;
+        }
+
+        a.list-group-item.active small {
+            color: #fff;
+        }
+
+        a.list-group-item .vs-title {
+            font-size: 110px;
+        }
+
+        .fa {
+            font-size: 100px;
+            color: #ffffff;
+        }
+
+        .social a {
+            text-decoration: none;
+        }
+
+        .twitter {
+            background-color: #00acee;
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .facebook-like {
+            background-color: #3b5998;
+            border-radius: 4px;
+            margin-top: -3px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .media {
+            padding: 10px;
+        }
+    </style>
+
+
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"/>
+
+<div class="container bootstrap snippets bootdey">
+    <div class="row">
+        <div class="well">
+            <h1 class="text-center text-primary">
+                <b><span th:text="${post.title}"></span></b>
+            </h1>
+            <div class="list-group">
+                <a href="#" class="list-group-item">
+                    <div class="col-md-3">
+                        <div class="media col-md-12 twitter">
+                            <figure class="pull-left">
+                                <i class="fa fa-twitter"></i>
+                            </figure>
+                        </div>
+                        <div class="media col-md-12">
+                            <button type="button" class="btn btn-default btn-lg btn-block"><span
+                                    th:text="${post.opinionA}"></span></button>
+                            <button type="button" class="btn btn-default btn-lg btn-block"><span
+                                    th:text="${post.opinionACnt}"></span></button>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h1 class="vs-title">VS</h1>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="media col-md-12 facebook-like">
+                            <figure class="pull-left">
+                                <i class="fa fa-facebook"></i>
+                            </figure>
+                        </div>
+                        <div class="media col-md-12">
+                            <button type="button" class="btn btn-default btn-lg btn-block"><span
+                                    th:text="${post.opinionB}"></span></button>
+                            <button type="button" class="btn btn-default btn-lg btn-block"><span
+                                    th:text="${post.opinionBCnt}"></span></button>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>-->
+<!--<script type="text/javascript">-->
+
+</script>
+</body>
+</html>

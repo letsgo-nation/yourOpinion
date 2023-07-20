@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
@@ -12,18 +12,18 @@
   <title>Title</title>
 </head>
 <body>
-<div class="container left-panel-active">
+<div class="container right-panel-active">
   <!-- Sign Up -->
   <div class="container__form container--signup">
      <div class="form" id="form1">
        <h2 class="form__title">Sign Up</h2>
-       <input type="text" placeholder="아이디" name="username" id="username" class="input" />
-       <input type="password" placeholder="비밀번호"  name="password" id="password" class="input" />
-       <input type="email" placeholder="이메일주소" name="email" id="email" class="input" />
-       <input type="text" placeholder="닉네임" name="nickname" id="nickname" class="input" />
-       <input type="text" placeholder="자기소개" name="introduce" id="introduce" class="input" />
+       <input type="text" placeholder="Username" name="username" id="username" class="input" />
+       <input type="password" placeholder="Password"  name="password" id="password" class="input" />
+       <input type="email" placeholder="Email" name="email" id="email" class="input" />
+       <input type="text" placeholder="nickname" name="nickname" id="nickname" class="input" />
+       <input type="text" placeholder="introduce" name="introduce" id="introduce" class="input" />
        <input id="admin-check" type="checkbox" name="admin" onclick="onclickAdmin()" style="margin-top: 40px;">관리자
-       <input id="admin-token" type="관리자 암호" name="adminToken" placeholder="관리자 암호" class="login-input-box input" style="display:none">
+       <input id="admin-token" type="password" name="adminToken" placeholder="관리자 암호" class="login-input-box input" style="display:none">
        <button class="btn" onclick="signup()">Sign Up</button>
      </div>
   </div>
@@ -32,8 +32,8 @@
   <div class="container__form container--signin">
     <div class="form" id="form2">
       <h2 class="form__title">Log In</h2>
-      <input type="text" placeholder="아이디" name="loginUsername" id="loginUsername" class="input" />
-      <input type="password" placeholder="비밀번호" name="loginPassword" id="loginPassword" class="input" />
+      <input type="text" placeholder="Username" name="loginUsername" id="loginUsername" class="input" />
+      <input type="password" placeholder="Password" name="loginPassword" id="loginPassword" class="input" />
       <!--      <a href="#" class="link">Forgot your password?</a>-->
       <button class="btn" onclick="onLogin()" >Log In</button>
     </div>

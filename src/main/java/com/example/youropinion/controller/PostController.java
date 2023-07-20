@@ -1,6 +1,7 @@
 package com.example.youropinion.controller;
 
 import com.example.youropinion.dto.PostRequestDto;
+import com.example.youropinion.dto.PostResponseDto;
 import com.example.youropinion.dto.RestApiResponseDto;
 import com.example.youropinion.exception.TokenNotValidateException;
 import com.example.youropinion.security.UserDetailsImpl;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -18,20 +20,35 @@ public class PostController {
 
     private final PostService postService;
 
+
+    @GetMapping("/post/write-page")
+    public String writePage(){
+        return "postWrite";
+    }
+
     // 전체 게시글 조회
     @GetMapping("/posts")
     public @ResponseBody ResponseEntity<RestApiResponseDto> getPostList() {
         return postService.getPostList();
     }
 
-
     // 선택 게시글 조회
-    @GetMapping("/post/{id}")
+    @GetMapping("/posts/{id}")
     public @ResponseBody ResponseEntity<RestApiResponseDto> getPost(
             @PathVariable Long id) {
         return postService.getPost(id);
     }
 
+
+    @GetMapping("/post/detail-page/{id}")
+    public String bringPost(@PathVariable Long id,
+                          Model model) {
+        PostResponseDto result = postService.bringPost(id);
+        model.addAttribute("post", result);
+//        model.addAttribute("commentList", responseDto.getCommentResponseDtoList());
+
+        return "postDetail";
+    }
 
     // 게시글 작성
     @PostMapping("/post")
@@ -44,7 +61,7 @@ public class PostController {
     }
 
     // 게시글 수정
-    @PutMapping("/post/{id}")
+    @PutMapping("/posts/{id}")
     public @ResponseBody ResponseEntity<RestApiResponseDto> updatePost(
             @PathVariable Long id,
             @RequestBody PostRequestDto requestDto,
@@ -53,9 +70,8 @@ public class PostController {
         return postService.updatePost(id, requestDto, userDetails.getUser());
     }
 
-
     // 게시글 삭제
-    @DeleteMapping("/post/{id}")
+    @DeleteMapping("/posts/{id}")
     public @ResponseBody ResponseEntity<RestApiResponseDto> deletePost(
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
