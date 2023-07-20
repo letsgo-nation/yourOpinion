@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
@@ -19,11 +19,11 @@
        <h2 class="form__title">Sign Up</h2>
        <input type="text" placeholder="아이디" name="username" id="username" class="input" />
        <input type="password" placeholder="비밀번호"  name="password" id="password" class="input" />
-       <input type="email" placeholder="이메일주소" name="email" id="email" class="input" />
+       <input type="email" placeholder="이메일" name="email" id="email" class="input" />
        <input type="text" placeholder="닉네임" name="nickname" id="nickname" class="input" />
        <input type="text" placeholder="자기소개" name="introduce" id="introduce" class="input" />
        <input id="admin-check" type="checkbox" name="admin" onclick="onclickAdmin()" style="margin-top: 40px;">관리자
-       <input id="admin-token" type="관리자 암호" name="adminToken" placeholder="관리자 암호" class="login-input-box input" style="display:none">
+       <input id="admin-token" type="관리자 비밀번호" name="adminToken" placeholder="관리자 암호" class="login-input-box input" style="display:none">
        <button class="btn" onclick="signup()">Sign Up</button>
      </div>
   </div>

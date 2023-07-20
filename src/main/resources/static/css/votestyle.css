@@ -1,9 +1,4 @@
 /* reset */
-
-:root {
-	/* RADII */
-	--button-radius: 0.7rem;
-}
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
 article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
 ol,ul{list-style:none;margin:0px;padding:0px;}
@@ -28,18 +23,18 @@ img{max-width:100%;}
 /*end reset*/
 body{
 	font-family: 'Open Sans', sans-serif;
-	background: url("https://images8.alphacoders.com/737/737474.png");
+	background:#F0EFEE;
 }
 /*---start-wrap----*/
 .wrap{
-	width:80%;
-	margin:0 auto;
+	width:60%;
+	margin:10px auto;
 }
 /*---start-header----*/
 .header{
-	background:url(../images/border.png) repeat-x 0px 0px #FFF;
+	background: url("https://images3.alphacoders.com/764/764967.png") repeat-x 0px 0px #FFF;
 	padding: 1.5em 0 1.2em;
-	border-bottom: 1px solid rgba(214, 213, 212, 0.64);
+	/*border-bottom: 1px solid rgba(214, 213, 212, 0.64);*/
 	position: fixed;
 	width: 100%;
 	top: 0;
@@ -168,8 +163,9 @@ a.boxclose{
 /*--userinfo--*/
 .userinfo{
 	float: right;
-	width: 15%;
-	margin-top: 0.3em;
+	font-size: 21px;
+	width: 18%;
+	margin-top: 0.9em;
 }
 .user ul li{
 	display:inline-block;
@@ -332,10 +328,9 @@ a.boxclose{
 }
 /*---comment-box----*/
 .single-page {
-	border-radius: var(--button-radius);
-	margin-top: 8em;
+	margin-top: 8.7em;
 	background: #fff;
-	padding:2%;
+	padding:5%;
 }
 /*----artical-links---*/
 .artical-links{

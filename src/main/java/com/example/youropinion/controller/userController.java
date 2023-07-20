@@ -2,6 +2,7 @@ package com.example.youropinion.controller;
 
 import com.example.youropinion.dto.ApiResponseDto;
 import com.example.youropinion.dto.SignupRequestDto;
+import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
