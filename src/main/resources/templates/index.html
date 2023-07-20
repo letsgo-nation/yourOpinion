@@ -80,8 +80,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="header">
     <div class="wrap">
         <div class="logo">
-            <div class="logo" style="font-family: 'NanumAJumMaJaYu'; bottom: 10px; color: white; font-size: 50px">너의
-                이름은.
+            <div class="logo" style="font-family: 'NanumAJumMaJaYu'; bottom: 10px; color: white; font-size: 50px">너의 선택은.
             </div>
         </div>
         <!--    <div class="nav-icon">-->
@@ -153,7 +152,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         function getUser(token) {
             const payload = JSON.parse(atob(token.split(".")[1]));
             const username = payload.sub;
-            console.log(username);
+            console.log(payload);
             $("#profile").text(username + "님 환영합니다!");
         }
 
@@ -296,7 +295,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           <div class="post-info-rate-share">
             <div>
               <p class="txt-center">댓글수 : ${post.commentList}</p>
-              <p class="txt-center">좋아요 수 : </p>
             </div>
             <div class="clear"></div>
           </div>
