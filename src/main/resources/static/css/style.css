@@ -43,9 +43,9 @@ body{
 }
 /*---start-header----*/
 .header{
-	background:url(../images/border.png) repeat-x 0px 0px #FFF;
+	background: repeat-x 0px 0px #000000;
+	opacity: 0.5;
 	padding: 1.5em 0 1.2em;
-	border-bottom: 1px solid rgba(214, 213, 212, 0.64);
 	position: fixed;
 	width: 100%;
 	top: 0;
@@ -53,9 +53,6 @@ body{
 }
 .logo{
 	float:left;
-}
-.logo img{
-	display:inline-block;
 }
 .nav-icon{
 	float: left;
@@ -66,7 +63,6 @@ body{
 	width:48px;
 	height:34px;
 	display:block;
-	background:url(../images/nav-icon.png) no-repeat 0px 0px;
 }
 .top-searchbar {
 	float: left;
@@ -175,7 +171,7 @@ a.boxclose{
 .userinfo{
 	float: right;
 	width: 15%;
-	margin-top: 0.3em;
+	margin-top: 1em;
 }
 .user ul li{
 	display:inline-block;
