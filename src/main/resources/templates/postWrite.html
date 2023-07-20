@@ -205,14 +205,14 @@
                 "opinionA": opinionA,
                 "opinionB": opinionB
             }),
-        })
-            .done(function (res, status, xhr) {
+            success: (function (res, status, xhr) {
                 alert("게시글 작성 성공");
                 window.location.reload();
-            })
-            .fail(function (jqXHR, textStatus) {
+            }),
+            error: (function (jqXHR, textStatus) {
                 alert("작성 실패");
-            });
+            })
+        })
     }
 
 </script>
