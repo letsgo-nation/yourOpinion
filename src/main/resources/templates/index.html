@@ -5,10 +5,21 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <link rel="shortcut icon" href="#">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/NanumAJumMaJaYu.css" rel="stylesheet">
     <title>메인 페이지</title>
     <link href="/css/style.css" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,6 +27,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="/js/jquery.imagesloaded.js"></script>
+    <script src="/js/jquery.wookmark.js"></script>
+    <script type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
 
     <script type="application/x-javascript"> addEventListener("load", function () {
@@ -58,6 +77,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!----//End-dropdown--->
     <!---//End-click-drop-down-menu----->
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
 </head>
 <body>
 <!---start-wrap---->
@@ -65,175 +85,55 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="header">
     <div class="wrap">
         <div class="logo">
-            <a href="/"><img src="" title="너의 이름은."/></a>
+            <div class="logo" style="font-family: 'NanumAJumMaJaYu'; bottom: 10px; color: white; font-size: 50px">너의 의견은.
+            </div>
         </div>
         <!--    <div class="nav-icon">-->
         <!--      <a href="#" class="right_bt" id="activator"><span> </span> </a>-->
         <!--    </div>-->
-        <div class="userinfo">
+        <div class="userinfo" style="float: right;">
             <div class="user">
                 <ul>
-                    <li><a href="#"><img src="" title="user-name"/><span>Ipsum</span></a></li>
+                    <button type="button" class="btn btn-secondary" id="login"
+                            onclick="location.href='/api/user/login-page'" style="margin-top: 10px;">로그인&회원가입
+                    </button>
+
+                    <div class="dropdown" style="margin-top: 10px;">
+                        <span id="profile" style="color: white; font-size: 20px; margin-right: 10px;"></span>
+                        <button class="btn btn-secondary d-inline-block dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            프로필 메뉴
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button class="dropdown-item" type="button"
+                                        onclick="location.href='/api/user/profile-page'">프로필 수정
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" id="logout" onclick="logout()" type="button">로그아웃
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </ul>
             </div>
+            </ul>
         </div>
-        <div class="clear"></div>
     </div>
+    <div class="clear"></div>
+</div>
 </div>
 <!---//End-header---->
 <!---start-content---->
 <div class="content">
+
     <div class="wrap">
         <div id="main" role="main">
             <ul id="tiles">
-                <!-- These are our grid blocks -->
-                <li onclick="detailPost()">
-                    <div class="post-info">
-                        <div class="post-basic-info">
-                            <h3><a href="#">1</a></h3>
-                            <span><a href="#"><label> </label>Movies</a></span>
-                            <p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-                        </div>
-                        <div class="post-info-rate-share">
-                            <div class="rateit">
-                                <span> </span>
-                            </div>
-                            <div class="post-share">
-                                <span> </span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </li>
-                <li onclick="location.href='single-page.html';">
-                    <div class="post-info">
-                        <div class="post-basic-info">
-                            <h3><a href="#">2</a></h3>
-                            <span><a href="#"><label> </label>Movies</a></span>
-                            <p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-                        </div>
-                        <div class="post-info-rate-share">
-                            <div class="rateit">
-                                <span> </span>
-                            </div>
-                            <div class="post-share">
-                                <span> </span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </li>
-                <li onclick="location.href='single-page.html';">
-                    <div class="post-info">
-                        <div class="post-basic-info">
-                            <h3><a href="#">3</a></h3>
-                            <span><a href="#"><label> </label>Movies</a></span>
-                            <p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-                        </div>
-                        <div class="post-info-rate-share">
-                            <div class="rateit">
-                                <span> </span>
-                            </div>
-                            <div class="post-share">
-                                <span> </span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </li>
-                <li onclick="location.href='single-page.html';">
-                    <div class="post-info">
-                        <div class="post-basic-info">
-                            <h3><a href="#">4</a></h3>
-                            <span><a href="#"><label> </label>Movies</a></span>
-                            <p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-                        </div>
-                        <div class="post-info-rate-share">
-                            <div class="rateit">
-                                <span> </span>
-                            </div>
-                            <div class="post-share">
-                                <span> </span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </li>
-
-                <li onclick="location.href='single-page.html';">
-                    <div class="post-info">
-                        <div class="post-basic-info">
-                            <h3><a href="#">1</a></h3>
-                            <span><a href="#"><label> </label>Movies</a></span>
-                            <p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-                        </div>
-                        <div class="post-info-rate-share">
-                            <div class="rateit">
-                                <span> </span>
-                            </div>
-                            <div class="post-share">
-                                <span> </span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </li>
-                <li onclick="location.href='single-page.html';">
-                    <div class="post-info">
-                        <div class="post-basic-info">
-                            <h3><a href="#">2</a></h3>
-                            <span><a href="#"><label> </label>Movies</a></span>
-                            <p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-                        </div>
-                        <div class="post-info-rate-share">
-                            <div class="rateit">
-                                <span> </span>
-                            </div>
-                            <div class="post-share">
-                                <span> </span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </li>
-                <li onclick="location.href='single-page.html';">
-                    <div class="post-info">
-                        <div class="post-basic-info">
-                            <h3><a href="#">3</a></h3>
-                            <span><a href="#"><label> </label>Movies</a></span>
-                            <p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-                        </div>
-                        <div class="post-info-rate-share">
-                            <div class="rateit">
-                                <span> </span>
-                            </div>
-                            <div class="post-share">
-                                <span> </span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </li>
-                <li onclick="location.href='single-page.html';">
-                    <div class="post-info">
-                        <div class="post-basic-info">
-                            <h3><a href="#">4</a></h3>
-                            <span><a href="#"><label> </label>Movies</a></span>
-                            <p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-                        </div>
-                        <div class="post-info-rate-share">
-                            <div class="rateit">
-                                <span> </span>
-                            </div>
-                            <div class="post-share">
-                                <span> </span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </li>
-
-                <!-- End of grid blocks -->
+                <div id="loadingMessage" class="spinner-border text-warning" role="status">
+                    <span class="visually-hidden" style="color: white;">게시물을 불러오는 중...</span>
+                </div>
             </ul>
         </div>
     </div>
@@ -241,101 +141,216 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!---//End-content---->
 <!----wookmark-scripts---->
 
-<script src="/js/jquery.imagesloaded.js"></script>
-<script src="/js/jquery.wookmark.js"></script>
-<script type="text/javascript">
-    (function ($) {
-        var $tiles = $('#tiles'),
-            $handler = $('li', $tiles),
-            $main = $('#main'),
-            $window = $(window),
-            $document = $(document),
-            options = {
-                autoResize: true, // This will auto-update the layout when the browser window is resized.
-                container: $main, // Optional, used for some extra CSS styling
-                offset: 20, // Optional, the distance between grid items
-                itemWidth: 280 // Optional, the width of a grid item
-            };
 
-        /**
-         * Reinitializes the wookmark handler after all images have loaded
-         */
-        function applyLayout() {
-            $tiles.imagesLoaded(function () {
-                // Destroy the old handler
-                if ($handler.wookmarkInstance) {
-                    $handler.wookmarkInstance.clear();
-                }
-
-                // Create a new layout handler.
-                $handler = $('li', $tiles);
-                $handler.wookmark(options);
-            });
-        }
-
-        /**
-         * When scrolled all the way to the bottom, add more tiles
-         */
-        function onScroll() {
-            // Check if we're within 100 pixels of the bottom edge of the broser window.
-            var winHeight = window.innerHeight ? window.innerHeight : $window.height(), // iphone fix
-                closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
-
-            if (closeToBottom) {
-                // Get the first then items from the grid, clone them, and add them to the bottom of the grid
-                var $items = $('li', $tiles),
-                    $firstTen = $items.slice(0, 10);
-                $tiles.append($firstTen.clone());
-
-                applyLayout();
-            }
-        };
-
-        // Call the layout function for the first time
-        applyLayout();
-
-        // Capture scroll event.
-        $window.bind('scroll.wookmark', onScroll);
-    })(jQuery);
-</script>
 <div class="footer">
-    <button onclick="test()">작성하기</button>
+    <button type="button" class="btn btn-secondary" onclick="location.href='/api/post/write-page'">작성하기</button>
 </div>
 </body>
 </html>
 <script>
-    function test() {
+    $(document).ready(function () {
+        const apiUrl = "/api/posts";
+
+        // 쿠키값 가져오기
+        let token = Cookies.get('Authorization');
+
+        function getUser(token) {
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            const username = payload.sub;
+            console.log(payload);
+            $("#profile").text(username + "님 환영합니다!");
+        }
+
+        if (token) {
+            //쿠키 있을때
+            getUser(token)
+            $("#login").hide();
+        } else {
+            //쿠키 없을때
+            $("#profile").hide();
+            $(".dropdown").hide();
+        }
+
         $.ajax({
+            url: apiUrl,
             type: "GET",
-            url: `/test`,
-            contentType: "application/json",
-        })
-            .done(function (res, status, xhr) {
-            })
-            .fail(function (jqXHR, textStatus) {
-
-            });
-    }
-
-    function detailPost() {
-        const token = Cookies.get('Authorization');
-
-        $.ajax({
-            type: "GET",
-            url: `/api/post/detail-page/1`,
-            headers: {              // Http header
-                "Content-Type": "application/json",
-                "Authorization": token
-            },
+            dataType: "json",
             success: function (data) {
-                window.location.href = '/api/post/detail-page/1';
-                // 응답 데이터를 콘솔에 출력하거나 원하는 처리를 수행합니다.
+                // $("#loadingMessage").hide();
+                // 서버에서 데이터를 가져오면 로딩 메시지를 숨기고 게시물을 동적으로 생성합니다.
+                displayPosts(data.result); // 서버에서 받은 데이터로 게시물 생성
             },
-            error: function (xhr, status, error) {
-                console.error("Error:", error); // 오류가 발생한 경우 오류 메시지를 콘솔에 출력합니다.
-            }
+            error: function (error) {
+                // 데이터 가져오기에 실패한 경우 에러 메시지를 출력합니다.
+                console.error("Error fetching posts:", error);
+                $("#loadingMessage").text("게시물을 불러오는 데 실패했습니다.");
+            },
         });
+    });
+
+    function displayPosts(posts) {
+        const $tiles = $('#tiles'); // #tiles 요소를 찾습니다.
+        let postElements = '';
+        posts.forEach((post) => {
+            postElements += createPostElement(post);
+        });
+        $tiles.html(postElements); // #tiles 요소에 게시물 요소들을 추가합니다.
+
+        (function ($) {
+            var $tiles = $('#tiles'),
+                $handler = $('li', $tiles),
+                $main = $('#main'),
+                $window = $(window),
+                $document = $(document),
+                options = {
+                    autoResize: true, // This will auto-update the layout when the browser window is resized.
+                    container: $main, // Optional, used for some extra CSS styling
+                    offset: 20, // Optional, the distance between grid items
+                    itemWidth: 280 // Optional, the width of a grid item
+                };
+
+            /**
+             * Reinitializes the wookmark handler after all images have loaded
+             */
+            function applyLayout() {
+                $tiles.imagesLoaded(function () {
+                    // Destroy the old handler
+                    if ($handler.wookmarkInstance) {
+                        $handler.wookmarkInstance.clear();
+                    }
+
+                    // Create a new layout handler.
+                    $handler = $('li', $tiles);
+                    $handler.wookmark(options);
+                });
+            }
+
+            /**
+             * When scrolled all the way to the bottom, add more tiles
+             */
+            // 스크롤 이벤트를 처리하는 함수
+            function onScroll() {
+                // 스크롤이 끝에 도달하고, 이미 스크롤 이벤트가 처리 중인 경우에만 실행
+                var winHeight = window.innerHeight ? window.innerHeight : $window.height(),
+                    closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
+
+                if (closeToBottom && !scrollEventProcessing) {
+                    // 스크롤 이벤트가 처리 중인 상태를 저장
+                    scrollEventProcessing = true;
+                    // 새로운 게시물을 추가하는 비동기 요청 수행
+                    loadMorePosts(function () {
+                        // 비동기 요청이 완료된 후에 스크롤 이벤트 처리 상태를 초기화
+                        scrollEventProcessing = false;
+                    });
+                }
+            }
+
+            // 새로운 게시물을 추가하는 비동기 함수 (여기서는 예시로 빈 함수로 처리)
+            function loadMorePosts(callback) {
+                // TODO: 실제로 서버에서 새로운 게시물을 가져와서 $tiles에 추가하는 로직을 구현해야 합니다.
+                // 이 함수가 비동기 요청이므로, 콜백 함수를 이용해 스크롤 이벤트 처리 상태를 초기화.
+                // 즉, loadMorePosts 함수가 완료되면 콜백 함수가 실행.
+                // 콜백 함수를 사용하여 스크롤 이벤트 처리 상태를 초기화.
+                callback();
+            }
+
+            // Call the layout function for the first time
+            applyLayout();
+
+            // Capture scroll event.
+            $window.bind('scroll.wookmark', onScroll);
+        })(jQuery);
     }
+
+    function createPostElement(post) {
+        const username = post.username;
+
+        function maskingName(username) {
+            if (username.length >= 8) {
+                return (
+                    username.slice(0, 3) +
+                    "*".repeat(Math.max(0, username.length - 5)) +
+                    username.slice(-3)
+                );
+            } else {
+                return (
+                    username.slice(0, 2) +
+                    "*".repeat(Math.max(0, username.length - 3)) +
+                    username.slice(-1)
+                );
+            }
+        }
+
+        const maskedUsername = maskingName(username);
+
+        const createdAt = post.createdAt;
+
+        const date = new Date(createdAt);
+
+        const formattedDate = date.toLocaleString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+        });
+
+
+
+
+        return `
+      <li onclick="detailPost(${post.id})">
+        <div class="post-info">
+          <div class="post-basic-info">
+            <h3><a href="#" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${post.title}</a></h3>
+            <span>
+                <a href="#">작성자:${post.nickname}</a>
+                <p>(${maskedUsername})</p>
+            </span>
+            <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${formattedDate}</p>
+          </div>
+          <div class="post-info-rate-share">
+            <div>
+              <p class="txt-center">댓글수 : ${post.commentList}</p>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </li>
+    `;
+    }
+
+    function detailPost(postId) {
+        window.location.href = `/api/post/detail-page/${postId}`;
+    }
+
+    function logout() {
+        Swal.fire({
+            title: '로그아웃 하시겠습니까?',
+            text: "확인을 누르시면 로그아웃됩니다.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '확인',
+            cancelButtonText: '취소'
+        }).then(result => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '로그아웃 완료',
+                    text: '로그아웃이 완료되었습니다.',
+                }).then(function () {
+                    Cookies.remove('Authorization', {path: '/'})
+                    window.location.href = '/'
+                });
+
+            }
+
+        })
+
+    }
+
 
 </script>
-

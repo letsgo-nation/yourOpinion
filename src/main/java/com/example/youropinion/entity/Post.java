@@ -45,6 +45,7 @@ public class Post extends Timestamped{
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+
     @OneToMany( mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 

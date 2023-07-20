@@ -24,7 +24,9 @@ public class PostResponseDto {
     private String opinionB;
     private Long opinionACnt;
     private Long opinionBCnt;
+    private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private int commentList;
     private List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
 
     public PostResponseDto(Post post) {
@@ -32,12 +34,14 @@ public class PostResponseDto {
         this.title = post.getTitle();
         this.content = post.getContent();
         this.username = post.getUser().getUsername();
-        this.nickname = post.getUser().getNickname();
         this.opinionA = post.getOpinionA();
         this.opinionB = post.getOpinionB();
         this.opinionACnt = post.getOpinionACnt();
         this.opinionBCnt = post.getOpinionBCnt();
+        this.createdAt = post.getCreatedAt();
         this.modifiedAt = post.getModifiedAt();
+        this.nickname= post.getUser().getNickname();
+        this.commentList = post.getCommentList().size();
     }
 
     public void setCommentResponseDtoList(List<Comment> sortedCommentList) {
