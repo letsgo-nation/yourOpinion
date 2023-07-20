@@ -215,7 +215,16 @@
 <script th:inline="javascript">
     $(document).ready(function () {
         const token = Cookies.get('Authorization');
-        // console.log(token);
+
+        if(token) {
+            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+                jqXHR.setRequestHeader('Authorization', token);
+            });
+            getUser(token);
+        }else {
+            console.log('로그인이 안 되어있습니다.');
+        }
+
 
         const postId = [[${post.id}]];
         const nickname = [[${post.nickname}]];
@@ -244,14 +253,10 @@
         const maskedUsername = maskingName(username);
 
         $('#userinfo').html(nickname +"(" + maskedUsername + ")")
-        if(token) {
-            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-                jqXHR.setRequestHeader('Authorization', token);
-            });
-            getUser(token);
-        }else {
-            console.log('로그인이 안 되어있습니다.');
-        }    })
+
+    })
+
+
         function getUser(token) {
             console.log(token);
             const editBtn = document.getElementById('editBtn');
@@ -275,6 +280,9 @@
                 deleteBtn.style.display = 'none';
             }
         }
+
+
+
     const id = [[${post}]];
 
     $.ajax({
@@ -284,6 +292,7 @@
         success: function (response) {
 
             for( var i =0;  i < response['result']['commentResponseDtoList'].length; i++){
+
                 let temp_html =
                     `  <div class="grid1_of_2">
                             <div class="grid_img">
