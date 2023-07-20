@@ -10,6 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <!-- ajax , cookies 사용 lib -->
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <link rel='stylesheet' href="/css/votestyle.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="application/x-javascript"> addEventListener("load", function () {
@@ -38,32 +40,39 @@
             height: auto;
             min-height: 220px;
         }
+
         a.list-group-item.active small {
             color: #fff;
         }
+
         a.list-group-item .vs-title {
             font-size: 110px;
         }
+
         .fa {
             font-size: 100px;
             color: #ffffff;
         }
+
         .social a {
             text-decoration: none;
         }
+
         .twitter {
             background-color: #00acee;
             border-radius: 4px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
+
         .facebook-like {
             background-color: #3b5998;
             border-radius: 4px;
             margin-top: -3px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
+
         .media {
-            padding:10px;
+            padding: 10px;
         }
     </style>
 
@@ -74,38 +83,38 @@
     <div class="wrap">
 
         <div class="logo">
-            <button type="button" class="btn btn-secondary" onclick="location.href='/index.html'" style="margin: 20px;">
+            <button type="button" class="btn btn-secondary" onclick="location.href='/'" style="margin: 20px;">
                 Back
             </button>
         </div>
 
-<!--
+        <!--
 
-        <div class="nav-icon">
-            <a href="#" class="right_bt" id="activator"><span> </span> </a>
-        </div>
+                <div class="nav-icon">
+                    <a href="#" class="right_bt" id="activator"><span> </span> </a>
+                </div>
 
-        <div class="box" id="box">
-            <div class="box_content">
-                <div class="box_content_center">
-                    <div class="form_content">
-                        <div class="menu_box_list">
-                            <ul>
-                                <li><a href="#"><span>home</span></a></li>
-                                <li><a href="#"><span>About</span></a></li>
-                                <li><a href="#"><span>Works</span></a></li>
-                                <li><a href="#"><span>Clients</span></a></li>
-                                <li><a href="#"><span>Blog</span></a></li>
-                                <li><a href="contact.html"><span>Contact</span></a></li>
-                                <div class="clear"></div>
-                            </ul>
+                <div class="box" id="box">
+                    <div class="box_content">
+                        <div class="box_content_center">
+                            <div class="form_content">
+                                <div class="menu_box_list">
+                                    <ul>
+                                        <li><a href="#"><span>home</span></a></li>
+                                        <li><a href="#"><span>About</span></a></li>
+                                        <li><a href="#"><span>Works</span></a></li>
+                                        <li><a href="#"><span>Clients</span></a></li>
+                                        <li><a href="#"><span>Blog</span></a></li>
+                                        <li><a href="contact.html"><span>Contact</span></a></li>
+                                        <div class="clear"></div>
+                                    </ul>
+                                </div>
+                                <a class="boxclose" id="boxclose"> <span> </span></a>
+                            </div>
                         </div>
-                        <a class="boxclose" id="boxclose"> <span> </span></a>
                     </div>
                 </div>
-            </div>
-        </div>
--->
+        -->
 
         <div class="clear"></div>
     </div>
@@ -119,14 +128,14 @@
                 <div class="artical-content">
 
 
-					<div class="row form-group">
-						<div class="col-md-12">
-							<label class="text-black h4">작성자</label> :
-							<label class="text-black h4" id="username"></label>
-						</div>
-					</div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label class="text-black h4">작성자</label> :
+                            <label class="text-black h4" id="username"></label>
+                        </div>
+                    </div>
 
-					<div>
+                    <div>
                         <div class="container bootstrap snippets bootdey">
                             <div class="row">
                                 <div class="well" style="width: 85%;">
@@ -174,7 +183,7 @@
                                 </div>
                             </div>
                         </div>
-					</div>
+                    </div>
 
                     <!--<img src="images/single-post-pic.jpg" title="banner1">
 
@@ -297,7 +306,8 @@
             // 사용자 프로필 정보를 가져옴
             getUser(token);
         } else {
-            console.log("JWT 토큰이 없습니다. 게시글 등록이 불가합니다.");
+            alert("로그인이 안 되어있습니다.");
+            console.log("로그인이 안 되어있습니다.");
         }
     });
 

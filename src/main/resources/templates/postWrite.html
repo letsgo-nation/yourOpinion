@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"></script>
     <!--    Button css-->
 
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="/css/postWrite/bootstrap.min.css">
     <link rel="stylesheet" href="/css/postWrite/style.css">
 
@@ -23,7 +23,7 @@
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
-<button type="button" class="btn btn-secondary" onclick="location.href='index.html'" style="margin: 20px;">Back</button>
+<button type="button" class="btn btn-secondary" onclick="location.href='/'" style="margin: 20px;">Back</button>
 <div class="site-wrap">
 
     <section id="contact-section">
@@ -143,6 +143,8 @@
             // 사용자 프로필 정보를 가져옴
             getUser(token);
         } else {
+            alert("로그인이 안 되어있습니다. 게시글 등록이 불가합니다.");
+            window.location.href = "/";
             console.log("JWT 토큰이 없습니다. 게시글 등록이 불가합니다.");
         }
     });
@@ -183,22 +185,71 @@
                 });*/
     }
 
+
     function createPost() {
-        const token = Cookies.get('Authorization');
         let title = $('#title').val();
         let content = $('#content').val();
         let opinionA = $('#opinionA').val();
         let opinionB = $('#opinionB').val();
 
+        console.log("createPost() 메서드 진입");
+        if (title.value == "") {
+            console.log("title.value null");
+            Swal.fire({
+                icon: 'warning',
+                title: '제목 입력오류',
+                text: '제목이 공백입니다. 문자 입력해주세요.',
+            });
+            title.focus();
+            return false;
+        }
+        if (content.value == "") {
+            console.log("content.value null");
+            Swal.fire({
+                icon: 'warning',
+                title: '내용 입력오류',
+                text: '내용이 공백입니다. 문자 입력해주세요.',
+            });
+
+            content.focus();
+            return false;
+        }
+        if (opinionA.value == "") {
+            console.log("opinionA.value null");
+            Swal.fire({
+                icon: 'warning',
+                title: '옵션1 입력오류',
+                text: '옵션1이 공백입니다. 문자 입력해주세요.',
+            });
+            opinionA.focus();
+            return false;
+        }
+        if (opinionB.value == "") {
+            console.log("opinionB.value null");
+            Swal.fire({
+                icon: 'warning',
+                title: '옵션2 입력오류',
+                text: '옵션2이 공백입니다. 문자 입력해주세요.',
+            });
+            opinionB.focus();
+            return false;
+        }
+        console.log("null인 필드 없음.");
+        postRequest(title,content,opinionA,opinionB);
+    }
+
+    function postRequest(title,content,opinionA,opinionB) {
+        const token = Cookies.get('Authorization');
+        console.log(title,content,opinionA,opinionB);
         $.ajax({
             type: "POST",
             url: `/api/post`,
+            dataType: 'json',
             headers: {              // Http header
                 "Content-Type": "application/json",
                 "X-HTTP-Method-Override": "POST",
                 "Authorization": token
             },
-            dataType: 'text',
             data: JSON.stringify({
                 "title": title,
                 "content": content,
@@ -206,11 +257,24 @@
                 "opinionB": opinionB
             }),
             success: (function (res, status, xhr) {
-                alert("게시글 작성 성공");
-                window.location.reload();
+                Swal.fire({
+                        icon: 'success',
+                        title: '작성 성공',
+                        text: '게시글 작성이 성공적으로 완료되었습니다.'
+                    }
+                ).then(function () {
+                    window.location.href = "/";
+                })
             }),
-            error: (function (jqXHR, textStatus) {
-                alert("작성 실패");
+            error: (function (error) {
+                console.error("게시글 작성이 실패했습니다.", error);
+                Toast.fire({
+                    icon: 'error',
+                    title: '입력 오류',
+                    text: '게시글 작성을 실패했습니다. 다시 작성 부탁드립니다.',
+                }).then(function () {
+                    //window.location.reload();
+                });
             })
         })
     }

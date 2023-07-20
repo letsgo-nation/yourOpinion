@@ -6,6 +6,7 @@ import com.example.youropinion.dto.RestApiResponseDto;
 import com.example.youropinion.exception.TokenNotValidateException;
 import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -53,7 +54,7 @@ public class PostController {
     // 게시글 작성
     @PostMapping("/post")
     public @ResponseBody ResponseEntity<RestApiResponseDto> createPost(
-            @RequestBody PostRequestDto requestDto,
+            @Valid @RequestBody PostRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         this.tokenValidate(userDetails);
         return postService.createPost(requestDto,userDetails.getUser());
@@ -64,7 +65,7 @@ public class PostController {
     @PutMapping("/posts/{id}")
     public @ResponseBody ResponseEntity<RestApiResponseDto> updatePost(
             @PathVariable Long id,
-            @RequestBody PostRequestDto requestDto,
+            @Valid @RequestBody PostRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         this.tokenValidate(userDetails);
         return postService.updatePost(id, requestDto, userDetails.getUser());

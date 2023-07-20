@@ -32,7 +32,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link rel="stylesheet" href="css/main.css">
     <!-- //Global CSS for the page and tiles -->
     <!---start-click-drop-down-menu----->
-<!--    <script src="js/jquery.min.js"></script>-->
+    <!--    <script src="js/jquery.min.js"></script>-->
     <!----start-dropdown--->
     <script type="text/javascript">
         var $ = jQuery.noConflict();
@@ -327,13 +327,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 "Content-Type": "application/json",
                 "Authorization": token
             },
-          success: function (data) {
-            window.location.href = '/api/post/detail-page/1';
-            // 응답 데이터를 콘솔에 출력하거나 원하는 처리를 수행합니다.
-          },
-          error: function (xhr, status, error) {
-            console.error("Error:", error); // 오류가 발생한 경우 오류 메시지를 콘솔에 출력합니다.
-          }
+            success: function (data) {
+                window.location.href = '/api/post/detail-page/1';
+                // 응답 데이터를 콘솔에 출력하거나 원하는 처리를 수행합니다.
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error); // 오류가 발생한 경우 오류 메시지를 콘솔에 출력합니다.
+            }
         });
     }
 
