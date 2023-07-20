@@ -19,9 +19,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
             crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-            integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
-            crossorigin="anonymous"></script>
     <link href="https://hangeul.pstatic.net/hangeul_static/css/NanumAJumMaJaYu.css" rel="stylesheet">
     <title>메인 페이지</title>
     <link href="/css/style.css" rel='stylesheet' type='text/css'/>
@@ -75,6 +72,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!----//End-dropdown--->
     <!---//End-click-drop-down-menu----->
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
 </head>
 <body>
 <!---start-wrap---->
@@ -83,21 +81,44 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="wrap">
         <div class="logo">
             <div class="logo" style="font-family: 'NanumAJumMaJaYu'; bottom: 10px; color: white; font-size: 50px">너의
-                이름은?
+                이름은.
             </div>
         </div>
         <!--    <div class="nav-icon">-->
         <!--      <a href="#" class="right_bt" id="activator"><span> </span> </a>-->
         <!--    </div>-->
-        <div class="userinfo">
+        <div class="userinfo" style="float: right;">
             <div class="user">
                 <ul>
-                    <li style="color: white;"><span>Ipsum</span></li>
+                    <button type="button" class="btn btn-secondary" id="login"
+                            onclick="location.href='/api/user/login-page'" style="margin-top: 10px;">로그인&회원가입
+                    </button>
+
+                    <div class="dropdown" style="margin-top: 10px;">
+                        <span id="profile" style="color: white; font-size: 20px; margin-right: 10px;"></span>
+                        <button class="btn btn-secondary d-inline-block dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            프로필 메뉴
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button class="dropdown-item" type="button"
+                                        onclick="location.href='/api/user/profile-page'">프로필 수정
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" id="logout" onclick="logout()" type="button">로그아웃
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </ul>
             </div>
+            </ul>
         </div>
-        <div class="clear"></div>
     </div>
+    <div class="clear"></div>
+</div>
 </div>
 <!---//End-header---->
 <!---start-content---->
@@ -125,6 +146,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script>
     $(document).ready(function () {
         const apiUrl = "/api/posts";
+
+        // 쿠키값 가져오기
+        let token = Cookies.get('Authorization');
+
+        function getUser(token) {
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            const username = payload.sub;
+            console.log(username);
+            $("#profile").text(username + "님 환영합니다!");
+        }
+
+        if (token) {
+            //쿠키 있을때
+            getUser(token)
+            $("#login").hide();
+        } else {
+            //쿠키 없을때
+            $("#profile").hide();
+            $(".dropdown").hide();
+        }
 
         $.ajax({
             url: apiUrl,
@@ -218,17 +259,43 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     }
 
     function createPostElement(post) {
+        const username = post.username;
+
+        function maskingName(username) {
+            if (username.length <= 2) {
+                return username.replace(username.substring(0, 1), "*");
+            } else if (username.length >= 8) {
+                return (
+                    username.slice(0, 3) +
+                    "*".repeat(Math.max(0, username.length - 4)) +
+                    username.slice(-3)
+                );
+            } else {
+                return (
+                    username.slice(0, 2) +
+                    "*".repeat(Math.max(0, username.length - 3)) +
+                    username.slice(-1)
+                );
+            }
+        }
+
+        const maskedUsername = maskingName(username);
+
+
         return `
       <li onclick="detailPost(${post.id})">
         <div class="post-info">
           <div class="post-basic-info">
             <h3><a href="#" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${post.title}</a></h3>
-            <span><a href="#">작성자:${post.username}</a></span>
+            <span>
+                <a href="#">작성자:${post.nickname}</a>
+                <p>(${maskedUsername})</p>
+            </span>
             <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${post.content}</p>
           </div>
           <div class="post-info-rate-share">
             <div>
-              <p class="txt-center">댓글수 : </p>
+              <p class="txt-center">댓글수 : ${post.commentList}</p>
               <p class="txt-center">좋아요 수 : </p>
             </div>
             <div class="clear"></div>
@@ -241,5 +308,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     function detailPost(postId) {
         window.location.href = `/api/post/detail-page/${postId}`;
     }
-</script>
 
+    function logout() {
+        Cookies.remove('Authorization', {path: '/'});
+        window.location.href = '/'
+    }
+
+
+</script>

@@ -103,8 +103,7 @@
                     <div class="row form-group">
                         <div class="col-md-12" style="width: 95%;text-align: left;">
                             <div>
-                                <labal>작성자:${post.nickname}(${post.username})</labal>
-                                <label class="text-black h4" th:text="${post.nickname}" th:text="${post.username})" ></label>
+                                <span class="text-black h4">닉네임: <label class="text-black h4" th:text="${post.nickname} + ' (' + ${post.username} +')' "></label></span>
                             </div>
                             <div style="float:right;">
                                 <label class="text-black h4">작성일자</label> :
@@ -179,7 +178,7 @@
                     <h2>Comments</h2>
                     <div class="grid1_of_2">
                         <div class="grid_text">
-                            <h4 class="style1 list" th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
+<!--                            <h4 class="style1 list" th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>-->
                             <h3 class="style" style="margin-top:0px;"
                                 th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 - 4.00 PM</h3>
                             <p class="para top" th:text="${post.getCommentResponseDtoList().get(0).getContent()}">

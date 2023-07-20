@@ -43,8 +43,7 @@ body{
 }
 /*---start-header----*/
 .header{
-	background: repeat-x 0px 0px #000000;
-	opacity: 0.5;
+	background: rgba(0, 0, 0, 0.56);
 	padding: 1.5em 0 1.2em;
 	position: fixed;
 	width: 100%;
@@ -53,6 +52,7 @@ body{
 }
 .logo{
 	float:left;
+	margin-left: 80px;
 }
 .nav-icon{
 	float: left;
@@ -167,38 +167,38 @@ a.boxclose{
 .boxclose span:hover{
 	background:url(../images/close2h.png) no-repeat 0px 0px;
 }
-/*--userinfo--*/
-.userinfo{
-	float: right;
-	width: 15%;
-	margin-top: 1em;
-}
-.user ul li{
-	display:inline-block;
-}
-.user ul li a span{
-	vertical-align: middle;
-	margin-left: 0.8em;
-	font-size: 1em;
-}
-.user ul li a{
-	color:#8C8C8C;
-	transition:0.5s all;
-	-webkit-transition:0.5s all;
-	-moz-transition:0.5s all;
-	-o-transition:0.5s all;
-}
-.user ul li a:hover{
-	color:#B9CB41;
-}
-.user ul li a img{
-	border-radius:30em;
-	-webkit-border-radius:30em;
-	-moz-border-radius:30em;
-	-o-border-radius:30em;
-	vertical-align:middle;
-	
-}
+/*!*--userinfo--*!*/
+/*.userinfo{*/
+/*	float: right;*/
+/*	width: 15%;*/
+/*	margin-top: 1em;*/
+/*}*/
+/*.user ul li{*/
+/*	display:inline-block;*/
+/*}*/
+/*.user ul li a span{*/
+/*	vertical-align: middle;*/
+/*	margin-left: 0.8em;*/
+/*	font-size: 1em;*/
+/*}*/
+/*.user ul li a{*/
+/*	color:#8C8C8C;*/
+/*	transition:0.5s all;*/
+/*	-webkit-transition:0.5s all;*/
+/*	-moz-transition:0.5s all;*/
+/*	-o-transition:0.5s all;*/
+/*}*/
+/*.user ul li a:hover{*/
+/*	color:#B9CB41;*/
+/*}*/
+/*.user ul li a img{*/
+/*	border-radius:30em;*/
+/*	-webkit-border-radius:30em;*/
+/*	-moz-border-radius:30em;*/
+/*	-o-border-radius:30em;*/
+/*	vertical-align:middle;*/
+/*	*/
+/*}*/
 /*--//userinfo--*/
 /*----start-post-grids----*/
 .post-share span{
@@ -275,7 +275,6 @@ a.boxclose{
 	right:15px;
 }
 .footer p{
-	color:#8C8C8C;
 	font-size:0.9em;
 }
 .footer p a{
@@ -286,7 +285,6 @@ a.boxclose{
 	-o-transition:0.5s all;
 }
 .footer p a:hover{
-	color:#8C8C8C;
 }
 /*----start-single-page----*/
 .artical-content h3 a{
@@ -685,7 +683,6 @@ span.mail a:hover{
 	.footer {
 		bottom: 0px;
 		right: 0px;
-		background: #fff;
 		padding: 10px;
 	}
 }
@@ -698,7 +695,6 @@ span.mail a:hover{
 	.footer {
 		bottom: 0px;
 		right: 0px;
-		background: #fff;
 		padding: 10px;
 	}
 	.contact-to input[type="text"] {
@@ -714,7 +710,6 @@ span.mail a:hover{
 	.footer {
 		bottom: 0px;
 		right: 0px;
-		background: #fff;
 		padding: 10px;
 	}
 	.contact-to input[type="text"] {
@@ -740,7 +735,6 @@ span.mail a:hover{
 	.footer {
 		bottom: 0px;
 		right: 0px;
-		background: #fff;
 		padding: 10px;
 	}
 	.contact-to input[type="text"] {
@@ -828,7 +822,6 @@ span.mail a:hover{
 	.footer {
 		bottom: 0px;
 		right: 0px;
-		background: #fff;
 		padding: 10px;
 	}
 	.contact-to input[type="text"] {
@@ -942,7 +935,6 @@ span.mail a:hover{
 	.footer {
 		bottom: 0px;
 		right: 0px;
-		background: #fff;
 		padding: 10px;
 	}
 	.contact-to input[type="text"] {
@@ -1069,7 +1061,6 @@ span.mail a:hover{
 	.footer {
 		bottom: 0px;
 		right: 0px;
-		background: #fff;
 		padding: 5px 10px;
 	}
 	.contact-to input[type="text"] {
