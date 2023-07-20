@@ -69,10 +69,8 @@
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <label class="text-black">내용</label>
-<!--                                <textarea id="content" cols="30" rows="7" class="form-control"-->
-<!--                                          placeholder="Write your contents"></textarea>-->
-                                <input id="content" cols="30" rows="7" th:value="${info_post.content}" class="form-control">
-<!--                                자동 줄 바꿈이 되지 않는다.-->
+                                <textarea id="content" cols="30" rows="7" class="form-control"
+                                          placeholder="Write your contents" th:text="${info_post.content}"></textarea>
                             </div>
                         </div>
 
