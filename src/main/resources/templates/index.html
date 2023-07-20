@@ -33,6 +33,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="/js/jquery.imagesloaded.js"></script>
     <script src="/js/jquery.wookmark.js"></script>
     <script type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
     <script type="application/x-javascript"> addEventListener("load", function () {
@@ -49,7 +50,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link rel="stylesheet" href="css/main.css">
     <!-- //Global CSS for the page and tiles -->
     <!---start-click-drop-down-menu----->
-<!--    <script src="js/jquery.min.js"></script>-->
+    <!--    <script src="js/jquery.min.js"></script>-->
     <!----start-dropdown--->
     <script type="text/javascript">
         var $ = jQuery.noConflict();
@@ -75,7 +76,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!----//End-dropdown--->
     <!---//End-click-drop-down-menu----->
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-
 </head>
 <body>
 <!---start-wrap---->
@@ -83,23 +83,37 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="header">
     <div class="wrap">
         <div class="logo">
-            <div class="logo" style="font-family: 'NanumAJumMaJaYu'; bottom: 10px; color: white; font-size: 50px">너의
-                이름은.
+            <div class="logo" style="font-family: 'NanumAJumMaJaYu'; bottom: 10px; color: white; font-size: 50px">너의 의견은.
             </div>
         </div>
         <!--    <div class="nav-icon">-->
         <!--      <a href="#" class="right_bt" id="activator"><span> </span> </a>-->
         <!--    </div>-->
-        <div class="userinfo">
+        <div class="userinfo" style="float: right;">
             <div class="user">
                 <ul>
-                    <button type="button" class="btn btn-secondary" id="login" onclick="location.href='/api/user/login-page'">로그인&회원가입</button>
-<!--                    <li><a href="/api/user/login-page" id="login"><span>로그인&회원가입</span></a></li>-->
+                    <button type="button" class="btn btn-secondary" id="login"
+                            onclick="location.href='/api/user/login-page'" style="margin-top: 10px;">로그인&회원가입
+                    </button>
 
-                    <button type="button" class="btn btn-secondary" id="profile" onclick="location.href='/api/user/profile-page'"></button>
-                    <button type="button" class="btn btn-secondary" id="logout" onclick="logout()">로그아웃</button>
-<!--                    <li><a href="" ><span id="profile"></span></a></li>-->
-<!--                    <li><a href="#" id="logout" onclick="logout()"><span>로그아웃</span></a></li>-->
+                    <div class="dropdown" style="margin-top: 10px;">
+                        <span id="profile" style="color: white; font-size: 20px; margin-right: 10px;"></span>
+                        <button class="btn btn-secondary d-inline-block dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            프로필 메뉴
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button class="dropdown-item" type="button"
+                                        onclick="location.href='/api/user/profile-page'">프로필 수정
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" id="logout" onclick="logout()" type="button">로그아웃
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </ul>
             </div>
         </div>
@@ -114,7 +128,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div id="main" role="main">
             <ul id="tiles">
                 <div id="loadingMessage" class="spinner-border text-warning" role="status">
-                    <span class="visually-hidden">게시물을 불러오는 중...</span>
+                    <span class="visually-hidden" style="color: white;">게시물을 불러오는 중...</span>
                 </div>
             </ul>
         </div>
@@ -139,18 +153,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         function getUser(token) {
             const payload = JSON.parse(atob(token.split(".")[1]));
             const username = payload.sub;
-            console.log(username);
-            $("#profile").text(username);
+            console.log(payload);
+            $("#profile").text(username + "님 환영합니다!");
         }
 
-        if(token){
+        if (token) {
             //쿠키 있을때
             getUser(token)
             $("#login").hide();
-        }else {
+        } else {
             //쿠키 없을때
             $("#profile").hide();
-            $("#logout").hide();
+            $(".dropdown").hide();
         }
 
         $.ajax({
@@ -245,18 +259,41 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     }
 
     function createPostElement(post) {
+        const username = post.username;
+
+        function maskingName(username) {
+            if (username.length >= 8) {
+                return (
+                    username.slice(0, 3) +
+                    "*".repeat(Math.max(0, username.length - 5)) +
+                    username.slice(-3)
+                );
+            } else {
+                return (
+                    username.slice(0, 2) +
+                    "*".repeat(Math.max(0, username.length - 3)) +
+                    username.slice(-1)
+                );
+            }
+        }
+
+        const maskedUsername = maskingName(username);
+
+
         return `
       <li onclick="detailPost(${post.id})">
         <div class="post-info">
           <div class="post-basic-info">
             <h3><a href="#" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${post.title}</a></h3>
-            <span><a href="#">작성자:${post.username}</a></span>
+            <span>
+                <a href="#">작성자:${post.nickname}</a>
+                <p>(${maskedUsername})</p>
+            </span>
             <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${post.content}</p>
           </div>
           <div class="post-info-rate-share">
             <div>
               <p class="txt-center">댓글수 : ${post.commentList}</p>
-              <p class="txt-center">좋아요 수 : </p>
             </div>
             <div class="clear"></div>
           </div>
@@ -269,9 +306,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         window.location.href = `/api/post/detail-page/${postId}`;
     }
 
-    function logout(){
+    function logout() {
         Cookies.remove('Authorization', {path: '/'});
-        window.location.href = '/api/user/login-page'
+        window.location.href = '/'
     }
 
 

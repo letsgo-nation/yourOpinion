@@ -19,7 +19,7 @@ public class PostResponseDto {
     private String title;
     private String content;
     private String username;
-    private String userNickname;
+    private String nickname;
     private String opinionA;
     private String opinionB;
     private Long opinionACnt;
@@ -38,13 +38,13 @@ public class PostResponseDto {
         this.opinionACnt = post.getOpinionACnt();
         this.opinionBCnt = post.getOpinionBCnt();
         this.modifiedAt = post.getModifiedAt();
-        this.userNickname= post.getUser().getNickname();
+        this.nickname= post.getUser().getNickname();
         this.commentList = post.getCommentList().size();
     }
 
     public void setCommentResponseDtoList(List<Comment> sortedCommentList) {
         for (Comment comment : sortedCommentList) {
-            log.info("setComment"+comment.getContent());
+            log.info(comment.getContent());
             this.commentResponseDtoList.add(new CommentResponseDto(comment));
         }
     }
