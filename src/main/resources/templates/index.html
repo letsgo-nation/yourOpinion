@@ -74,6 +74,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!----//End-dropdown--->
     <!---//End-click-drop-down-menu----->
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+    <style>
+        #yourOpinion{
+            font-weight: bold;
+            font-size: x-large;
+            color: black;
+        }
+    </style>
+
 </head>
 <body>
 <!---start-wrap---->
@@ -81,7 +90,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="header">
     <div class="wrap">
         <div class="logo">
-            <a href="/"><img src="images/logo.png" title="너의 이름은."/></a>
+            <a href="/" id="yourOpinion">너의 이름은.</a>
         </div>
         <!--    <div class="nav-icon">-->
         <!--      <a href="#" class="right_bt" id="activator"><span> </span> </a>-->
@@ -89,7 +98,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="userinfo">
             <div class="user">
                 <ul>
-                    <li><a href="#"><img src="images/user-pic.png" title="user-name"/><span>Ipsum</span></a></li>
+                    <li><a href="/api/user/login-page" id="login"><span>로그인&회원가입</span></a></li>
+
+                    <li><a href="" ><span id="profile"></span></a></li>
+                    <li><a href="#" id="logout" onclick="logout()"><span>로그아웃</span></a></li>
                 </ul>
             </div>
         </div>
@@ -123,6 +135,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     $(document).ready(function () {
         const apiUrl = "/api/posts";
 
+        // 쿠키값 가져오기
+        let token = Cookies.get('Authorization');
+
+        function getUser(token) {
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            const username = payload.sub;
+            console.log(username);
+            $("#profile").text(username);
+        }
+
+        if(token){
+            //쿠키 있을때
+            getUser(token)
+            $("#login").hide();
+        }else {
+            //쿠키 없을때
+            $("#profile").hide();
+            $("#logout").hide();
+        }
+
         $.ajax({
             url: apiUrl,
             type: "GET",
@@ -138,6 +170,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 $("#loadingMessage").text("게시물을 불러오는 데 실패했습니다.");
             },
         });
+
     });
 
     function displayPosts(posts) {
@@ -226,6 +259,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     function detailPost(postId) {
         window.location.href = `/api/post/detail-page/${postId}`;
+    }
+
+    function logout(){
+        Cookies.remove('Authorization', {path: '/'});
+        window.location.href = '/api/user/login-page'
     }
 
     // function detailPost() {
