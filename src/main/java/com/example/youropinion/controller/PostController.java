@@ -35,11 +35,10 @@ public class PostController {
 
     // 선택 게시글 조회
    @GetMapping("/posts/{id}")
-    public @ResponseBody PostResponseDto getPost(
+    public @ResponseBody ResponseEntity<RestApiResponseDto>  getPost(
             @PathVariable Long id) {
-        return postService.getPost(id);
+        return postService.getPosts(id);
     }
-
 
     @GetMapping("/post/detail-page/{id}")
     public String bringPost(@PathVariable Long id,

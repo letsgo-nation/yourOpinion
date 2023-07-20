@@ -324,8 +324,23 @@
             contentType: "application/json",
             data: JSON.stringify({content: $('#userComment').val()}),
         })
-            .done(function (res, status, xhr) {
+            .done(function (response, status, xhr) {
+                console.log(response['result'])
+                let temp_html =
+                    `  <div class="grid1_of_2">
+                            <div class="grid_img">
+                                <a href=""><img src="" alt=""></a>
+                            </div>
+                            <div class="grid_text">
+                                <h4 class="style1 list"><a href="#">username</a></h4>
+                                <h3 class="style">${response['result'].modifiedAt}</h3>
+                                <p class="para top"> ${response['result'].content}</p>
+                                <a href="" class="btn1">Click to Reply</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>`;
 
+                $('#comment').append(temp_html);
             })
             .fail(function (jqXHR, textStatus) {
 
