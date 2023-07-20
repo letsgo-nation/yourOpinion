@@ -6,6 +6,7 @@ import com.example.youropinion.dto.RestApiResponseDto;
 import com.example.youropinion.exception.TokenNotValidateException;
 import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.PostService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -39,7 +40,7 @@ public class PostController {
         return postService.getPost(id);
     }
 
-
+    // 게시글 페이지 보여주기
     @GetMapping("/post/detail-page/{id}")
     public String bringPost(@PathVariable Long id,
                           Model model) {
@@ -48,6 +49,14 @@ public class PostController {
 //        model.addAttribute("commentList", responseDto.getCommentResponseDtoList());
 
         return "postDetail";
+    }
+
+    // 게시글 수정 페이지 보여주기
+    @GetMapping("/post/modify-page/{id}")
+    public String modifyPost(Model model,  @PathVariable Long id)
+            throws JsonProcessingException {
+        model.addAttribute("info_post",postService.bringPost(id));
+        return "postModify";
     }
 
     // 게시글 작성
