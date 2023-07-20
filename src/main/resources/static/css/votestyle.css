@@ -34,6 +34,11 @@ body{
 	width:60%;
 	margin:10px auto 0px auto;
 }
+
+.voteBack{
+	z-index: 1;
+	background: url("https://lh3.google.com/u/0/d/1bnj0x3r9bVOVwdcGFtDpb4xGaeKJYQGS=w2560-h961-iv1");
+}
 /*---start-header----*/
 .header{
 	background: url("https://images3.alphacoders.com/764/764967.png") repeat-x 0px 0px #FFF;
