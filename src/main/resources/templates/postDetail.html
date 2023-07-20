@@ -211,71 +211,29 @@
             </div>
             <!---start-comments-section--->
             <div class="comment-section">
-                <div class="grids_of_2">
+                <div class="grids_of_2" >
                     <h2>Comments</h2>
-                    <div class="grid1_of_2">
-                        <div class="grid_img">
-                            <a href=""><img src="" alt=""></a>
-                        </div>
-                        <div class="grid_text">
-                            <h4 class="style1 list"><a href="#">Uku Mason</a></h4>
-                            <h3 class="style">march 2, 2013 - 12.50 AM</h3>
-                            <p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat
-                                predefined chunks as necessary, making this the first true generator on the Internet. It
-                                uses a dictionary of over 200 Latin words, combined with a handful of model sentence
-                                structures, to generate Lorem Ipsum which looks reasonable.</p>
-                            <a href="" class="btn1">Click to Reply</a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="grid1_of_2 left">
-                        <div class="grid_img">
-                            <a href=""><img src="" alt=""></a>
-                        </div>
-                        <div class="grid_text">
-                            <h4 class="style1 list"><a href="#">Designer First</a></h4>
-                            <h3 class="style">march 3, 2013 - 4.00 PM</h3>
-                            <p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat
-                                predefined chunks as necessary, making this the first true generator on the Internet. It
-                                uses a dictionary of over 200 Latin words, combined with a handful of model sentence
-                                structures, to generate Lorem Ipsum which looks reasonable.</p>
-                            <a href="" class="btn1">Click to Reply</a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="grid1_of_2">
-                        <div class="grid_img">
-                            <a href=""><img src="" alt=""></a>
-                        </div>
-                        <div class="grid_text">
-                            <h4 class="style1 list"><a href="#">Ro Kanth</a></h4>
-                            <h3 class="style">march 2, 2013 - 12.50 AM</h3>
-                            <p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat
-                                predefined chunks as necessary, making this the first true generator on the Internet. It
-                                uses a dictionary of over 200 Latin words, combined with a handful of model sentence
-                                structures, to generate Lorem Ipsum which looks reasonable.</p>
-                            <a href="" class="btn1">Click to Reply</a>
-                        </div>
-                        <div class="clear"></div>
+                    <div class="grids_of_2" id="comment">
+
                     </div>
                     <div class="artical-commentbox">
                         <h2>Leave a Comment</h2>
                         <div class="table-form">
                             <form action="#" method="post" name="post_comment">
-                                <div>
-                                    <label>Name<span>*</span></label>
-                                    <input type="text" value=" ">
-                                </div>
-                                <div>
-                                    <label>Email<span>*</span></label>
-                                    <input type="text" value=" ">
-                                </div>
+<!--                                <div>-->
+<!--                                    <label>Name<span>*</span></label>-->
+<!--                                    <input type="text" value=" ">-->
+<!--                                </div>-->
+<!--                                <div>-->
+<!--                                    <label>Email<span>*</span></label>-->
+<!--                                    <input type="text" value=" ">-->
+<!--                                </div>-->
                                 <div>
                                     <label>Your Comment<span>*</span></label>
-                                    <textarea> </textarea>
+                                    <textarea id="userComment" name="content"> </textarea>
                                 </div>
                             </form>
-                            <input type="submit" value="submit">
+                            <input type="submit" value="submit" onclick="insert()"/>
 
                         </div>
                         <div class="clear"></div>
@@ -294,11 +252,10 @@
 <!---//End-wrap---->
 </body>
 
-<script>
+<script th:inline="javascript">
     $(document).ready(function () {
         const token = Cookies.get('Authorization');
         console.log(token);
-
         if (token) { // 모든 AJAX 요청에 헤더에 JWT를 포함하기 위한 설정
             $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
                 jqXHR.setRequestHeader('Authorization', token);
@@ -307,7 +264,7 @@
             getUser(token);
         } else {
             alert("로그인이 안 되어있습니다.");
-            console.log("로그인이 안 되어있습니다.");
+            window.location.href = '/api/user/login-page'
         }
     });
 
@@ -316,34 +273,58 @@
         const username = payload.sub;
         console.log(username);
         document.getElementById('username').innerText = username + '님';
-        //document.getElementById('username').setAttribute('title',username);
-
-        /*        $.ajax({
-            url: "/api/profile",
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                // 서버로부터 받은 데이터를 처리하는 로직을 작성합니다.
-                // 예시: 프로필 정보를 표시하는 함수 호출
-                console.log(data)
-                let email = data['proFileResponseDto']['email'];
-                let intro = data['proFileResponseDto']['introduce'];
-                let nickname = data['proFileResponseDto']['nickname']; // 실제 사용자 ID값 가져오기
-                let textarea_str = $('#intro').val();
-                textarea_str = intro;
-                $('#userName').attr('value', nickname);
-                $('#email').attr('value', email);
-                $('#intro').html(textarea_str);
-                // 완료 버튼 클릭 이벤트 처리
-                $("#changebtnsuccess").click(function () {
-                    updateProfile(username);
-                });
-            },
-            error: function (error) {
-                console.error("프로필 정보를 가져오는 데 실패했습니다.", error);
-            }
-        });*/
     }
+
+    const id = [[${post}]];
+
+    $.ajax({
+        url: `/api/posts/${id.id}`,
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+
+            for( var i =0;  i < response['result']['commentResponseDtoList'].length; i++){
+                let temp_html =
+                    `  <div class="grid1_of_2">
+                            <div class="grid_img">
+                                <a href=""><img src="" alt=""></a>
+                            </div>
+                            <div class="grid_text">
+                                <h4 class="style1 list"><a href="#">username</a></h4>
+                                <h3 class="style">${response['result']['commentResponseDtoList'][i].modifiedAt}</h3>
+                                <p class="para top"> ${response['result']['commentResponseDtoList'][i].content}</p>
+                                <a href="" class="btn1">Click to Reply</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>`;
+
+                $('#comment').append(temp_html);
+            }
+
+        },
+        error: function (error) {
+            console.log("fail");
+        },
+    });
+
+    function insert(){
+
+        $.ajax({
+            type: "POST",
+            url: `/api/posts/${id.id}/comment`,
+            contentType: "application/json",
+            data: JSON.stringify({content: $('#userComment').val()}),
+        })
+            .done(function (res, status, xhr) {
+
+            })
+            .fail(function (jqXHR, textStatus) {
+
+            });
+    }
+
+
+
 </script>
 </html>
 

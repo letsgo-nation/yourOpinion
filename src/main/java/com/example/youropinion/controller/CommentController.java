@@ -27,6 +27,8 @@ CommentController {
             @Valid @RequestBody CommentRequestDto requestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         this.tokenValidate(userDetails);
+
+        System.out.println("userDetails.getUser() = " + userDetails.getUser());
         return commentService.createComment(id,requestDto, userDetails.getUser());
     }
 
