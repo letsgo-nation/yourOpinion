@@ -103,7 +103,7 @@
                     <div class="row form-group">
                         <div class="col-md-12" style="width: 95%;text-align: left;">
                             <div>
-                                <span class="text-black h4">닉네임: <label class="text-black h4" th:text="${post.nickname} + ' (' + ${post.username} +')' "></label></span>
+                                <span class="text-black h4">닉네임: <label class="text-black h4" id="userinfo"></label></span>
                             </div>
                             <div style="float:right;">
                                 <label class="text-black h4">작성일자</label> :
@@ -252,12 +252,35 @@
 <script th:inline="javascript">
     $(document).ready(function () {
         const token = Cookies.get('Authorization');
-        console.log(token);
+        // console.log(token);
 
         const postId = [[${post.id}]];
         const nickname = [[${post.nickname}]];
+        const username = [[${post.username}]];
         const commentUrl = "/api/posts/"+ postId + "/comment";
-        console.log(commentUrl);
+        // console.log(commentUrl)
+
+        // username 암호화함수
+        function maskingName() {
+            // console.log(username)
+            if (username.length >= 8) {
+                return (
+                    username.slice(0, 3) +
+                    "*".repeat(Math.max(0, username.length - 5)) +
+                    username.slice(-3)
+                );
+            } else {
+                return (
+                    username.slice(0, 2) +
+                    "*".repeat(Math.max(0, username.length - 3)) +
+                    username.slice(-1)
+                );
+            }
+        }
+
+        const maskedUsername = maskingName(username);
+
+        $('#userinfo').html(nickname +"(" + maskedUsername + ")")
 
         if(token) {
             $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
@@ -277,10 +300,10 @@
 
         const payload = JSON.parse(atob(token.split(".")[1]));
         const loginUsername = payload.sub; // 로그인한 id
-        console.log(loginUsername);
+        // console.log(loginUsername);
 
         const writerUsername = [[${post.username}]];
-        console.log(writerUsername);
+        // console.log(writerUsername);
 
         // 게시글 작성자일 경우
         if (loginUsername === writerUsername) {
