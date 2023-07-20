@@ -14,13 +14,16 @@
 
     <link rel='stylesheet' href="/css/votestyle.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="application/x-javascript"> addEventListener("load", function () {
+
+
+    addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
     }, false);
 
     function hideURLbar() {
         window.scrollTo(0, 1);
     } </script>
+
 
     <!--    Button css-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
@@ -205,7 +208,7 @@
                                 structures, to generate Lorem Ipsum which looks reasonable.</p>
                             <a href="#" class="btn1" id="comEditBtn">수정</a>
                             <a href="" class="btn1" id="comDeleteBtn">삭제</a>
-                            <a href="" class="btn1" id="" >Reply</a>
+                            <a href="" class="btn1" id="replyBtn" >Reply</a>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -234,7 +237,7 @@
                                     <textarea id="InputContent"> </textarea>
                                 </div>
                             </form>
-                            <button class="btn btn-secondary" type="button" onclick="createComment()">댓글 작성</button>
+                            <button class="btn btn-secondary" type="button" id="comCreateBtn">댓글 작성</button>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -251,37 +254,70 @@
 </body>
 
 <script th:inline="javascript">
+    // 게시글 id를 model 객체에서 가져와서 저장.
+    const postId = [[${post.id}]];
+
+    // 게시글 수정 버튼 클릭 시
+    $('#editBtn').click(function () {
+        window.location.href = "/api/post/modify-page/" + postId;
+    });
+
+    // 게시글 삭제 버튼 클릭 시
+    $('#deleteBtn').click(function () {
+        const isConfirmed = confirm("정말로 삭제하시겠습니까?");
+        if(isConfirmed){
+            const url = "/api/posts/" + postId;
+            deletePost(url);
+        }
+    });
+
+    // 댓글 작성 버튼
+    $('#comCreateBtn').click(function() {
+        const commentUrl = "/api/posts/"+ postId + "/comment"; // 댓글 작성 url
+        createComment(commentUrl);
+    })
+
+    // 댓글 수정 버튼 클릭 시
+    $('#comEditBtn').click(function () {
+        commentEdit(); // 함수 만들어야 함. 어떤 댓글인지 id 값이 필요
+    });
+
+    // 댓글 삭제 버튼 클릭 시
+    $('#comDeleteBtn').click(function () {
+        const isConfirmed = confirm("정말로 삭제하시겠습니까?");
+        if(isConfirmed){
+            // const url = window.location.href = "/api/comments/" + commentId;
+            commentDelete(); // 함수 만들어야 함. 어떤 댓글인지 id 값이 필요
+        }
+    });
+
+    // Reply 버튼 클릭 시
+    $('#replyBtn').click(function () {
+        createReply(); // 함수 만들어야 함. 어떤 댓글인지 id 값이 필요
+    });
+
     $(document).ready(function () {
         const token = Cookies.get('Authorization');
-        console.log(token);
-
-        const postId = [[${post.id}]];
-        const nickname = [[${post.nickname}]];
-        const commentUrl = "/api/posts/"+ postId + "/comment";
-        console.log(commentUrl);
 
         if(token) {
             $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
                 jqXHR.setRequestHeader('Authorization', token);
             });
-            getUser(token);
+            displayBtn(token);
         }else {
             console.log('로그인이 안 되어있습니다.');
         }
-
     })
 
-    function getUser(token) {
-        console.log(token);
+
+    // 게시글 삭제, 수정 버튼은 작성자에게만 활성화
+    function displayBtn(token) {
         const editBtn = document.getElementById('editBtn');
         const deleteBtn = document.getElementById('deleteBtn');
 
         const payload = JSON.parse(atob(token.split(".")[1]));
         const loginUsername = payload.sub; // 로그인한 id
-        console.log(loginUsername);
-
-        const writerUsername = [[${post.username}]];
-        console.log(writerUsername);
+        const writerUsername = [[${post.username}]]; // 게시글 작성자
 
         // 게시글 작성자일 경우
         if (loginUsername === writerUsername) {
@@ -295,13 +331,82 @@
         }
     }
 
-    // 게시글 수정하기
-    $.ajax({
-        url: "",
-        type: "",
+    // 게시글 삭제하기
+    function deletePost(url){
+        const token = Cookies.get('Authorization');
 
+        $.ajax({
+            url: url,
+            type: "DELETE",
+            dataType: "json",
+            headers: {              // Http header
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            success: function (data) {
+                Swal.fire({
+                        icon: 'success',
+                        title: '삭제 성공',
+                        text: '게시글 삭제가 성공적으로 완료되었습니다.'
+                    }
+                ).then(function () {
+                    window.location.href = "/";
+                })
+            },
+            error: function (error) {
 
-    })
+                Toast.fire({
+                    icon: 'error',
+                    title: '삭제 실패',
+                    text: '작성자가 맞는지 확인 부탁드립니다.',
+                }).then(function () {
+                    window.location.reload();
+                });
+            }
+        });
+    }
+
+    // 댓글 작성하기
+    function createComment(commentUrl){
+        const token = Cookies.get('Authorization');
+        const commentContent = document.getElementById("InputContent").value();
+
+        console.log("댓글 작성 버튼 클릭 : 내용 -" + commentContent);
+
+        $.ajax({
+            url: commentUrl,
+            type: "POST",
+            dataType: "json",
+            headers: {              // Http header
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            data: JSON.stringify({
+                content: commentContent
+            }),
+            contentType: "application/json",
+            success: function (data) {
+                Swal.fire({
+                        icon: 'success',
+                        title: '작성 성공',
+                        text: '댓글 작성이 성공적으로 완료되었습니다.'
+                    }
+                ).then(function () {
+                    window.location.reload();
+                })
+            },
+            error: function (error) {
+                Toast.fire({
+                    icon: 'error',
+                    title: '작성 오류',
+                    text: '댓글 작성에 실패했습니다. 로그인 후에 시도부탁드립니다.',
+                }).then(function () {
+                    window.location.href = "/api/user/login-page"
+                });
+            }
+        });
+    }
+
 </script>
 </html>
 
