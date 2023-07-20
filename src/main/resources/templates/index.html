@@ -282,9 +282,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
       <li onclick="detailPost(${post.id})">
         <div class="post-info">
           <div class="post-basic-info">
-            <h3><a href="#">${post.title}</a></h3>
+            <h3><a href="#" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${post.title}</a></h3>
             <span><a href="#">작성자:${post.username}</a></span>
-            <p>${post.content}</p>
+            <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${post.content}</p>
           </div>
           <div class="post-info-rate-share">
             <div>
