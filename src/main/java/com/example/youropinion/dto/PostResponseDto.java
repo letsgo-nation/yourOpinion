@@ -19,6 +19,7 @@ public class PostResponseDto {
     private String title;
     private String content;
     private String username;
+    private String userNickname;
     private String opinionA;
     private String opinionB;
     private Long opinionACnt;
@@ -36,6 +37,7 @@ public class PostResponseDto {
         this.opinionACnt = post.getOpinionACnt();
         this.opinionBCnt = post.getOpinionBCnt();
         this.modifiedAt = post.getModifiedAt();
+        this.userNickname= post.getUser().getNickname();
     }
 
     public void setCommentResponseDtoList(List<Comment> sortedCommentList) {

@@ -75,6 +75,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!----//End-dropdown--->
     <!---//End-click-drop-down-menu----->
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
 </head>
 <body>
 <!---start-wrap---->
@@ -82,7 +83,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="header">
     <div class="wrap">
         <div class="logo">
-            <a href="/" id="yourOpinion">너의 이름은.</a>
+            <div class="logo" style="font-family: 'NanumAJumMaJaYu'; bottom: 10px; color: white; font-size: 50px">너의
+                이름은.
+            </div>
         </div>
         <!--    <div class="nav-icon">-->
         <!--      <a href="#" class="right_bt" id="activator"><span> </span> </a>-->
@@ -90,10 +93,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="userinfo">
             <div class="user">
                 <ul>
-                    <li><a href="/api/user/login-page" id="login"><span>로그인&회원가입</span></a></li>
+                    <button type="button" class="btn btn-secondary" id="login" onclick="location.href='/api/user/login-page'">로그인&회원가입</button>
+<!--                    <li><a href="/api/user/login-page" id="login"><span>로그인&회원가입</span></a></li>-->
 
-                    <li><a href="" ><span id="profile"></span></a></li>
-                    <li><a href="#" id="logout" onclick="logout()"><span>로그아웃</span></a></li>
+                    <button type="button" class="btn btn-secondary" id="profile" onclick="location.href='/api/user/profile-page'"></button>
+                    <button type="button" class="btn btn-secondary" id="logout" onclick="logout()">로그아웃</button>
+<!--                    <li><a href="" ><span id="profile"></span></a></li>-->
+<!--                    <li><a href="#" id="logout" onclick="logout()"><span>로그아웃</span></a></li>-->
                 </ul>
             </div>
         </div>
