@@ -49,14 +49,24 @@ public class Post extends Timestamped{
     private List<Comment> commentList = new ArrayList<>();
 
     // Like를 요청하면 Like숫자가 올라감
-    public void upOpinion() {
+    public void increaseOpinionA() {
         this.opinionACnt++;
     }
 
-//    // Like를 요청하면 Like숫자가 내려감
-//    public void downOpinion() {
-//        this.opinionACnt--;
-//    }
+    // Like를 요청하면 Like숫자가 내려감
+    public void decreaseOpinionA() {
+        this.opinionACnt--;
+    }
+
+    // Like를 요청하면 Like숫자가 올라감
+    public void increaseOpinionB() {
+        this.opinionBCnt++;
+    }
+
+    // Like를 요청하면 Like숫자가 내려감
+    public void decreaseOpinionB() {
+        this.opinionBCnt--;
+    }
 
     public Post(PostRequestDto requestDto, User user) {
         this.title = requestDto.getTitle();

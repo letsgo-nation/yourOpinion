@@ -7,14 +7,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "opinion_a_Cnt") // like 테이블 생성
-public class OpinionA {
+@Table(name = "opinion_b_Cnt") // like 테이블 생성
+public class OpinionB {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean opinionA = true;
+    private boolean opinionB = true;
 
     // post_id 관계도, 다대일
     @ManyToOne
@@ -26,8 +26,8 @@ public class OpinionA {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // OpinionA 요청 시, user, post 요청
-    public OpinionA(User user, Post post) {
+    // OpinionB 요청 시, user, post 요청
+    public OpinionB(User user, Post post) {
         setUser(user);
         setPost(post);
     }
@@ -42,13 +42,12 @@ public class OpinionA {
         this.post = post;
     }
 
-//    OpinionA 여부
+    //    OpinionB 여부
     public void changeOpinion() {
-        if(this.opinionA){
-            this.opinionA = false;
+        if(this.opinionB){
+            this.opinionB = false;
         }else {
-            this.opinionA = true;
+            this.opinionB = true;
         }
     }
-
 }
