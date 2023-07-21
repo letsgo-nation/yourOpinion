@@ -18,6 +18,17 @@
     <link rel="stylesheet" href="/css/postWrite/bootstrap.min.css">
     <link rel="stylesheet" href="/css/postWrite/style.css">
 
+<!--    구글 폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Jua', sans-serif;
+        }
+    </style>
+
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -35,12 +46,12 @@
                     <form class="p-8 bg-white">
                         <div class="row mb-5">
                             <div class="col-12 text-center">
-                                <h2 class="site-section-heading" style="margin-top: 20px;">투표 작성</h2>
+                                <h2 class="site-section-heading" style="margin-top: 20px; font-family: 'Jua', sans-serif;">투표 수정</h2>
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <label class="text-black h4">작성자</label> :
+                                <label class="text-black h4" style="font-family: 'Jua', sans-serif;">작성자</label> :
                                 <label class="text-black h4" id="username"></label>
                             </div>
                         </div>
@@ -49,11 +60,13 @@
                         <div class="row form-group" style="margin-left: 20px;">
                             <div class="col-md-6 mb-3 mb-md-0">
                                 <label class="text-black">First Option</label>
-                                <input type="text" id="opinionA" placeholder="첫번째 투표" th:value="${info_post.opinionA}" class="form-control">
+                                <input type="text" id="opinionA" placeholder="첫번째 투표" th:value="${info_post.opinionA}"
+                                       class="form-control" style="font-family: 'Jua', sans-serif;">
                             </div>
                             <div class="col-md-6">
                                 <label class="text-black">Last Option</label>
-                                <input type="text" id="opinionB" placeholder="두번째 투표" th:value="${info_post.opinionB}" class="form-control">
+                                <input type="text" id="opinionB" placeholder="두번째 투표" th:value="${info_post.opinionB}"
+                                       class="form-control" style="font-family: 'Jua', sans-serif;">
                             </div>
                         </div>
 
@@ -61,7 +74,8 @@
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <label class="text-black">제목</label>
-                                <input type="text" id="title" th:value="${info_post.title}" class="form-control">
+                                <input type="text" id="title" th:value="${info_post.title}"
+                                       class="form-control" style="font-family: 'Jua', sans-serif;">
                             </div>
                         </div>
 
@@ -70,7 +84,8 @@
                             <div class="col-md-12">
                                 <label class="text-black">내용</label>
                                 <textarea id="content" cols="30" rows="7" class="form-control"
-                                          placeholder="Write your contents" th:text="${info_post.content}"></textarea>
+                                          placeholder="Write your contents" th:text="${info_post.content}"
+                                          style="font-family: 'Jua', sans-serif;"></textarea>
                             </div>
                         </div>
 

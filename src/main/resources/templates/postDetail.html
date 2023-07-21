@@ -99,7 +99,7 @@
 </div>
 <!---//End-header---->
 <!---start-content---->
-<div class="content" style="background: url('https://images3.alphacoders.com/764/764967.png');">
+<div class="content" style="background: url('https://images3.alphacoders.com/764/764967.png') rgba(0,0,0,0);">
     <div class="wrap">
         <div class="single-page">
             <div class="single-page-artical">
@@ -199,10 +199,12 @@
                             <h2>Comments</h2>
                             <div class="grid1_of_2">
                                 <div class="grid_text">
-                            <h4 class="style1 list" th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
+                                    <h4 class="style1 list"
+                                        th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
                                     <h3 class="style" style="margin-top:0px;"
-                                th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 -
-                                4.00 PM</h3>
+                                        th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3,
+                                        2013 -
+                                        4.00 PM</h3>
                                     <p class="para top"
                                        th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
                                         All the Lorem Ipsum generators on the Internet tend to repeat
@@ -222,11 +224,12 @@
                                     <h4 class="style1 list"
                                         th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
                                     <h3 class="style" style="margin-top:0px;"
-                                th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 -
-                                4.00 PM</h3>
+                                        th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3,
+                                        2013 -
+                                        4.00 PM</h3>
                                     <p class="para top"
                                        th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
-                                All the Lorem Ipsum generators on the Internet tend to repeat
+                                        All the Lorem Ipsum generators on the Internet tend to repeat
                                         predefined chunks as necessary, making this the first true generator on the
                                         Internet. It
                                         uses a dictionary of over 200 Latin words, combined with a handful of model
@@ -234,7 +237,7 @@
                                         structures, to generate Lorem Ipsum which looks reasonable.</p>
                                     <a href="#" class="btn1" id="comEditBtn">수정</a>
                                     <a href="" class="btn1" id="comDeleteBtn">삭제</a>
-                            <a href="" class="btn1" id="replyBtn">Reply</a>
+                                    <a href="" class="btn1" id="replyBtn">Reply</a>
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -275,10 +278,12 @@
                 </div>
             </div>
         </div>
-        <!----start-footer--->
-        <div class="footer">
-            <p>Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-        </div>
+    </div>
+    <!----start-footer--->
+    <div class="footer">
+        <p>Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+    </div>
+</div>
 </body>
 
 <script th:inline="javascript">
@@ -429,7 +434,7 @@
 
     const maskedUsername = maskingName(username);
 
-    $('#userinfo').text(nickname + " (" + maskedUsername +")");
+    $('#userinfo').text(nickname + " (" + maskedUsername + ")");
 
 
     // 게시글 삭제, 수정 버튼은 작성자에게만 활성화
