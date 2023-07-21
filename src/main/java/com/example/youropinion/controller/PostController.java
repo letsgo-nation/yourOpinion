@@ -52,6 +52,11 @@ public class PostController {
         return "postDetail";
     }
 
+    @GetMapping("/view")
+    public String getUser() {
+        return "profile";
+    }
+
     // 게시글 수정 페이지 보여주기
     @GetMapping("/post/modify-page/{id}")
     public String modifyPost(Model model,  @PathVariable Long id)

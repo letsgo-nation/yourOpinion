@@ -45,9 +45,18 @@ public class Post extends Timestamped{
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-
     @OneToMany( mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
+
+    // Like를 요청하면 Like숫자가 올라감
+    public void upOpinion() {
+        this.opinionACnt++;
+    }
+
+//    // Like를 요청하면 Like숫자가 내려감
+//    public void downOpinion() {
+//        this.opinionACnt--;
+//    }
 
     public Post(PostRequestDto requestDto, User user) {
         this.title = requestDto.getTitle();
