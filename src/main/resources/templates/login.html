@@ -15,8 +15,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
   <title>로그인 / 회원가입 페이지</title>
-  <script src="/js/login.js"></script>
-
   <style>
     * {
       font-family: 'Jua', sans-serif;
@@ -64,22 +62,23 @@
   </div>
 </div>
 </body>
-<script>
-  const signInBtn = document.getElementById("signIn");
-  const signUpBtn = document.getElementById("signUp");
-  const fistForm = document.getElementById("form1");
-  const secondForm = document.getElementById("form2");
-  const container = document.querySelector(".container");
-
-  signInBtn.addEventListener("click", () => {
-    container.classList.remove("right-panel-active");
-  });
-
-  signUpBtn.addEventListener("click", () => {
-    container.classList.add("right-panel-active");
-  });
-
-  fistForm.addEventListener("submit", (e) => e.preventDefault());
-  secondForm.addEventListener("submit", (e) => e.preventDefault());
-</script>
+<!--<script>-->
+<!--  // const signInBtn = document.getElementById("signIn");-->
+<!--  // const signUpBtn = document.getElementById("signUp");-->
+<!--  // const fistForm = document.getElementById("form1");-->
+<!--  // const secondForm = document.getElementById("form2");-->
+<!--  // const container = document.querySelector(".container");-->
+<!--  //-->
+<!--  // signInBtn.addEventListener("click", () => {-->
+<!--  //   container.classList.remove("right-panel-active");-->
+<!--  // });-->
+<!--  //-->
+<!--  // signUpBtn.addEventListener("click", () => {-->
+<!--  //   container.classList.add("right-panel-active");-->
+<!--  // });-->
+<!--  //-->
+<!--  // fistForm.addEventListener("submit", (e) => e.preventDefault());-->
+<!--  // secondForm.addEventListener("submit", (e) => e.preventDefault());-->
+<!--</script>-->
+<script src="/js/login.js"></script>
 </html>
