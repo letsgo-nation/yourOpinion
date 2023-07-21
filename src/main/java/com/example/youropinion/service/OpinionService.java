@@ -26,12 +26,17 @@ public class OpinionService {
     // OpinionA 추가
     @Transactional
     public OpinionResponseDto increaseOpinionA(Long id, User user) {
-
         // postRepository에서 user Id를 찾는 메소드
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
                 // User가 좋아요를 누른 게시물이 존재하는지 확인. 존재하지 않을 경우, IllegalArgumentException를 던진다.
         );
+
+        // 옵션 중복 투표 방지
+        Optional<OpinionB> opinionB = opinionBRepository.findByUserAndPost(user, post);
+        if(opinionB.isPresent()) {
+            throw new IllegalArgumentException("다른 옵션에 이미 투표하였습니다.");
+        }
 
         // Optional: 단 건 조회를 할 때 쓰인다.
         Optional<OpinionA> checkUserAndPost = opinionARepository.findByUserAndPost(user, post);
@@ -58,7 +63,7 @@ public class OpinionService {
         return new OpinionResponseDto("Opinion A을 선택하였습니다.", 200);
     }
 
-    //        OpinionA 취소
+    //  OpinionA 취소
     @Transactional
     public OpinionResponseDto decreaseOpinionA(Long id, User user) {
         // postRepository에서 user Id를 찾는 메소드
@@ -91,12 +96,17 @@ public class OpinionService {
     // OpinionB 추가
     @Transactional
     public OpinionResponseDto increaseOpinionB(Long id, User user) {
-
         // postRepository에서 user Id를 찾는 메소드
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
                 // User가 좋아요를 누른 게시물이 존재하는지 확인. 존재하지 않을 경우, IllegalArgumentException를 던진다.
         );
+
+        // 옵션 중복 투표 방지
+        Optional<OpinionA> opinionA = opinionARepository.findByUserAndPost(user, post);
+        if(opinionA.isPresent()) {
+            throw new IllegalArgumentException("다른 옵션에 이미 투표하였습니다.");
+        }
 
         // Optional: 단 건 조회를 할 때 쓰인다.
         Optional<OpinionB> checkUserAndPost = opinionBRepository.findByUserAndPost(user, post);
