@@ -14,8 +14,8 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/test")
+    @GetMapping("/child")
     public String single() {
-        return "test";
+        return "child";
     }
 }
