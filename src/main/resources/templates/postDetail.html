@@ -5,7 +5,8 @@
     <link rel="shortcut icon" href="#">
 
     <!-- ajax , cookies 사용 lib -->
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <!-- ajax , cookies 사용 lib -->
 
@@ -26,7 +27,6 @@
     function hideURLbar() {
         window.scrollTo(0, 1);
     } </script>
-
 
     <!--    Button css-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
@@ -192,7 +192,6 @@
                     <!---start-comments-section--->
                     <div class="comment-section">
                         <div class="grids_of_2">
-                            <br/><br/><br/><br/><br/><hr/>
                             <h2>Comments</h2>
                             <div class="grids_of_2" id="comment">
 
@@ -227,8 +226,8 @@
         </div>
     </div>
 </div>
-        <!----//End-footer--->
-        <!---//End-wrap---->
+<!----//End-footer--->
+<!---//End-wrap---->
 </body>
 
 <script th:inline="javascript">
@@ -306,6 +305,7 @@
                 jqXHR.setRequestHeader('Authorization', token);
             });
             getUser(token);
+            displayBtn(token);
         } else {
             console.log('로그인이 안 되어있습니다.');
         }
@@ -315,7 +315,7 @@
         const nickname = [[${post.nickname}]];
         const username = [[${post.username}]];
         const commentUrl = "/api/posts/" + postId + "/comment";
-        // console.log(commentUrl)
+        // // console.log(commentUrl)
 
         //아이디 암호화 함수
         function maskingName() {
@@ -339,16 +339,7 @@
 
         $('#userinfo').html(nickname + "(" + maskedUsername + ")")
 
-        if (token) {
-            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-                jqXHR.setRequestHeader('Authorization', token);
-            });
-            displayBtn(token);
-        } else {
-            console.log('로그인이 안 되어있습니다.');
-        }
     })
-
 
     function maskingName(username) {
         if (username.length >= 8) {
@@ -371,14 +362,16 @@
     $('#userinfo').text(nickname + " (" + maskedUsername + ")");
 
 
-    // 게시글 삭제, 수정 버튼은 작성자에게만 활성화
-    function displayBtn(token) {
+    function getUser(token) {
+        // console.log(token);
         const editBtn = document.getElementById('editBtn');
         const deleteBtn = document.getElementById('deleteBtn');
 
         const payload = JSON.parse(atob(token.split(".")[1]));
         const loginUsername = payload.sub; // 로그인한 id
-        const writerUsername = [[${post.username}]]; // 게시글 작성자
+
+        const writerUsername = [[${post.username}]];
+        // console.log(writerUsername);
 
         $('#loginUserName').text(loginUsername)
 
@@ -426,6 +419,12 @@
             }
         });
     }
+
+
+    /*    function getLoginUser(token) {
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            return payload.sub; // 로그인한 id
+        }*/
 
 
     function getLoginUser(token) {
@@ -484,6 +483,8 @@
                 $('#comment').append(temp_html);
                 $('#userComment').val('');
 
+                window.location.href = `/api/post/detail-page/${post.id}`;
+
             })
             .fail(function (jqXHR, textStatus) {
 
@@ -510,20 +511,29 @@
 
     function updateComment(id) {
 
-        //비우고
-        const node = document.getElementById(`${id}`);
-        console.log(node, "id : ", id);
-        node.remove();
-
         //다시 불러오기
         $.ajax({
             type: "GET",
             url: `/api/post/detail-page/${post.id}`,
             contentType: "application/json",
         })
-            .done(function (response, status, xhr) {
-                for (var i = 0; i < post['commentResponseDtoList'].length; i++) {
-                    if (post['commentResponseDtoList'][i].id == id) {
+            .done(function (response, status, xhr ) {
+
+                for(var i = 0; i<post['commentResponseDtoList'].length;i++){
+
+
+                    if(post['commentResponseDtoList'][i].id == id){
+
+                        //작성자 확인
+                        if(`${post.username}` != `${post['commentResponseDtoList'][i].username}`){
+                            alert("작성자가 아닙니다.");
+                            window.location.href = `/api/post/detail-page/${post.id}`;
+                        }
+
+                        //비우기
+                        const node = document.getElementById(`${id}`);
+                        node.remove();
+
                         let temp_html =
                             `  <div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}" >
                                     <div class="grid_img">
@@ -543,13 +553,15 @@
                     }
 
                 }
+
+
             })
             .fail(function (jqXHR, textStatus) {
 
             });
     }
 
-    function update(id,value){
+    function update(id, value) {
 
         $.ajax({
             type: "PUT",
