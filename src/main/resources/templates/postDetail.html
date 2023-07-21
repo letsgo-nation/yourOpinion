@@ -180,14 +180,10 @@
                         <h2>Leave a Comment</h2>
                         <div class="table-form">
                             <form action="#" method="post" name="post_comment">
-<!--                                <div>-->
-<!--                                    <label>Name<span>*</span></label>-->
-<!--                                    <input type="text" value=" ">-->
-<!--                                </div>-->
-<!--                                <div>-->
-<!--                                    <label>Email<span>*</span></label>-->
-<!--                                    <input type="text" value=" ">-->
-<!--                                </div>-->
+                                <div>
+                                    <label>Name<span>*</span></label>
+                                    <h4 id="loginUserName"></h4>
+                                </div>
                                 <div>
                                     <label>Your Comment<span>*</span></label>
                                     <textarea id="userComment" name="content"> </textarea>
@@ -258,16 +254,17 @@
 
 
         function getUser(token) {
-            console.log(token);
+            // console.log(token);
             const editBtn = document.getElementById('editBtn');
             const deleteBtn = document.getElementById('deleteBtn');
 
             const payload = JSON.parse(atob(token.split(".")[1]));
             const loginUsername = payload.sub; // 로그인한 id
-            // console.log(loginUsername);
 
             const writerUsername = [[${post.username}]];
             // console.log(writerUsername);
+
+            $('#loginUserName').text(loginUsername)
 
             // 게시글 작성자일 경우
             if (loginUsername === writerUsername) {
@@ -281,71 +278,147 @@
             }
         }
 
+        function getLoginUser(token){
+            const payload = JSON.parse(atob(token.split(".")[1]));
+           return payload.sub; // 로그인한 id
+        }
 
 
-    const id = [[${post}]];
 
-    $.ajax({
-        url: `/api/posts/${id.id}`,
-        type: "GET",
-        dataType: "json",
-        success: function (response) {
+    const post = [[${post}]];
+    console.log("post",post);
 
-            for( var i =0;  i < response['result']['commentResponseDtoList'].length; i++){
-
-                let temp_html =
-                    `  <div class="grid1_of_2">
+    for( var i =0;  i < post['commentResponseDtoList'].length; i++){
+        let temp_html =
+                `<div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}">
                             <div class="grid_img">
                                 <a href=""><img src="" alt=""></a>
                             </div>
                             <div class="grid_text">
-                                <h4 class="style1 list"><a href="#">username</a></h4>
-                                <h3 class="style">${response['result']['commentResponseDtoList'][i].modifiedAt}</h3>
-                                <p class="para top"> ${response['result']['commentResponseDtoList'][i].content}</p>
-                                <a href="" class="btn1">Click to Reply</a>
+                                <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
+                                <h3 class="style">${post['commentResponseDtoList'][i].modifiedAt}</h3>
+                                <p class="para top"> ${post['commentResponseDtoList'][i].content}</p>
+                                <a class="btn1" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
+                                <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
                             </div>
                             <div class="clear"></div>
-                        </div>`;
+                 </div>`;
 
-                $('#comment').append(temp_html);
-            }
-
-        },
-        error: function (error) {
-            console.log("fail");
-        },
-    });
-
+        $('#comment').append(temp_html);
+    }
     function insert(){
 
         $.ajax({
             type: "POST",
-            url: `/api/posts/${id.id}/comment`,
+            url: `/api/posts/${post.id}/comment`,
             contentType: "application/json",
             data: JSON.stringify({content: $('#userComment').val()}),
         })
             .done(function (response, status, xhr) {
-                console.log(response['result'])
+                console.log("resultL",response['result']);
                 let temp_html =
-                    `  <div class="grid1_of_2">
+                    `  <div class="grid1_of_2" id="${response['result'].id}" >
                             <div class="grid_img">
                                 <a href=""><img src="" alt=""></a>
                             </div>
                             <div class="grid_text">
-                                <h4 class="style1 list"><a href="#">username</a></h4>
+                                <h4 class="style1 list"><a href="#">${response['result'].username}</a></h4>
                                 <h3 class="style">${response['result'].modifiedAt}</h3>
                                 <p class="para top"> ${response['result'].content}</p>
-                                <a href="" class="btn1">Click to Reply</a>
+                                <a class="btn1" onclick="updateComment(${response['result'].id})">수정</a>
+                                <a class="btn1" onclick="deleteComment(${response['result'].id})">삭제</a>
                             </div>
                             <div class="clear"></div>
                         </div>`;
 
                 $('#comment').append(temp_html);
+                $('#userComment').val('');
+
             })
             .fail(function (jqXHR, textStatus) {
 
             });
     }
+    function deleteComment(id){
+
+        $.ajax({
+            type: "DELETE",
+            url: `/api/comments/${id}`,
+            contentType: "application/json",
+        })
+            .done(function (response, status, xhr) {
+                    alert("삭제완료")
+                window.location.href = `/api/post/detail-page/${post.id}`;
+            })
+            .fail(function (jqXHR, textStatus) {
+                    alert("작성자가 다릅니다.")
+                window.location.href = `/api/post/detail-page/${post.id}`;
+            });
+    }
+
+
+    function updateComment(id){
+
+        //비우고
+        const node = document.getElementById(`${id}`);
+        console.log(node,"id : ",id);
+        node.remove();
+
+        //다시 불러오기
+        $.ajax({
+            type: "GET",
+            url: `/api/post/detail-page/${post.id}`,
+            contentType: "application/json",
+        })
+            .done(function (response, status, xhr ) {
+                for(var i = 0; i<post['commentResponseDtoList'].length;i++){
+                    if(post['commentResponseDtoList'][i].id == id){
+                        let temp_html =
+                            `  <div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}" >
+                                    <div class="grid_img">
+                                        <a href=""><img src="" alt=""></a>
+                                    </div>
+                                    <div class="grid_text">
+                                        <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
+                                        <h3 class="style">${post['commentResponseDtoList'][i].modifiedAt}"</h3>
+                                        <p class="para top"><input id="input" value="${post['commentResponseDtoList'][i].content}"/></p>
+                                        <a class="btn1" onclick="update(${post['commentResponseDtoList'][i].id}, $('#input').val())">수정</a>
+                                        <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>`;
+
+                        $('#comment').append(temp_html);
+                    }
+
+                }
+
+
+            })
+            .fail(function (jqXHR, textStatus) {
+
+            });
+    }
+
+    function update(id,value){
+
+        $.ajax({
+            type: "PUT",
+            url: `/api/comments/${id}`,
+            contentType: "application/json",
+            data: JSON.stringify({content: value}),
+        })
+            .done(function (response, status, xhr) {
+                alert("수정완료")
+                window.location.href = `/api/post/detail-page/${post.id}`;
+            })
+            .fail(function (jqXHR, textStatus) {
+                alert("작성자가 다릅니다.")
+                window.location.href = `/api/post/detail-page/${post.id}`;
+            });
+
+    }
+
 
 </script>
 </html>
