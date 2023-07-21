@@ -110,8 +110,7 @@
                         <div class="col-md-12" style="width: 95%;text-align: left;">
                             <div>
                                 <label class="text-black h4">작성자</label> :
-                                <label class="text-black h4"
-                                       th:text="${post.nickname} + ' (' + ${post.username} +')' "></label>
+                                <label id="userinfo" class="text-black h4"></label>
                             </div>
                             <div style="float:right;">
                                 <label class="text-black h4">작성일자</label> :
@@ -148,8 +147,9 @@
                                                                 class="btn btn-default btn-lg btn-block"><span
                                                                 th:text="${post.opinionA}"></span></button>
                                                         <button type="button"
-                                                                class="btn btn-default btn-lg btn-block"><span
-                                                                th:text="${post.opinionACnt}"></span></button>
+                                                                class="btn btn-default btn-lg btn-block">
+                                                            <span>투표</span>
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 text-center">
@@ -168,8 +168,9 @@
                                                                 class="btn btn-default btn-lg btn-block"><span
                                                                 th:text="${post.opinionB}"></span></button>
                                                         <button type="button"
-                                                                class="btn btn-default btn-lg btn-block"><span
-                                                                th:text="${post.opinionBCnt}"></span></button>
+                                                                class="btn btn-default btn-lg btn-block">
+                                                            <span>투표</span>
+                                                        </button>
 
                                                     </div>
                                                 </div>
@@ -261,7 +262,7 @@
                                     <form action="#" method="post" name="post_comment">
                                         <div>
                                             <label>Name<span>*</span></label>
-                                            <h4 th:text="${post.nickname}"></h4>
+                                            <h4 class="commentNickname"></h4>
                                         </div>
                                         <div>
                                             <label>Your Comment<span>*</span></label>
@@ -292,6 +293,9 @@
     const nickname = [[${post.nickname}]];
     const username = [[${post.username}]];
 
+    const logininfo = [[${post}]];
+    console.log(logininfo)
+
     //투표시 게이지와 퍼센트 반영 시작
     const opinionA = [[${post.opinionACnt}]];
     const opinionB = [[${post.opinionBCnt}]];
@@ -313,8 +317,8 @@
     // console.log(opinionPercentB)
 
     // NaN 검사 후 표시
-    $('#opinionPercentA').text(isNaN(opinionPercentA) ? "투표를 시작하세요!" : opinionPercentA + "%");
-    $('#opinionPercentB').text(isNaN(opinionPercentB) ? "투표를 시작하세요!" : opinionPercentB + "%");
+    $('#opinionPercentA').text(isNaN(opinionPercentA) ? "투표를 시작하세요!" : "투표수: " + opinionA + "개(" + opinionPercentA + "%" + ")");
+    $('#opinionPercentB').text(isNaN(opinionPercentB) ? "투표를 시작하세요!" : "투표수: " + opinionB + "개(" + opinionPercentB + "%" + ")");
 
     // 게이지 업데이트
     // $('#progressA').css('width', opinionPercentA + "%");
@@ -332,7 +336,49 @@
         $('#progressBdiv').show();
         $('#progressB').css('width', opinionPercentB + "%");
     }
-    //꿑
+
+    $(document).ready(function () {
+        const token = Cookies.get('Authorization');
+        if (token) {
+            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+                jqXHR.setRequestHeader('Authorization', token);
+            });
+        }
+        console.log(token)
+        // JWT 토큰 디코딩하여 페이로드 추출
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        console.log(payload)
+
+        // 예시 {sub: 'qw12345611', auth: 'USER', exp: 1689745728, iat: 1689742128}
+        // 그중 username을 추출해야하니 sub를 가져옴. 만약 관리자 확인이면 auth를 가져올듯.
+        const userid = payload.sub;
+
+        console.log(userid)
+
+        $.ajax({
+            url: "/api/profile",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                // 서버로부터 받은 데이터를 처리하는 로직을 작성합니다.
+                // 예시: 프로필 정보를 표시하는 함수 호출
+                // console.log(data)
+                const nickname = data['proFileResponseDto']['nickname']; // 실제 사용자 ID값 가져오기
+                $('.commentNickname').text(nickname);
+
+            },
+            error: function (error) {
+                console.error("프로필 정보를 가져오는 데 실패했습니다.", error);
+                Toast.fire({
+                    icon: 'error',
+                    title: '토큰 오류',
+                    text: '프로필 정보를 가져오는 데 실패했습니다.',
+                }).then(function () {
+                    window.location.href = "/"
+                });
+            }
+        });
+    })
 
     // 게시글 수정 버튼 클릭 시
     $('#editBtn').click(function () {
