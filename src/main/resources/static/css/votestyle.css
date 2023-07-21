@@ -36,14 +36,24 @@ body{
 }
 
 .voteBack{
-	z-index: 1;
-	background: url("https://lh3.google.com/u/0/d/1bnj0x3r9bVOVwdcGFtDpb4xGaeKJYQGS=w2560-h961-iv1");
+	position: relative; /* ::before 가상 요소의 위치를 상대적으로 설정하기 위해 필요합니다. */
+	background-image: url("https://lh3.google.com/u/0/d/1bnj0x3r9bVOVwdcGFtDpb4xGaeKJYQGS=w2560-h961-iv1");
+	z-index: 1; /* 배경 이미지를 위로 가져옵니다. */
 }
+/* 배경 이미지만 투명도를 주기 위한 CSS */
+.voteBack::before{
+	content: ""; /* 가상 요소를 생성하기 위해 content 속성을 추가합니다. */
+	width: 100%; /* ::before 가상 요소의 가로 너비를 100%로 설정합니다. */
+	height: 100%;
+	position: absolute; /* 가상 요소의 위치를 조절하기 위해 절대적으로 설정합니다. */
+	background-color: rgba(0, 0, 0, 0.2); /* 배경 이미지 위에 투명한 검은색 레이어를 덮습니다. */
+	z-index: -1; /* 가상 요소를 배경 이미지 뒤로 보냅니다. */
+}
+
 /*---start-header----*/
 .header{
 	background: url("https://images3.alphacoders.com/764/764967.png") repeat-x 0px 0px #FFF;
 	padding: 1.5em 0 1.2em;
-	/*border-bottom: 1px solid rgba(214, 213, 212, 0.64);*/
 	position: fixed;
 	width: 100%;
 	top: 0;
