@@ -354,9 +354,10 @@ h3.style {
 p.para {
 	font-size:0.875em;
 	color: #B7B5B5;
-	margin: 0.6em 0;
+	/*margin: 0.6em 0;*/
 	line-height: 1.8em;
 	font-weight: 400;
+	text-align: left;
 }
 .grids_of_2 h2 {
 	font:400 30px/28px 'Open Sans', sans-serif;
