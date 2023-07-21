@@ -9,10 +9,6 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <!-- ajax , cookies 사용 lib -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
     <!--    alert 창 import-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -43,10 +39,6 @@
     <!----//End-dropdown--->
 
     <style>
-        body {
-            font-family: 'Jua', sans-serif;
-        }
-
         a.list-group-item {
             height: auto;
             min-height: 220px;
@@ -115,7 +107,8 @@
                         <div class="col-md-12" style="width: 95%;text-align: left;">
                             <div>
                                 <label class="text-black h4">작성자</label> :
-                                <label id="userinfo" class="text-black h4"></label>
+                                <label class="text-black h4"
+                                       th:text="${post.nickname} + ' (' + ${post.username} +')' "></label>
                             </div>
                             <div style="float:right;">
                                 <label class="text-black h4">작성일자</label> :
@@ -275,8 +268,6 @@
 <script th:inline="javascript">
     // 게시글 id를 model 객체에서 가져와서 저장.
     const postId = [[${post.id}]];
-    const nickname = [[${post.nickname}]];
-    const username = [[${post.username}]];
 
     //투표시 게이지와 퍼센트 반영 시작
     const opinionA = [[${post.opinionACnt}]];
@@ -371,27 +362,6 @@
             console.log('로그인이 안 되어있습니다.');
         }
     })
-
-
-    function maskingName(username) {
-        if (username.length >= 8) {
-            return (
-                username.slice(0, 3) +
-                "*".repeat(Math.max(0, username.length - 5)) +
-                username.slice(-3)
-            );
-        } else {
-            return (
-                username.slice(0, 2) +
-                "*".repeat(Math.max(0, username.length - 3)) +
-                username.slice(-1)
-            );
-        }
-    }
-
-    const maskedUsername = maskingName(username);
-
-    $('#userinfo').text(nickname + " (" + maskedUsername +")");
 
 
     // 게시글 삭제, 수정 버튼은 작성자에게만 활성화
