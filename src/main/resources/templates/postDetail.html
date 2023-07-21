@@ -9,19 +9,22 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
     <!-- ajax , cookies 사용 lib -->
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
     <!--    alert 창 import-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <link rel='stylesheet' href="/css/votestyle.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-    addEventListener("load", function () {
-    setTimeout(hideURLbar, 0);
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
     }, false);
 
     function hideURLbar() {
-    window.scrollTo(0, 1);
+        window.scrollTo(0, 1);
     } </script>
 
 
@@ -39,6 +42,10 @@
     <!----//End-dropdown--->
 
     <style>
+        body {
+            font-family: 'Jua', sans-serif;
+        }
+
         a.list-group-item {
             height: auto;
             min-height: 220px;
@@ -81,22 +88,18 @@
 
 </head>
 
-<body>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 <div class="header">
+    <button type="button" class="btn btn-secondary" onclick="location.href='/'" style="margin: 20px;">
+        Back
+    </button>
     <div class="wrap">
-
-        <div class="logo">
-            <button type="button" class="btn btn-secondary" onclick="location.href='/'" style="margin: 20px;">
-                Back
-            </button>
-        </div>
-
         <div class="clear"></div>
     </div>
 </div>
 <!---//End-header---->
 <!---start-content---->
-<div class="content" style="background: url('https://images3.alphacoders.com/764/764967.png');">
+<div class="content" style="background: url('https://images3.alphacoders.com/764/764967.png') rgba(0,0,0,0);">
     <div class="wrap">
         <div class="single-page">
             <div class="single-page-artical">
@@ -121,153 +124,173 @@
                     <div>
                         <div class="container bootstrap snippets bootdey" style="width: 100%;">
                             <div class="row">
-                                <div class="well">
-                                    <h1 class="text-center text-primary">
-                                        <b><span th:text="${post.title}"></span></b>
-                                    </h1>
-                                    <br/>
-                                    <p class="txt-center" th:text="${post.content}"></p>
+                                <div class="voteBack">
+                                    <div class="well" style="background-color: unset; border:0px;">
+                                        <h1 class="text-center">
+                                            <b><span th:text="${post.title}" style="color: #ffffff;"></span></b>
+                                        </h1>
+                                        <br/>
+                                        <p class="txt-center" th:text="${post.content}"></p>
 
-                                    <div class="list-group">
-                                        <a href="#" class="list-group-item">
-                                            <div class="col-md-3">
-                                                <p id="opinionPercentA" class="txt-center"></p>
-                                                <div id="progressAdiv" class="progress">
-                                                    <div id="progressA"
-                                                         class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                                                         role="progressbar" style="width: 0%;" aria-valuenow="0"
-                                                         aria-valuemin="0" aria-valuemax="100" ></div>
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item"
+                                               style="background: rgba(0,0,0,0); border:0px;">
+                                                <div class="col-md-3">
+                                                    <p id="opinionPercentA" class="txt-center"></p>
+                                                    <div id="progressAdiv" class="progress">
+                                                        <div id="progressA"
+                                                             class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                                                             role="progressbar" style="width: 0%;" aria-valuenow="0"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <div class="media col-md-12">
+                                                        <button type="button"
+                                                                class="btn btn-default btn-lg btn-block"><span
+                                                                th:text="${post.opinionA}"></span></button>
+                                                        <button type="button"
+                                                                class="btn btn-default btn-lg btn-block"><span
+                                                                th:text="${post.opinionACnt}"></span></button>
+                                                    </div>
                                                 </div>
-                                                <div class="media col-md-12">
-                                                    <button type="button" class="btn btn-default btn-lg btn-block"><span
-                                                            th:text="${post.opinionA}"></span></button>
-                                                    <button type="button" class="btn btn-default btn-lg btn-block"><span
-                                                            th:text="${post.opinionACnt}"></span></button>
+                                                <div class="col-md-6 text-center">
+                                                    <h1 class="vs-title">VS</h1>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <p id="opinionPercentB" class="txt-center"></p>
+                                                    <div id="progressBdiv" class="progress">
+                                                        <div id="progressB"
+                                                             class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+                                                             role="progressbar" style="width: 0%;" aria-valuenow="0"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <div class="media col-md-12">
+                                                        <button type="button"
+                                                                class="btn btn-default btn-lg btn-block"><span
+                                                                th:text="${post.opinionB}"></span></button>
+                                                        <button type="button"
+                                                                class="btn btn-default btn-lg btn-block"><span
+                                                                th:text="${post.opinionBCnt}"></span></button>
 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 text-center">
-                                                <h1 class="vs-title">VS</h1>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <p id="opinionPercentB" class="txt-center"></p>
-                                                <div id="progressBdiv" class="progress">
-                                                    <div id="progressB"
-                                                         class="progress-bar progress-bar-striped progress-bar-animated bg-info"
-                                                         role="progressbar" style="width: 0%;" aria-valuenow="0"
-                                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <div class="media col-md-12">
-                                                    <button type="button" class="btn btn-default btn-lg btn-block"><span
-                                                            th:text="${post.opinionB}"></span></button>
-                                                    <button type="button" class="btn btn-default btn-lg btn-block"><span
-                                                            th:text="${post.opinionBCnt}"></span></button>
-
-                                                </div>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div style="width: 50%;">
-                                    <button type="button" class="btn btn-secondary" id="editBtn"
-                                            style="margin-left: 20px;float: right;">수정
-                                    </button>
-                                    <button type="button" class="btn btn-secondary" id="deleteBtn"
-                                            style="margin-left: 20px;float: right;">삭제
-                                    </button>
+                                    <div style="width: 57%;">
+                                        <button type="button" class="btn btn-secondary" id="editBtn"
+                                                style="margin-left: 20px;float: right; margin-bottom: 10px;">수정
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" id="deleteBtn"
+                                                style="margin-left: 20px;float: right; margin-bottom: 10px;">삭제
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="clear"></div>
-            </div>
-            <!---start-comments-section--->
-            <br/><br/><br/><br/><br/>
+                        <div class="clear"></div>
+                    </div>
+                    <!---start-comments-section--->
+                    <br/><br/><br/><br/><br/>
 
-            <div class="comment-section" style="padding:30px;">
-                <div class="grids_of_2">
-                    <hr style="border-top: 1px solid #000;">
-                    <h2>Comments</h2>
-                    <div class="grid1_of_2">
-                        <div class="grid_text">
-                            <h4 class="style1 list" th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
-                            <h3 class="style" style="margin-top:0px;"
-                                th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 -
-                                4.00 PM</h3>
-                            <p class="para top" th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
-                                All the Lorem Ipsum generators on the Internet tend to repeat
-                                predefined chunks as necessary, making this the first true generator on the Internet. It
-                                uses a dictionary of over 200 Latin words, combined with a handful of model sentence
-                                structures, to generate Lorem Ipsum which looks reasonable.</p>
-                            <a href="#" class="btn1">수정</a>
-                            <a href="#" class="btn1">삭제</a>
-                            <a href="" class="btn1">Reply</a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="grid1_of_2 left">
-                        <div class="grid_text">
-                            <h4 class="style1 list" th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
-                            <h3 class="style" style="margin-top:0px;"
-                                th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 -
-                                4.00 PM</h3>
-                            <p class="para top" th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
-                                All the Lorem Ipsum generators on the Internet tend to repeat
-                                predefined chunks as necessary, making this the first true generator on the Internet. It
-                                uses a dictionary of over 200 Latin words, combined with a handful of model sentence
-                                structures, to generate Lorem Ipsum which looks reasonable.</p>
-                            <a href="#" class="btn1" id="comEditBtn">수정</a>
-                            <a href="" class="btn1" id="comDeleteBtn">삭제</a>
-                            <a href="" class="btn1" id="replyBtn">Reply</a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="grid1_of_2">
-                        <div class="grid_text">
-                            <h4 class="style1 list"><a href="#">Ro Kanth</a></h4>
-                            <h3 class="style">march 2, 2013 - 12.50 AM</h3>
-                            <p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat
-                                predefined chunks as necessary, making this the first true generator on the Internet. It
-                                uses a dictionary of over 200 Latin words, combined with a handful of model sentence
-                                structures, to generate Lorem Ipsum which looks reasonable.</p>
-                            <a href="" class="btn1">Click to Reply</a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="artical-commentbox">
-                        <h2>Leave a Comment</h2>
-                        <div class="table-form">
-                            <form action="#" method="post" name="post_comment">
-                                <div>
-                                    <label>Name<span>*</span></label>
-                                    <h4 th:text="${post.nickname}"></h4>
+                    <div class="comment-section" style="padding:30px;">
+                        <div class="grids_of_2">
+                            <hr style="border-top: 1px solid #000;">
+                            <h2>Comments</h2>
+                            <div class="grid1_of_2">
+                                <div class="grid_text">
+                                    <h4 class="style1 list"
+                                        th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
+                                    <h3 class="style" style="margin-top:0px;"
+                                        th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3,
+                                        2013 -
+                                        4.00 PM</h3>
+                                    <p class="para top"
+                                       th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
+                                        All the Lorem Ipsum generators on the Internet tend to repeat
+                                        predefined chunks as necessary, making this the first true generator on the
+                                        Internet. It
+                                        uses a dictionary of over 200 Latin words, combined with a handful of model
+                                        sentence
+                                        structures, to generate Lorem Ipsum which looks reasonable.</p>
+                                    <a href="#" class="btn1">수정</a>
+                                    <a href="#" class="btn1">삭제</a>
+                                    <a href="" class="btn1">Reply</a>
                                 </div>
-                                <div>
-                                    <label>Your Comment<span>*</span></label>
-                                    <textarea id="InputContent"> </textarea>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="grid1_of_2 left">
+                                <div class="grid_text">
+                                    <h4 class="style1 list"
+                                        th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
+                                    <h3 class="style" style="margin-top:0px;"
+                                        th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3,
+                                        2013 -
+                                        4.00 PM</h3>
+                                    <p class="para top"
+                                       th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
+                                        All the Lorem Ipsum generators on the Internet tend to repeat
+                                        predefined chunks as necessary, making this the first true generator on the
+                                        Internet. It
+                                        uses a dictionary of over 200 Latin words, combined with a handful of model
+                                        sentence
+                                        structures, to generate Lorem Ipsum which looks reasonable.</p>
+                                    <a href="#" class="btn1" id="comEditBtn">수정</a>
+                                    <a href="" class="btn1" id="comDeleteBtn">삭제</a>
+                                    <a href="" class="btn1" id="replyBtn">Reply</a>
                                 </div>
-                            </form>
-                            <button class="btn btn-secondary" type="button" id="comCreateBtn">댓글 작성</button>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="grid1_of_2">
+                                <div class="grid_text">
+                                    <h4 class="style1 list"><a href="#">Ro Kanth</a></h4>
+                                    <h3 class="style">march 2, 2013 - 12.50 AM</h3>
+                                    <p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat
+                                        predefined chunks as necessary, making this the first true generator on the
+                                        Internet. It
+                                        uses a dictionary of over 200 Latin words, combined with a handful of model
+                                        sentence
+                                        structures, to generate Lorem Ipsum which looks reasonable.</p>
+                                    <a href="" class="btn1">Click to Reply</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="artical-commentbox">
+                                <h2>Leave a Comment</h2>
+                                <div class="table-form">
+                                    <form action="#" method="post" name="post_comment">
+                                        <div>
+                                            <label>Name<span>*</span></label>
+                                            <h4 th:text="${post.nickname}"></h4>
+                                        </div>
+                                        <div>
+                                            <label>Your Comment<span>*</span></label>
+                                            <textarea id="InputContent"> </textarea>
+                                        </div>
+                                    </form>
+                                    <button class="btn btn-secondary" type="button" id="comCreateBtn">댓글 작성</button>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
                         </div>
-                        <div class="clear"></div>
                     </div>
+                    <!---//End-comments-section--->
                 </div>
             </div>
-            <!---//End-comments-section--->
         </div>
     </div>
-</div>
-<!----start-footer--->
-<div class="footer">
-    <p>Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+    <!----start-footer--->
+    <div class="footer">
+        <p>Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+    </div>
 </div>
 </body>
 
 <script th:inline="javascript">
     // 게시글 id를 model 객체에서 가져와서 저장.
     const postId = [[${post.id}]];
+    const nickname = [[${post.nickname}]];
+    const username = [[${post.username}]];
 
     //투표시 게이지와 퍼센트 반영 시작
     const opinionA = [[${post.opinionACnt}]];
@@ -352,6 +375,35 @@
 
     $(document).ready(function () {
         const token = Cookies.get('Authorization');
+        // console.log(token);
+
+        const postId = [[${post.id}]];
+        const nickname = [[${post.nickname}]];
+        const username = [[${post.username}]];
+        const commentUrl = "/api/posts/" + postId + "/comment";
+        // console.log(commentUrl)
+
+        //아이디 암호화 함수
+        function maskingName() {
+            // console.log(username)
+            if (username.length >= 8) {
+                return (
+                    username.slice(0, 3) +
+                    "*".repeat(Math.max(0, username.length - 5)) +
+                    username.slice(-3)
+                );
+            } else {
+                return (
+                    username.slice(0, 2) +
+                    "*".repeat(Math.max(0, username.length - 3)) +
+                    username.slice(-1)
+                );
+            }
+        }
+
+        const maskedUsername = maskingName(username);
+
+        $('#userinfo').html(nickname + "(" + maskedUsername + ")")
 
         if (token) {
             $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
@@ -362,6 +414,27 @@
             console.log('로그인이 안 되어있습니다.');
         }
     })
+
+
+    function maskingName(username) {
+        if (username.length >= 8) {
+            return (
+                username.slice(0, 3) +
+                "*".repeat(Math.max(0, username.length - 5)) +
+                username.slice(-3)
+            );
+        } else {
+            return (
+                username.slice(0, 2) +
+                "*".repeat(Math.max(0, username.length - 3)) +
+                username.slice(-1)
+            );
+        }
+    }
+
+    const maskedUsername = maskingName(username);
+
+    $('#userinfo').text(nickname + " (" + maskedUsername + ")");
 
 
     // 게시글 삭제, 수정 버튼은 작성자에게만 활성화

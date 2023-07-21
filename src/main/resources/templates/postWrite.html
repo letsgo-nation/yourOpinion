@@ -120,31 +120,8 @@
         // 예시 {sub: 'qw12345611', auth: 'USER', exp: 1689745728, iat: 1689742128}
         // 그중 username을 추출해야하니 sub를 가져옴. 만약 관리자 확인이면 auth를 가져올듯.
         const username = payload.sub;
-        /*        $.ajax({
-                    url: "/api/profile",
-                    type: "GET",
-                    dataType: "json",
-                    success: function (data) {
-                        // 서버로부터 받은 데이터를 처리하는 로직을 작성합니다.
-                        // 예시: 프로필 정보를 표시하는 함수 호출
-                        console.log(data)
-                        let email = data['proFileResponseDto']['email'];
-                        let intro = data['proFileResponseDto']['introduce'];
-                        let nickname = data['proFileResponseDto']['nickname']; // 실제 사용자 ID값 가져오기
-                        let textarea_str = $('#intro').val();
-                        textarea_str = intro;
-                        $('#userName').attr('value', nickname);
-                        $('#email').attr('value', email);
-                        $('#intro').html(textarea_str);
-                        // 완료 버튼 클릭 이벤트 처리
-                        $("#changebtnsuccess").click(function () {
-                            updateProfile(username);
-                        });
-                    },
-                    error: function (error) {
-                        console.error("프로필 정보를 가져오는 데 실패했습니다.", error);
-                    }
-                });*/
+        console.log(username);
+        document.getElementById("username").innerText = username;
     }
 
 
@@ -234,7 +211,7 @@
                     title: '입력 오류',
                     text: '게시글 작성을 실패했습니다. 다시 작성 부탁드립니다.',
                 }).then(function () {
-                    //window.location.reload();
+                    window.location.reload();
                 });
             })
         })
