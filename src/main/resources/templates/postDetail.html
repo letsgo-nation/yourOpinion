@@ -41,9 +41,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
     <style>
-        body{
+        body {
             font-family: 'Jua', sans-serif;
         }
+
         a.list-group-item {
             height: auto;
             min-height: 220px;
@@ -107,7 +108,8 @@
                     <div class="row form-group">
                         <div class="col-md-12" style="width: 95%;text-align: left;">
                             <div>
-                                <span class="text-black h4">닉네임: <label class="text-black h4" id="userinfo"></label></span>
+                                <span class="text-black h4">닉네임: <label class="text-black h4"
+                                                                        id="userinfo"></label></span>
                             </div>
                             <div style="float:right;">
                                 <label class="text-black h4">작성일자</label> :
@@ -121,15 +123,16 @@
                         <div class="container bootstrap snippets bootdey" style="width: 100%;">
                             <div class="row">
                                 <div class="voteBack">
-                                <div class="well" style="background-color: unset; border:0px;">
+                                    <div class="well" style="background-color: unset; border:0px;">
                                         <h1 class="text-center">
-                                            <b><span th:text="${post.title}"style="color: #ffffff;"></span></b>
+                                            <b><span th:text="${post.title}" style="color: #ffffff;"></span></b>
                                         </h1>
                                         <br/>
                                         <p th:text="${post.content}"></p>
 
                                         <div class="list-group">
-                                            <a href="#" class="list-group-item" style="background: rgba(0,0,0,0); border:0px;">
+                                            <a href="#" class="list-group-item"
+                                               style="background: rgba(0,0,0,0); border:0px;">
                                                 <div class="col-md-3">
                                                     <div class="media col-md-12 twitter">
                                                         <figure class="pull-left">
@@ -170,10 +173,10 @@
                                     </div>
                                     <div style="width: 57%;">
                                         <button type="button" class="btn btn-secondary" id="editBtn"
-                                                style="margin-left: 20px;float: right;">수정
+                                                style="margin-left: 20px;float: right; margin-bottom: 10px;">수정
                                         </button>
                                         <button type="button" class="btn btn-secondary" id="deleteBtn"
-                                                style="margin-left: 20px;float: right;">삭제
+                                                style="margin-left: 20px;float: right; margin-bottom: 10px;">삭제
                                         </button>
                                     </div>
                                 </div>
@@ -318,7 +321,7 @@
         const postId = [[${post.id}]];
         const nickname = [[${post.nickname}]];
         const username = [[${post.username}]];
-        const commentUrl = "/api/posts/"+ postId + "/comment";
+        const commentUrl = "/api/posts/" + postId + "/comment";
         // console.log(commentUrl)
 
         //아이디 암호화 함수
@@ -341,7 +344,7 @@
 
         const maskedUsername = maskingName(username);
 
-        $('#userinfo').html(nickname +"(" + maskedUsername + ")")
+        $('#userinfo').html(nickname + "(" + maskedUsername + ")")
 
         if (token) {
             $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
