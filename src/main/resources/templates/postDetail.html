@@ -699,6 +699,7 @@
                 url: `/api/comments/${id}`,
                 headers: {              // Http header
                     "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "PUT",
                     "Authorization": token
                 },
                 data: JSON.stringify({content: value}),
