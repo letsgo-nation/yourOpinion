@@ -334,6 +334,8 @@
                 $('#comment').append(temp_html);
                 $('#userComment').val('');
 
+                window.location.href = `/api/post/detail-page/${post.id}`;
+
             })
             .fail(function (jqXHR, textStatus) {
 
@@ -359,11 +361,6 @@
 
     function updateComment(id){
 
-        //비우고
-        const node = document.getElementById(`${id}`);
-        console.log(node,"id : ",id);
-        node.remove();
-
         //다시 불러오기
         $.ajax({
             type: "GET",
@@ -371,8 +368,22 @@
             contentType: "application/json",
         })
             .done(function (response, status, xhr ) {
+
                 for(var i = 0; i<post['commentResponseDtoList'].length;i++){
+
+
                     if(post['commentResponseDtoList'][i].id == id){
+
+                        //작성자 확인
+                        if(`${post.username}` != `${post['commentResponseDtoList'][i].username}`){
+                            alert("작성자가 아닙니다.");
+                            window.location.href = `/api/post/detail-page/${post.id}`;
+                        }
+
+                        //비우기
+                        const node = document.getElementById(`${id}`);
+                        node.remove();
+
                         let temp_html =
                             `  <div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}" >
                                     <div class="grid_img">
