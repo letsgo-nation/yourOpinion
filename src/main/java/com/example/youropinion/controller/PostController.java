@@ -2,10 +2,13 @@ package com.example.youropinion.controller;
 
 import com.example.youropinion.dto.PostRequestDto;
 import com.example.youropinion.dto.PostResponseDto;
+import com.example.youropinion.dto.ProFileResponseDto;
 import com.example.youropinion.dto.RestApiResponseDto;
 import com.example.youropinion.exception.TokenNotValidateException;
 import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.PostService;
+import com.example.youropinion.service.ProFileService;
+import jakarta.validation.Valid;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostService postService;
+    private final ProFileService proFileService;
 
 
     @GetMapping("/post/write-page")
@@ -35,8 +39,8 @@ public class PostController {
     }
 
     // 선택 게시글 조회
-/*    @GetMapping("/posts/{id}")
-    public @ResponseBody ResponseEntity<RestApiResponseDto> getPost(
+/*   @GetMapping("/posts/{id}")
+    public @ResponseBody PostResponseDto getPost(
             @PathVariable Long id) {
         return postService.getPost(id);
     }*/
