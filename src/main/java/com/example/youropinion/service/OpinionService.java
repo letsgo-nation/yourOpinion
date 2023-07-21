@@ -10,11 +10,13 @@ import com.example.youropinion.repository.OpinionRepository;
 import com.example.youropinion.repository.PostRepository;
 import com.example.youropinion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OpinionService {
@@ -28,8 +30,8 @@ public class OpinionService {
     // 게시글 Like Api
     @Transactional
     // @Transactional: 업데이트 후 저장을 위해 사용
-    public OpinionResponseDto OpinionAPost(Long id, User user){
-
+    public OpinionResponseDto increaseOpinionA(Long id, User user){
+        log.info("opinionA increase");
         // postRepository에서 user Id를 찾는 메소드
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
@@ -47,6 +49,18 @@ public class OpinionService {
             post.upOpinion(); // 좋아요 개수가 올라간다.
             return new OpinionResponseDto("Opinion A을 선택하였습니다.", 200);
         }
+    }
+
+    public OpinionResponseDto increaseOpinionB(Long id, User user) {
+        return null;
+    }
+
+    public OpinionResponseDto decreaseOpinionA(Long id, User user) {
+        return null;
+    }
+
+    public OpinionResponseDto decreaseOpinionB(Long id, User user) {
+        return null;
     }
 
     // 게시글 Like 취소 Api

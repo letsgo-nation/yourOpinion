@@ -69,7 +69,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/**").permitAll() // /api/로 시작하는 요청 모두 접근 허가
                         .requestMatchers("/view/**").permitAll() // /api/로 시작하는 요청 모두 접근 허가
                         .requestMatchers("/api/user/**").permitAll() // '/api/user/'로 시작하는 요청 모두 접근 허가
-                        .requestMatchers(HttpMethod.GET,"/api/posts/**").permitAll() // 전체 게시글 조회
+                        .requestMatchers("/api/posts/**").permitAll() // 전체 게시글 조회
                         .requestMatchers(HttpMethod.GET,"/api/post/**").permitAll() // 선택 게시글 조회
                         .requestMatchers("/api/post/**").authenticated()
 
