@@ -36,14 +36,14 @@ public class PostService {
         return this.resultResponse(HttpStatus.OK,"게시글 전체 조회",postResponseDtoList);
     }
 
-/*    public ResponseEntity<RestApiResponseDto> getPost(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(() ->
-                new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
-        PostResponseDto responseDto = new PostResponseDto(post);
-
-        responseDto.setCommentResponseDtoList(commentRepository.findAllByPostIdOrderByCreatedAtDesc(id));
-        return this.resultResponse(HttpStatus.OK,"게시글 상세 조회",responseDto);
-    }*/
+//    public ResponseEntity<RestApiResponseDto> getPosts(Long id) {
+//        Post post = postRepository.findById(id).orElseThrow(() ->
+//                new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
+//        PostResponseDto responseDto = new PostResponseDto(post);
+//
+//        responseDto.setCommentResponseDtoList(commentRepository.findAllByPostIdOrderByCreatedAtDesc(id));
+//        return this.resultResponse(HttpStatus.OK,"게시글 상세 조회",responseDto);
+//    }
 
 
     public ResponseEntity<RestApiResponseDto> createPost(PostRequestDto requestDto, User user) {
@@ -104,7 +104,7 @@ public class PostService {
                 new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
         PostResponseDto responseDto = new PostResponseDto(post);
 
-        responseDto.setCommentResponseDtoList(commentRepository.findAllByPostIdOrderByCreatedAtDesc(id));
+        responseDto.setCommentResponseDtoList(commentRepository.findAllByPostIdOrderByCreatedAtAsc(id));
         return responseDto;
     }
 

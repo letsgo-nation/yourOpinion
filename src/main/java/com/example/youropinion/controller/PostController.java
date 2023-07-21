@@ -7,7 +7,6 @@ import com.example.youropinion.exception.TokenNotValidateException;
 import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.PostService;
 import jakarta.validation.Valid;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

@@ -99,7 +99,7 @@
 </div>
 <!---//End-header---->
 <!---start-content---->
-<div class="content" style="background: url('https://images3.alphacoders.com/764/764967.png') rgba(0,0,0,0);">
+<div class="content" style="background: url('https://images3.alphacoders.com/764/764967.png');">
     <div class="wrap">
         <div class="single-page">
             <div class="single-page-artical">
@@ -190,69 +190,11 @@
                         <div class="clear"></div>
                     </div>
                     <!---start-comments-section--->
-                    <br/><br/><br/><br/><br/>
-
-                    <div class="comment-section" style="padding:30px;">
+                    <div class="comment-section">
                         <div class="grids_of_2">
-                            <hr style="border-top: 1px solid #000;">
                             <h2>Comments</h2>
-                            <div class="grid1_of_2">
-                                <div class="grid_text">
-                                    <h4 class="style1 list"
-                                        th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
-                                    <h3 class="style" style="margin-top:0px;"
-                                        th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3,
-                                        2013 -
-                                        4.00 PM</h3>
-                                    <p class="para top"
-                                       th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
-                                        All the Lorem Ipsum generators on the Internet tend to repeat
-                                        predefined chunks as necessary, making this the first true generator on the
-                                        Internet. It
-                                        uses a dictionary of over 200 Latin words, combined with a handful of model
-                                        sentence
-                                        structures, to generate Lorem Ipsum which looks reasonable.</p>
-                                    <a href="#" class="btn1">수정</a>
-                                    <a href="#" class="btn1">삭제</a>
-                                    <a href="" class="btn1">Reply</a>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="grid1_of_2 left">
-                                <div class="grid_text">
-                                    <h4 class="style1 list"
-                                        th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
-                                    <h3 class="style" style="margin-top:0px;"
-                                        th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3,
-                                        2013 -
-                                        4.00 PM</h3>
-                                    <p class="para top"
-                                       th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
-                                        All the Lorem Ipsum generators on the Internet tend to repeat
-                                        predefined chunks as necessary, making this the first true generator on the
-                                        Internet. It
-                                        uses a dictionary of over 200 Latin words, combined with a handful of model
-                                        sentence
-                                        structures, to generate Lorem Ipsum which looks reasonable.</p>
-                                    <a href="#" class="btn1" id="comEditBtn">수정</a>
-                                    <a href="" class="btn1" id="comDeleteBtn">삭제</a>
-                                    <a href="" class="btn1" id="replyBtn">Reply</a>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="grid1_of_2">
-                                <div class="grid_text">
-                                    <h4 class="style1 list"><a href="#">Ro Kanth</a></h4>
-                                    <h3 class="style">march 2, 2013 - 12.50 AM</h3>
-                                    <p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat
-                                        predefined chunks as necessary, making this the first true generator on the
-                                        Internet. It
-                                        uses a dictionary of over 200 Latin words, combined with a handful of model
-                                        sentence
-                                        structures, to generate Lorem Ipsum which looks reasonable.</p>
-                                    <a href="" class="btn1">Click to Reply</a>
-                                </div>
-                                <div class="clear"></div>
+                            <div class="grids_of_2" id="comment">
+
                             </div>
                             <div class="artical-commentbox">
                                 <h2>Leave a Comment</h2>
@@ -260,14 +202,15 @@
                                     <form action="#" method="post" name="post_comment">
                                         <div>
                                             <label>Name<span>*</span></label>
-                                            <h4 th:text="${post.nickname}"></h4>
+                                            <h4 id="loginUserName"></h4>
                                         </div>
                                         <div>
                                             <label>Your Comment<span>*</span></label>
-                                            <textarea id="InputContent"> </textarea>
+                                            <textarea id="userComment" name="content"> </textarea>
                                         </div>
                                     </form>
-                                    <button class="btn btn-secondary" type="button" id="comCreateBtn">댓글 작성</button>
+                                    <input type="submit" value="submit" onclick="insert()"/>
+
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -277,12 +220,14 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!----start-footer--->
-    <div class="footer">
-        <p>Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+        <!----start-footer--->
+        <div class="footer">
+            <p>Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+        </div>
     </div>
 </div>
+        <!----//End-footer--->
+        <!---//End-wrap---->
 </body>
 
 <script th:inline="javascript">
@@ -354,7 +299,16 @@
 
     $(document).ready(function () {
         const token = Cookies.get('Authorization');
-        // console.log(token);
+
+        if (token) {
+            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+                jqXHR.setRequestHeader('Authorization', token);
+            });
+            getUser(token);
+        } else {
+            console.log('로그인이 안 되어있습니다.');
+        }
+
 
         const postId = [[${post.id}]];
         const nickname = [[${post.nickname}]];
@@ -425,6 +379,8 @@
         const loginUsername = payload.sub; // 로그인한 id
         const writerUsername = [[${post.username}]]; // 게시글 작성자
 
+        $('#loginUserName').text(loginUsername)
+
         // 게시글 작성자일 경우
         if (loginUsername === writerUsername) {
             // 수정, 삭제 버튼 활성화
@@ -440,7 +396,6 @@
     // 게시글 삭제하기
     function deletePost(url) {
         const token = Cookies.get('Authorization');
-
         $.ajax({
             url: url,
             type: "DELETE",
@@ -460,7 +415,6 @@
                 })
             },
             error: function (error) {
-
                 Toast.fire({
                     icon: 'error',
                     title: '삭제 실패',
@@ -471,6 +425,148 @@
             }
         });
     }
+
+
+    function getLoginUser(token) {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        return payload.sub; // 로그인한 id
+    }
+
+
+    const post = [[${post}]];
+    console.log("post", post);
+
+    for (var i = 0; i < post['commentResponseDtoList'].length; i++) {
+        let temp_html =
+            `<div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}">
+                            <div class="grid_img">
+                                <a href=""><img src="" alt=""></a>
+                            </div>
+                            <div class="grid_text">
+                                <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
+                                <h3 class="style">${post['commentResponseDtoList'][i].modifiedAt}</h3>
+                                <p class="para top"> ${post['commentResponseDtoList'][i].content}</p>
+                                <a class="btn1" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
+                                <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
+                            </div>
+                            <div class="clear"></div>
+                 </div>`;
+
+        $('#comment').append(temp_html);
+    }
+
+    function insert() {
+
+        $.ajax({
+            type: "POST",
+            url: `/api/posts/${post.id}/comment`,
+            contentType: "application/json",
+            data: JSON.stringify({content: $('#userComment').val()}),
+        })
+            .done(function (response, status, xhr) {
+                console.log("resultL", response['result']);
+                let temp_html =
+                    `  <div class="grid1_of_2" id="${response['result'].id}" >
+                            <div class="grid_img">
+                                <a href=""><img src="" alt=""></a>
+                            </div>
+                            <div class="grid_text">
+                                <h4 class="style1 list"><a href="#">${response['result'].username}</a></h4>
+                                <h3 class="style">${response['result'].modifiedAt}</h3>
+                                <p class="para top"> ${response['result'].content}</p>
+                                <a class="btn1" onclick="updateComment(${response['result'].id})">수정</a>
+                                <a class="btn1" onclick="deleteComment(${response['result'].id})">삭제</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>`;
+
+                $('#comment').append(temp_html);
+                $('#userComment').val('');
+
+            })
+            .fail(function (jqXHR, textStatus) {
+
+            });
+    }
+
+    function deleteComment(id) {
+
+        $.ajax({
+            type: "DELETE",
+            url: `/api/comments/${id}`,
+            contentType: "application/json",
+        })
+            .done(function (response, status, xhr) {
+                alert("삭제완료")
+                window.location.href = `/api/post/detail-page/${post.id}`;
+            })
+            .fail(function (jqXHR, textStatus) {
+                alert("작성자가 다릅니다.")
+                window.location.href = `/api/post/detail-page/${post.id}`;
+            });
+    }
+
+
+    function updateComment(id) {
+
+        //비우고
+        const node = document.getElementById(`${id}`);
+        console.log(node, "id : ", id);
+        node.remove();
+
+        //다시 불러오기
+        $.ajax({
+            type: "GET",
+            url: `/api/post/detail-page/${post.id}`,
+            contentType: "application/json",
+        })
+            .done(function (response, status, xhr) {
+                for (var i = 0; i < post['commentResponseDtoList'].length; i++) {
+                    if (post['commentResponseDtoList'][i].id == id) {
+                        let temp_html =
+                            `  <div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}" >
+                                    <div class="grid_img">
+                                        <a href=""><img src="" alt=""></a>
+                                    </div>
+                                    <div class="grid_text">
+                                        <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
+                                        <h3 class="style">${post['commentResponseDtoList'][i].modifiedAt}"</h3>
+                                        <p class="para top"><input id="input" value="${post['commentResponseDtoList'][i].content}"/></p>
+                                        <a class="btn1" onclick="update(${post['commentResponseDtoList'][i].id}, $('#input').val())">수정</a>
+                                        <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>`;
+
+                        $('#comment').append(temp_html);
+                    }
+
+                }
+            })
+            .fail(function (jqXHR, textStatus) {
+
+            });
+    }
+
+    function update(id,value){
+
+        $.ajax({
+            type: "PUT",
+            url: `/api/comments/${id}`,
+            contentType: "application/json",
+            data: JSON.stringify({content: value}),
+        })
+            .done(function (response, status, xhr) {
+                alert("수정완료")
+                window.location.href = `/api/post/detail-page/${post.id}`;
+            })
+            .fail(function (jqXHR, textStatus) {
+                alert("작성자가 다릅니다.")
+                window.location.href = `/api/post/detail-page/${post.id}`;
+            });
+
+    }
+
 
 </script>
 </html>
