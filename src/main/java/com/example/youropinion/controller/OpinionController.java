@@ -14,18 +14,37 @@ public class OpinionController {
 
     private final OpinionService opinionService;
 
-    //OpinionA up Api
-    @PostMapping("/post/detail-page/vote/{id}")
-    public OpinionResponseDto OpinionAPost(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return opinionService.OpinionAPost(id, userDetails.getUser());
-    }
-}
-
-//    // 게시글 Like 취소 API
-//    @DeleteMapping("/post/like/{id}")
-//    public LikeResponseDto deleteLikePost(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
-//        return likeService.deleteLikePost(id, userDetails.getUser());
+    //OpinionA 투표 추가 Api
+//    @PostMapping("/post/detail-page/vote/{id}")
+//    public OpinionResponseDto increaseOpinionA(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        return opinionService.increaseOpinionA(id, userDetails.getUser());
 //    }
+
+    //OpinionA 투표 취소 Api
+//    @DeleteMapping("/post/detail-page/vote/{id}")
+//    public OpinionResponseDto deleteOpinionAPost(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        return opinionService.deleteOpinionAPost(id, userDetails.getUser());
+//    }
+
+    //OpinionA 투표 추가 Api
+    @PostMapping("/posts/{id}/opinionA") // 해당 게시글의 옵션A 증가
+    public OpinionResponseDto increaseOpinionA(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return opinionService.increaseOpinionA(id, userDetails.getUser());
+    }
+
+//    @PostMapping("/posts/{id}/opinionB") // 해당 게시글의 옵션B 증가
+//    public OpinionResponseDto increaseOpinionB(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        return opinionService.increaseOpinionB(id, userDetails.getUser());
+//    }
+    @PutMapping("/posts/{id}/opinionA") // 해당 게시글의 옵션A 감소
+    public OpinionResponseDto decreaseOpinionA(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return opinionService.decreaseOpinionA(id, userDetails.getUser());
+    }
+//    @PutMapping("/posts/{id}/opinionB") // 해당 게시글의 옵션B 감소
+//    public OpinionResponseDto decreaseOpinionB(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        return opinionService.decreaseOpinionB(id, userDetails.getUser());
+//    }
+}
 //
 //    // 댓글 Like Api
 //    @PostMapping("/comment/like/{id}")

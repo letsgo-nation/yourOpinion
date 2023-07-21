@@ -147,7 +147,7 @@
                                                                 th:text="${post.opinionA}"></span></button>
                                                         <button type="button"
                                                                 class="btn btn-default btn-lg btn-block">
-                                                            <span>투표</span>
+                                                            <span onclick="OpinionA()">투표 </span>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -446,6 +446,42 @@
         }
     }
 
+    // opinionA()
+    $('#opinionA_Btn').click(function () {
+        $.ajax({
+            type: "POST",
+            url: `/api/post/detail-page/vote/` + postId,
+            dataType: 'json',
+            headers: {              // Http header
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST",
+                "Authorization": token
+            },
+            data: JSON.stringify({
+                "selectOpinion": "A"
+            }),
+            success: (function () {
+                Swal.fire({
+                        icon: 'success',
+                        title: '투표 성공',
+                        text: '투표가 성공적으로 완료되었습니다.'
+                    }
+                ).then(function () {
+                    window.location.reload();
+                })
+            }),
+            error: (function (error) {
+                console.error("투표가 실패했습니다.", error);
+                Toast.fire({
+                    icon: 'error',
+                    title: '투표 오류',
+                    text: '투표가 전송되지않았습니다.',
+                }).then(function (error) {
+                    console.log(error);
+                });
+            })
+        })
+    })
 
     function formatDate(dateString) {
         const date = new Date(dateString);
