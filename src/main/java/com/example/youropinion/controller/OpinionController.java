@@ -1,5 +1,6 @@
 package com.example.youropinion.controller;
 
+import com.example.youropinion.dto.CheckOpinionDto;
 import com.example.youropinion.dto.OpinionResponseDto;
 import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.OpinionService;
@@ -13,6 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class OpinionController {
 
     private final OpinionService opinionService;
+
+
+    @GetMapping("/posts/{id}/opinions")
+    public CheckOpinionDto checkValue(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return opinionService.checkValue(id, userDetails.getUser());
+    }
 
     @PostMapping("/posts/{id}/opinionA") // 해당 게시글의 옵션A 증가
     public OpinionResponseDto increaseOpinionA(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {

@@ -1,5 +1,6 @@
 package com.example.youropinion.service;
 
+import com.example.youropinion.dto.CheckOpinionDto;
 import com.example.youropinion.dto.OpinionResponseDto;
 import com.example.youropinion.entity.OpinionA;
 import com.example.youropinion.entity.OpinionB;
@@ -8,11 +9,13 @@ import com.example.youropinion.entity.User;
 import com.example.youropinion.jwt.JwtUtil;
 import com.example.youropinion.repository.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OpinionService {
@@ -34,7 +37,7 @@ public class OpinionService {
 
         // 옵션 중복 투표 방지
         Optional<OpinionB> opinionB = opinionBRepository.findByUserAndPost(user, post);
-        if(opinionB.isPresent()) {
+        if(opinionB.isPresent() && opinionB.get().isOpinionB()) {
             throw new IllegalArgumentException("다른 옵션에 이미 투표하였습니다.");
         }
 
@@ -104,7 +107,7 @@ public class OpinionService {
 
         // 옵션 중복 투표 방지
         Optional<OpinionA> opinionA = opinionARepository.findByUserAndPost(user, post);
-        if(opinionA.isPresent()) {
+        if(opinionA.isPresent() && opinionA.get().isOpinionA()) {
             throw new IllegalArgumentException("다른 옵션에 이미 투표하였습니다.");
         }
 
@@ -133,7 +136,7 @@ public class OpinionService {
         return new OpinionResponseDto("Opinion B을 선택하였습니다.", 200);
     }
 
-//    //        OpinionA 취소
+    // OpinionA 취소
     @Transactional
     public OpinionResponseDto decreaseOpinionB(Long id, User user) {
         // postRepository에서 user Id를 찾는 메소드
@@ -159,4 +162,34 @@ public class OpinionService {
         }
         return new OpinionResponseDto("Opinion B을 취소하였습니다.", 200);
     }
+
+    // 투표 값 여부 반환 메서드
+    public CheckOpinionDto checkValue(Long id, User user) {
+        Post post = postRepository.findById(id).get();
+
+        Optional<OpinionA> opinionA = opinionARepository.findByUserAndPost(user,post);
+        Optional<OpinionB> opinionB = opinionBRepository.findByUserAndPost(user,post);
+        CheckOpinionDto checkOpinionDto = new CheckOpinionDto();
+
+        // 옵션 1
+        if(opinionA.isPresent()){ // 옵션1에 투표 혹은 투표취소한 데이터가 있다면
+            checkOpinionDto.setOpinionAresult(opinionA.get().isOpinionA());
+            log.info("옵션A의 투표 여부: "+ checkOpinionDto.isOpinionAresult());
+        }else { // 투표 내역이 없다면
+            checkOpinionDto.setOpinionAresult(false);
+            log.info("옵션A의 투표 여부: "+ checkOpinionDto.isOpinionAresult());
+        }
+
+        // 옵션 2
+        if(opinionB.isPresent()){
+            checkOpinionDto.setOpinionBresult(opinionB.get().isOpinionB());
+            log.info("옵션B의 투표 여부: "+ checkOpinionDto.isOpinionBresult());
+        }else {
+            checkOpinionDto.setOpinionBresult(false);
+            log.info("옵션B의 투표 여부: "+ checkOpinionDto.isOpinionBresult());
+        }
+        return checkOpinionDto;
+    }
+
+
 }

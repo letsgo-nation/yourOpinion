@@ -25,13 +25,34 @@ nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
+
+a.list-group-item {
+	height: auto;
+	min-height: 220px;
+}
+
+a.list-group-item.active small {
+	color: #fff;
+}
+
+a.list-group-item .vs-title {
+	font-size: 110px;
+}
+
+.social a {
+	text-decoration: none;
+}
+
+.media {
+	padding: 10px;
+}
 body{
 	font-family: 'Jua', sans-serif;
 	background:#F0EFEE;
 }
 /*---start-wrap----*/
 .wrap{
-	width:60%;
+	width:70%;
 	margin:10px auto 0px auto;
 }
 
