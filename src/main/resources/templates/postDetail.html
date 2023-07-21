@@ -298,7 +298,7 @@
                                 <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
                                 <h3 class="style">${post['commentResponseDtoList'][i].modifiedAt}</h3>
                                 <p class="para top"> ${post['commentResponseDtoList'][i].content}</p>
-                                <a class="btn1" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
+                                <a id="testid" class="btn1" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
                                 <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
                             </div>
                             <div class="clear"></div>
@@ -325,7 +325,7 @@
                                 <h4 class="style1 list"><a href="#">${response['result'].username}</a></h4>
                                 <h3 class="style">${response['result'].modifiedAt}</h3>
                                 <p class="para top"> ${response['result'].content}</p>
-                                <a class="btn1" onclick="updateComment(${response['result'].id})">수정</a>
+                                <a id="testid" class="btn1" onclick="updateComment(${response['result'].id})">수정</a>
                                 <a class="btn1" onclick="deleteComment(${response['result'].id})">삭제</a>
                             </div>
                             <div class="clear"></div>
@@ -368,7 +368,6 @@
             contentType: "application/json",
         })
             .done(function (response, status, xhr ) {
-
                 for(var i = 0; i<post['commentResponseDtoList'].length;i++){
 
 
@@ -378,6 +377,7 @@
                         if(`${post.username}` != `${post['commentResponseDtoList'][i].username}`){
                             alert("작성자가 아닙니다.");
                             window.location.href = `/api/post/detail-page/${post.id}`;
+
                         }
 
                         //비우기
@@ -399,6 +399,8 @@
                                     <div class="clear"></div>
                                 </div>`;
 
+
+                        $('#comment').find($("a[id^='testid']")).empty()
                         $('#comment').append(temp_html);
                     }
 

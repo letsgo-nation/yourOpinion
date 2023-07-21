@@ -9,16 +9,13 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
 @Entity
 @DynamicInsert
 @NoArgsConstructor
-@Table(name = "comments")
-public class Comment extends Timestamped {
+@Table(name = "secondComments")
+public class  SecondComments extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,25 +29,22 @@ public class Comment extends Timestamped {
     private Long dislikeCnt;
 
     @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany( mappedBy = "Comment", cascade = CascadeType.ALL)
-    private List<SecondComments> SecondCommentList= new ArrayList<>();
-
-    public Comment(CommentRequestDto requestDto, Post post, User user) {
+    public SecondComments(CommentRequestDto requestDto, Comment comment, User user) {
         this.content = requestDto.getContent();
         this.likeCnt = Long.getLong("0");
         this.dislikeCnt = Long.getLong("0");
-        this.post = post;
+        this.comment = comment;
         this.user = user;
     }
 
-    public void update(CommentRequestDto requestDto) {
-        this.content = requestDto.getContent();
-    }
+//    public void update(CommentRequestDto requestDto) {
+//        this.content = requestDto.getContent();
+//    }
 }
