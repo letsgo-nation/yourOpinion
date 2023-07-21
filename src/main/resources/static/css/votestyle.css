@@ -26,7 +26,7 @@ nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
 body{
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'Jua', sans-serif;
 	background:#F0EFEE;
 }
 /*---start-wrap----*/
@@ -265,18 +265,20 @@ a.boxclose{
 }
 /*----start-single-page----*/
 .artical-content h3 a{
-	font: 400 28px/28px 'Open Sans', sans-serif;
-	color: #626262;
+	font: 400 28px/28px 'Jua', sans-serif;
+	color: #ffffff;
 	text-align: left;
 	font-weight: 400;
 	padding: 0.9em 0 0;
 	display: block;
 }
 .artical-content p{
-	font: normal 16px/26px 'Open Sans', sans-serif,Helvetica,sans-serif;
-	color: #9b9b9b;
+	font: normal 16px/26px 'Jua', sans-serif,Helvetica,sans-serif;
+	color: #ffffff;
 	padding: 17px 0px;
 	font-weight: 400;
+	font-size: 25px;
+	text-align: center;
 }
 .artical-content img{
 	width:100%;
