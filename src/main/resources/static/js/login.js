@@ -27,7 +27,7 @@ const Toast = Swal.mixin({
     }
 })
 
-function signup(){
+function signup() {
     let username = $('#username').val();
     let password = $('#password').val();
     let email = $('#email').val();
@@ -131,13 +131,13 @@ function signup(){
         return false;
     }
 
-    if (intro.length <= 10 || intro.length > 1000) {
+    if (introduce.length <= 10 || introduce.length > 1000) {
         Swal.fire({
             icon: 'warning',
             title: '자기소개 입력오류',
             text: '자기소개를 10글자 이상 1000글자 미만으로 입력해주세요.',
         });
-        $('#intro').focus();
+        $('#introduce').focus();
         return false;
     }
 
@@ -145,8 +145,10 @@ function signup(){
         type: "POST",
         url: `/api/user/signup`,
         contentType: "application/json",
-        data: JSON.stringify({username: username, password: password, email:email,
-            nickname:nickname, introduce:introduce, adminToken:adminToken}),
+        data: JSON.stringify({
+            username: username, password: password, email: email,
+            nickname: nickname, introduce: introduce, adminToken: adminToken
+        }),
     })
         .done(function (res, status, xhr) {
             Toast.fire({
@@ -194,7 +196,7 @@ function onLogin() {
         .fail(function (jqXHR, textStatus) {
             Toast.fire({
                 icon: 'warning',
-                title: '아이디 혹은 비밀번호가 틀렸습니다.'
+                title: '가입한 내역 여부 혹은 로그인 정보를 확인부탁드립니다.'
             })
         });
 }
@@ -206,7 +208,7 @@ function onclickAdmin() {
     var box = document.getElementById("admin-token");
 
     // If the checkbox is checked, display the output text
-    if (checkBox.checked == true){
+    if (checkBox.checked == true) {
         box.style.display = "block";
     } else {
         box.style.display = "none";
