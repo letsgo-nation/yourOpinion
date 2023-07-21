@@ -48,7 +48,7 @@ body{
 	width: 100%; /* ::before 가상 요소의 가로 너비를 100%로 설정합니다. */
 	height: 100%;
 	position: absolute; /* 가상 요소의 위치를 조절하기 위해 절대적으로 설정합니다. */
-	background-color: rgba(0, 0, 0, 0.2); /* 배경 이미지 위에 투명한 검은색 레이어를 덮습니다. */
+	background-color: rgba(0, 0, 0, 0.4); /* 배경 이미지 위에 투명한 검은색 레이어를 덮습니다. */
 	z-index: -1; /* 가상 요소를 배경 이미지 뒤로 보냅니다. */
 }
 
@@ -176,7 +176,7 @@ a.boxclose{
 	-moz-border-radius:30em;
 	-o-border-radius:30em;
 	vertical-align:middle;
-	
+
 }
 /*--//userinfo--*/
 /*----start-post-grids----*/
@@ -760,7 +760,7 @@ span.mail a:hover{
 		padding: 0.5em 0 0;
 	}
 	.artical-content p:nth-child(1){
-		display:none;	
+		display:none;
 	}
 	.userinfo {
 		width: 17%;
@@ -851,7 +851,7 @@ span.mail a:hover{
 		padding: 0.5em 0 0;
 	}
 	.artical-content p:nth-child(1){
-		display:none;	
+		display:none;
 	}
 	.userinfo {
 		display:none;
@@ -975,7 +975,7 @@ span.mail a:hover{
 		display:block;
 	}
 	.artical-content p:nth-child(1){
-		display:none;	
+		display:none;
 	}
 	.userinfo {
 		display:none;
@@ -1108,7 +1108,7 @@ span.mail a:hover{
 		display:block;
 	}
 	.artical-content p:nth-child(1){
-		display:none;	
+		display:none;
 	}
 	.userinfo {
 		display:none;

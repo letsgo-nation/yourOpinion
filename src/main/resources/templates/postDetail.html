@@ -152,7 +152,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 text-center">
-                                                    <h1 class="vs-title">VS</h1>
+                                                    <h1 class="vs-title" style="color:white;">VS</h1>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <p id="opinionPercentB" class="txt-center"></p>
@@ -350,9 +350,9 @@
         const token = Cookies.get('Authorization');
 
         if (token) {
-            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            /*$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
                 jqXHR.setRequestHeader('Authorization', token);
-            });
+            });*/
             getUser(token);
             //displayBtn(token);
         } else {
@@ -389,6 +389,17 @@
         $('#userinfo').html(nickname + "(" + maskedUsername + ")")
 
     })
+
+    function getToken() {
+        const token = Cookies.get('Authorization');
+
+        if (token) {
+            return token;
+        } else {
+
+        }
+
+    }
 
     function maskingName(username) {
         if (username.length >= 8) {
@@ -506,7 +517,11 @@
         $.ajax({
             type: "POST",
             url: `/api/posts/${post.id}/comment`,
-            contentType: "application/json",
+            headers: {              // Http header
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST",
+                "Authorization": token
+            },
             data: JSON.stringify({content: $('#userComment').val()}),
         })
             .done(function (response, status, xhr) {
@@ -547,12 +562,17 @@
     }
 
     function deleteComment(id) {
+
         const isConfirmed = confirm("정말로 삭제하시겠습니까?");
         if (isConfirmed) {
             $.ajax({
                 type: "DELETE",
                 url: `/api/comments/${id}`,
-                contentType: "application/json",
+                headers: {              // Http header
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST",
+                    "Authorization": token
+                },
             })
                 .done(function (response, status, xhr) {
                     Swal.fire({
@@ -580,7 +600,11 @@
         $.ajax({
             type: "GET",
             url: `/api/post/detail-page/${post.id}`,
-            contentType: "application/json",
+            headers: {              // Http header
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST",
+                "Authorization": token
+            },
         })
             .done(function (response, status, xhr) {
 
@@ -648,7 +672,11 @@
         $.ajax({
             type: "PUT",
             url: `/api/comments/${id}`,
-            contentType: "application/json",
+            headers: {              // Http header
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST",
+                "Authorization": token
+            },
             data: JSON.stringify({content: value}),
         })
             .done(function (response, status, xhr) {
