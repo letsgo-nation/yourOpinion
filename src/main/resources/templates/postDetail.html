@@ -234,6 +234,7 @@
 <!---//End-wrap---->
 </body>
 
+<!--타임리프 문법은 여기서 작성-->
 <script th:inline="javascript">
     // 게시글 id를 model 객체에서 가져와서 저장.
     const postId = [[${post.id}]];
@@ -248,5 +249,7 @@
 
     const post = [[${post}]];
 </script>
+
+<!--모든 바닐라JS, jqury, ajax는 여기서 작성-->
 <script src="/js/postDetail.js"></script>
 </html>
