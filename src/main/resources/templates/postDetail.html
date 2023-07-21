@@ -350,9 +350,9 @@
         const token = Cookies.get('Authorization');
 
         if (token) {
-            /*$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
                 jqXHR.setRequestHeader('Authorization', token);
-            });*/
+            });
             getUser(token);
             //displayBtn(token);
         } else {
@@ -506,41 +506,57 @@
                                 <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
                                 <h3 class="style">${formattedDate}</h3>
                                 <p class="para top"> ${post['commentResponseDtoList'][i].content}</p>
-                                <a class="btn1" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
+                                <a id="testid" class="btn1" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
                                 <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
                             </div>
                             <div class="clear"></div>
                  </div>`;
+        $('#comment').append(temp_html);
+    }
 
-        console.log("댓글 작성 버튼 클릭 : 내용 -" + commentContent);
+        function insert() {
+            const token = Cookies.get('Authorization');
+            // 댓글 내용 입력 안 했을 경우
+            let userComment = document.getElementById('userComment').value;
 
-        $.ajax({
-            type: "POST",
-            url: `/api/posts/${post.id}/comment`,
-            headers: {              // Http header
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST",
-                "Authorization": token
-            },
-            data: JSON.stringify({content: $('#userComment').val()}),
-        })
-            .done(function (response, status, xhr) {
-                console.log("resultL", response['result']);
-                // 댓글 작성 성공 안내창
+            if (userComment.trim() === "") {
                 Swal.fire({
-                    icon: 'success',
-                    title: '작성 성공',
-                    text: '댓글 작성이 성공적으로 완료되었습니다.'
+                    icon: 'warning',
+                    title: '댓글 내용 입력 오류',
+                    text: '댓글 내용을 입력해주세요.',
                 }).then(function () {
-                    window.location.href = `/api/post/detail-page/${post.id}`;
+                    userComment.focus();
+                    return false;
                 })
+            }
+
+            $.ajax({
+                type: "POST",
+                url: `/api/posts/${post.id}/comment`,
+                headers: {              // Http header
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST",
+                    "Authorization": token
+                },
+                data: JSON.stringify({content: $('#userComment').val()}),
+            })
+                .done(function (response, status, xhr) {
+                    console.log("resultL", response['result']);
+                    // 댓글 작성 성공 안내창
+                    Swal.fire({
+                        icon: 'success',
+                        title: '작성 성공',
+                        text: '댓글 작성이 성공적으로 완료되었습니다.'
+                    }).then(function () {
+                        window.location.href = `/api/post/detail-page/${post.id}`;
+                    })
 
 
-                const dateString = response.modifiedAt;
-                const formattedDate = formatDate(dateString);
+                    const dateString = response.modifiedAt;
+                    const formattedDate = formatDate(dateString);
 
-                let temp_html =
-                    `  <div class="grid1_of_2" id="${response['result'].id}" >
+                    let temp_html =
+                        `  <div class="grid1_of_2" id="${response['result'].id}" >
                             <div class="grid_img">
                                 <a href=""><img src="" alt=""></a>
                             </div>
@@ -548,91 +564,91 @@
                                 <h4 class="style1 list"><a href="#">${response['result'].username}</a></h4>
                                 <h3 class="style">${formattedDate}</h3>
                                 <p class="para top"> ${response['result'].content}</p>
-                                <a class="btn1" onclick="updateComment(${response['result'].id})">수정</a>
+                                <a id="testid" class="btn1" onclick="updateComment(${response['result'].id})">수정</a>
                                 <a class="btn1" onclick="deleteComment(${response['result'].id})">삭제</a>
                             </div>
                             <div class="clear"></div>
                         </div>`;
 
-                $('#comment').append(temp_html);
-                $('#userComment').val('');
-            })
-            .fail(function (jqXHR, textStatus) {
-            });
-    }
+                    $('#comment').append(temp_html);
+                    $('#userComment').val('');
+                })
+                .fail(function (jqXHR, textStatus) {
+                });
+        }
 
-    function deleteComment(id) {
+        function deleteComment(id) {
+            const token = Cookies.get('Authorization');
 
-        const isConfirmed = confirm("정말로 삭제하시겠습니까?");
-        if (isConfirmed) {
+            const isConfirmed = confirm("정말로 삭제하시겠습니까?");
+            if (isConfirmed) {
+                $.ajax({
+                    type: "DELETE",
+                    url: `/api/comments/${id}`,
+                    headers: {              // Http header
+                        "Content-Type": "application/json",
+                        "Authorization": token
+                    },
+                })
+                    .done(function (response, status, xhr) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '삭제 성공',
+                            text: '댓글 삭제가 성공적으로 완료되었습니다.'
+                        }).then(function () {
+                            window.location.reload();
+                        })
+                    })
+                    .fail(function (jqXHR, textStatus) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '삭제 실패',
+                            text: '본인이 작성한 댓글만 삭제 부탁드립니다.',
+                        }).then(function () {
+                            window.location.reload();
+                        });
+                    });
+            }
+        }
+
+        function updateComment(id) {
+            const token = Cookies.get('Authorization');
+            //다시 불러오기
             $.ajax({
-                type: "DELETE",
-                url: `/api/comments/${id}`,
+                type: "GET",
+                url: `/api/post/detail-page/${post.id}`,
                 headers: {              // Http header
                     "Content-Type": "application/json",
-                    "X-HTTP-Method-Override": "POST",
                     "Authorization": token
                 },
             })
                 .done(function (response, status, xhr) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '삭제 성공',
-                        text: '댓글 삭제가 성공적으로 완료되었습니다.'
-                    }).then(function () {
-                        window.location.reload();
-                    })
-                })
-                .fail(function (jqXHR, textStatus) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: '삭제 실패',
-                        text: '본인이 작성한 댓글만 삭제 부탁드립니다.',
-                    }).then(function () {
-                        window.location.reload();
-                    });
-                });
-        }
-    }
 
-    function updateComment(id) {
-        //다시 불러오기
-        $.ajax({
-            type: "GET",
-            url: `/api/post/detail-page/${post.id}`,
-            headers: {              // Http header
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST",
-                "Authorization": token
-            },
-        })
-            .done(function (response, status, xhr) {
+                    for (var i = 0; i < post['commentResponseDtoList'].length; i++) {
 
-                for (var i = 0; i < post['commentResponseDtoList'].length; i++) {
+                        const dateString = post['commentResponseDtoList'][i].modifiedAt;
+                        const formattedDate = formatDate(dateString);
 
-                    const dateString = post['commentResponseDtoList'][i].modifiedAt;
-                    const formattedDate = formatDate(dateString);
+                        if (post['commentResponseDtoList'][i].id == id) {
 
-                    if (post['commentResponseDtoList'][i].id == id) {
+                            //작성자 확인
+                            if (`${post.username}` != `${post['commentResponseDtoList'][i].username}`) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '수정 불가',
+                                    text: '본인이 작성한 댓글만 수정 부탁드립니다.',
+                                }).then(function () {
+                                    window.location.reload();
+                                    return false;
+                                });
+                            }
 
-                        //작성자 확인
-                        if (`${post.username}` != `${post['commentResponseDtoList'][i].username}`) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: '수정 불가',
-                                text: '본인이 작성한 댓글만 수정 부탁드립니다.',
-                            }).then(function () {
-                                window.location.reload();
-                                return false;
-                            });
-                        }
-
-                        //비우기
-                        const node = document.getElementById(`${id}`);
-                        node.remove();
-                        // 수정 append
-                        let temp_html =
-                            `  <div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}" >
+                            //비우기
+                            const node = document.getElementById(`${id}`);
+                            node.remove();
+                            // 수정 append
+                            let temp_html =
+                                `  <div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}" >
                                     <div class="grid_img">
                                         <a href=""><img src="" alt=""></a>
                                     </div>
@@ -645,53 +661,62 @@
                                     </div>
                                     <div class="clear"></div>
                                 </div>`;
-                        $('#comment').append(temp_html);
+                            $('#comment').find($("a[id^='testid']")).empty();
+                            $('#comment').append(temp_html);
+                        }
                     }
-                }
 
-            })
-            .fail(function (jqXHR, textStatus) {
-            });
-    }
-
-    function update(id, value) {
-        // 댓글 내용 입력 안 했을 경우
-        let userComment = document.getElementById('userComment').value;
-
-        if (value.trim() === "") {
-            Swal.fire({
-                icon: 'warning',
-                title: '댓글 내용 입력 오류',
-                text: '댓글 내용을 입력해주세요.',
-            }).then(function () {
-                value.focus();
-                return false;
-            });
+                })
+                .fail(function (jqXHR, textStatus) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '수정 불가',
+                        text: '본인이 작성한 댓글만 수정 부탁드립니다.',
+                    }).then(function () {
+                        window.location.reload();
+                    });
+                });
         }
 
-        $.ajax({
-            type: "PUT",
-            url: `/api/comments/${id}`,
-            headers: {              // Http header
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST",
-                "Authorization": token
-            },
-            data: JSON.stringify({content: value}),
-        })
-            .done(function (response, status, xhr) {
-                Swal.fire({
-                    icon: 'success',
-                    title: '수정 성공',
-                    text: '댓글 수정이 성공적으로 완료되었습니다.'
-                }).then(function () {
-                    window.location.reload();
-                })
-            })
-            .fail(function (jqXHR, textStatus) {
+        function update(id, value) {
+            const token = Cookies.get('Authorization');
+            // 댓글 내용 입력 안 했을 경우
+            let userComment = document.getElementById('userComment').value;
 
-            });
-    }
+            if (value.trim() === "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '댓글 내용 입력 오류',
+                    text: '댓글 내용을 입력해주세요.',
+                }).then(function () {
+                    value.focus();
+                    return false;
+                });
+            }
+
+            $.ajax({
+                type: "PUT",
+                url: `/api/comments/${id}`,
+                headers: {              // Http header
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "PUT",
+                    "Authorization": token
+                },
+                data: JSON.stringify({content: value}),
+            })
+                .done(function (response, status, xhr) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '수정 성공',
+                        text: '댓글 수정이 성공적으로 완료되었습니다.'
+                    }).then(function () {
+                        window.location.reload();
+                    })
+                })
+                .fail(function (jqXHR, textStatus) {
+
+                });
+        }
 
 </script>
 </html>
