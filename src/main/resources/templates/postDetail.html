@@ -108,8 +108,14 @@
                     <div class="row form-group">
                         <div class="col-md-12" style="width: 95%;text-align: left;">
                             <div>
+                                <<<<<<<<< Temporary merge branch 1
+                                <label class="text-black h4">작성자</label> :
+                                <label class="text-black h4"
+                                       th:text="${post.nickname} + ' (' + ${post.username} +')' "></label>
+                                ========= 아래는 내꺼에 있던거
                                 <span class="text-black h4">닉네임: <label class="text-black h4"
                                                                         id="userinfo"></label></span>
+                                >>>>>>>>> Temporary merge branch 2
                             </div>
                             <div style="float:right;">
                                 <label class="text-black h4">작성일자</label> :
@@ -128,16 +134,18 @@
                                             <b><span th:text="${post.title}" style="color: #ffffff;"></span></b>
                                         </h1>
                                         <br/>
-                                        <p th:text="${post.content}"></p>
+                                        <p class="txt-center" th:text="${post.content}"></p>
 
                                         <div class="list-group">
                                             <a href="#" class="list-group-item"
                                                style="background: rgba(0,0,0,0); border:0px;">
                                                 <div class="col-md-3">
-                                                    <div class="media col-md-12 twitter">
-                                                        <figure class="pull-left">
-                                                            <i class="fa fa-twitter"></i>
-                                                        </figure>
+                                                    <p id="opinionPercentA" class="txt-center"></p>
+                                                    <div id="progressAdiv" class="progress">
+                                                        <div id="progressA"
+                                                             class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                                                             role="progressbar" style="width: 0%;" aria-valuenow="0"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                     <div class="media col-md-12">
                                                         <button type="button"
@@ -146,17 +154,18 @@
                                                         <button type="button"
                                                                 class="btn btn-default btn-lg btn-block"><span
                                                                 th:text="${post.opinionACnt}"></span></button>
-
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 text-center">
                                                     <h1 class="vs-title">VS</h1>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <div class="media col-md-12 facebook-like">
-                                                        <figure class="pull-left">
-                                                            <i class="fa fa-facebook"></i>
-                                                        </figure>
+                                                    <p id="opinionPercentB" class="txt-center"></p>
+                                                    <div id="progressBdiv" class="progress">
+                                                        <div id="progressB"
+                                                             class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+                                                             role="progressbar" style="width: 0%;" aria-valuenow="0"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                     <div class="media col-md-12">
                                                         <button type="button"
@@ -182,98 +191,145 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-
-                </div>
-
-                <div class="clear"></div>
-            </div>
-            <!---start-comments-section--->
-            <br/><br/><br/><br/><br/>
-
-            <div class="comment-section" style="padding:30px;">
-                <div class="grids_of_2">
-                    <hr style="border-top: 1px solid #000;">
-                    <h2>Comments</h2>
-                    <div class="grid1_of_2">
-                        <div class="grid_text">
-                            <h4 class="style1 list" th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
-                            <h3 class="style" style="margin-top:0px;"
-                                th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 -
-                                4.00 PM</h3>
-                            <p class="para top" th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
-                                All the Lorem Ipsum generators on the Internet tend to repeat
-                                predefined chunks as necessary, making this the first true generator on the Internet. It
-                                uses a dictionary of over 200 Latin words, combined with a handful of model sentence
-                                structures, to generate Lorem Ipsum which looks reasonable.</p>
-                            <a href="#" class="btn1">수정</a>
-                            <a href="#" class="btn1">삭제</a>
-                            <a href="" class="btn1">Reply</a>
-                        </div>
                         <div class="clear"></div>
                     </div>
-                    <div class="grid1_of_2 left">
-                        <div class="grid_text">
+                    <!---start-comments-section--->
+                    <br/><br/><br/><br/><br/>
+
+                    <div class="comment-section" style="padding:30px;">
+                        <div class="grids_of_2">
+                            <hr style="border-top: 1px solid #000;">
+                            <h2>Comments</h2>
+                            <div class="grid1_of_2">
+                                <div class="grid_text">
                             <h4 class="style1 list" th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
-                            <h3 class="style" style="margin-top:0px;"
+                                    <h3 class="style" style="margin-top:0px;"
                                 th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 -
                                 4.00 PM</h3>
-                            <p class="para top" th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
+                                    <p class="para top"
+                                       th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
+                                        All the Lorem Ipsum generators on the Internet tend to repeat
+                                        predefined chunks as necessary, making this the first true generator on the
+                                        Internet. It
+                                        uses a dictionary of over 200 Latin words, combined with a handful of model
+                                        sentence
+                                        structures, to generate Lorem Ipsum which looks reasonable.</p>
+                                    <a href="#" class="btn1">수정</a>
+                                    <a href="#" class="btn1">삭제</a>
+                                    <a href="" class="btn1">Reply</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="grid1_of_2 left">
+                                <div class="grid_text">
+                                    <h4 class="style1 list"
+                                        th:text="${post.getCommentResponseDtoList().get(0).nickname}"></h4>
+                                    <h3 class="style" style="margin-top:0px;"
+                                th:text="${post.getCommentResponseDtoList().get(0).getModifiedAt()}">march 3, 2013 -
+                                4.00 PM</h3>
+                                    <p class="para top"
+                                       th:text="${post.getCommentResponseDtoList().get(0).getContent()}">
                                 All the Lorem Ipsum generators on the Internet tend to repeat
-                                predefined chunks as necessary, making this the first true generator on the Internet. It
-                                uses a dictionary of over 200 Latin words, combined with a handful of model sentence
-                                structures, to generate Lorem Ipsum which looks reasonable.</p>
-                            <a href="#" class="btn1" id="comEditBtn">수정</a>
-                            <a href="" class="btn1" id="comDeleteBtn">삭제</a>
+                                        predefined chunks as necessary, making this the first true generator on the
+                                        Internet. It
+                                        uses a dictionary of over 200 Latin words, combined with a handful of model
+                                        sentence
+                                        structures, to generate Lorem Ipsum which looks reasonable.</p>
+                                    <a href="#" class="btn1" id="comEditBtn">수정</a>
+                                    <a href="" class="btn1" id="comDeleteBtn">삭제</a>
                             <a href="" class="btn1" id="replyBtn">Reply</a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="grid1_of_2">
-                        <div class="grid_text">
-                            <h4 class="style1 list"><a href="#">Ro Kanth</a></h4>
-                            <h3 class="style">march 2, 2013 - 12.50 AM</h3>
-                            <p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat
-                                predefined chunks as necessary, making this the first true generator on the Internet. It
-                                uses a dictionary of over 200 Latin words, combined with a handful of model sentence
-                                structures, to generate Lorem Ipsum which looks reasonable.</p>
-                            <a href="" class="btn1">Click to Reply</a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="artical-commentbox">
-                        <h2>Leave a Comment</h2>
-                        <div class="table-form">
-                            <form action="#" method="post" name="post_comment">
-                                <div>
-                                    <label>Name<span>*</span></label>
-                                    <h4 th:text="${post.nickname}"></h4>
                                 </div>
-                                <div>
-                                    <label>Your Comment<span>*</span></label>
-                                    <textarea id="InputContent"> </textarea>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="grid1_of_2">
+                                <div class="grid_text">
+                                    <h4 class="style1 list"><a href="#">Ro Kanth</a></h4>
+                                    <h3 class="style">march 2, 2013 - 12.50 AM</h3>
+                                    <p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat
+                                        predefined chunks as necessary, making this the first true generator on the
+                                        Internet. It
+                                        uses a dictionary of over 200 Latin words, combined with a handful of model
+                                        sentence
+                                        structures, to generate Lorem Ipsum which looks reasonable.</p>
+                                    <a href="" class="btn1">Click to Reply</a>
                                 </div>
-                            </form>
-                            <button class="btn btn-secondary" type="button" id="comCreateBtn">댓글 작성</button>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="artical-commentbox">
+                                <h2>Leave a Comment</h2>
+                                <div class="table-form">
+                                    <form action="#" method="post" name="post_comment">
+                                        <div>
+                                            <label>Name<span>*</span></label>
+                                            <h4 th:text="${post.nickname}"></h4>
+                                        </div>
+                                        <div>
+                                            <label>Your Comment<span>*</span></label>
+                                            <textarea id="InputContent"> </textarea>
+                                        </div>
+                                    </form>
+                                    <button class="btn btn-secondary" type="button" id="comCreateBtn">댓글 작성</button>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
                         </div>
-                        <div class="clear"></div>
                     </div>
+                    <!---//End-comments-section--->
                 </div>
             </div>
-            <!---//End-comments-section--->
         </div>
-    </div>
-</div>
-<!----start-footer--->
-<div class="footer">
-    <p>Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-</div>
+        <!----start-footer--->
+        <div class="footer">
+            <p>Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+        </div>
 </body>
 
 <script th:inline="javascript">
     // 게시글 id를 model 객체에서 가져와서 저장.
     const postId = [[${post.id}]];
+
+    //투표시 게이지와 퍼센트 반영 시작
+    const opinionA = [[${post.opinionACnt}]];
+    const opinionB = [[${post.opinionBCnt}]];
+
+    // console.log([[${post}]]);
+    // 서버로 부터 데이터를 받아옴
+    const opinionResult = {
+        opinionA: opinionA,
+        opinionB: opinionB,
+    };
+
+    // 전체 투표 수 합산
+    const totalOpinion = opinionResult.opinionA + opinionResult.opinionB;
+
+    // 퍼센트 계산 (반올림)
+    const opinionPercentA = Math.round((opinionResult.opinionA / totalOpinion) * 100);
+    // console.log(opinionPercentA)
+    const opinionPercentB = Math.round((opinionResult.opinionB / totalOpinion) * 100);
+    // console.log(opinionPercentB)
+
+    // NaN 검사 후 표시
+    $('#opinionPercentA').text(isNaN(opinionPercentA) ? "투표를 시작하세요!" : opinionPercentA + "%");
+    $('#opinionPercentB').text(isNaN(opinionPercentB) ? "투표를 시작하세요!" : opinionPercentB + "%");
+
+    // 게이지 업데이트
+    // $('#progressA').css('width', opinionPercentA + "%");
+    // $('#progressB').css('width', opinionPercentB + "%");
+    if (isNaN(opinionPercentA)) {
+        $('#progressAdiv').hide();
+    } else {
+        $('#progressAdiv').show();
+        $('#progressA').css('width', opinionPercentA + "%");
+    }
+
+    if (isNaN(opinionPercentB)) {
+        $('#progressBdiv').hide();
+    } else {
+        $('#progressBdiv').show();
+        $('#progressB').css('width', opinionPercentB + "%");
+    }
+    //꿑
 
     // 게시글 수정 버튼 클릭 시
     $('#editBtn').click(function () {
@@ -364,10 +420,7 @@
 
         const payload = JSON.parse(atob(token.split(".")[1]));
         const loginUsername = payload.sub; // 로그인한 id
-        // console.log(loginUsername);
-
         const writerUsername = [[${post.username}]];
-        // console.log(writerUsername);
 
         // 게시글 작성자일 경우
         if (loginUsername === writerUsername) {
