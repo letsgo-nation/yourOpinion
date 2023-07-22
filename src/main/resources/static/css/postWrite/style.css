@@ -5,6 +5,15 @@
   --button-radius: 0.7rem;
 }
 
+*, input[type="text"], textarea[type="text"] {
+  font-family: 'Jua', sans-serif;
+}
+
+*::placeholder {
+  font-family: 'Jua', sans-serif;
+  font-size: 14px;
+}
+
 
 body {
   background: url("https://images3.alphacoders.com/764/764967.png");
