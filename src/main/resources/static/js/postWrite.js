@@ -1,3 +1,17 @@
+
+// alert 창 표시를 위한 변수 선언
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'center-center',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
+
 $(document).ready(function () {
     const token = Cookies.get('Authorization');
 
@@ -8,9 +22,13 @@ $(document).ready(function () {
         // 사용자 프로필 정보를 가져옴
         getUser(token);
     } else {
-        alert("로그인이 안 되어있습니다. 게시글 등록이 불가합니다.");
-        window.location.href = "/";
-        console.log("JWT 토큰이 없습니다. 게시글 등록이 불가합니다.");
+        Swal.fire({
+            icon: 'warning',
+            title: '인증 오류',
+            text: '게시글 작성을 위해 로그인을 부탁드립니다.',
+        }).then(function () {
+            window.location.href = "/";
+        })
     }
 });
 
