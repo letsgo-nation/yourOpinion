@@ -1,5 +1,6 @@
 package com.example.youropinion.service;
 
+import com.example.youropinion.dto.CommentResponseDto;
 import com.example.youropinion.dto.PostRequestDto;
 import com.example.youropinion.dto.PostResponseDto;
 import com.example.youropinion.dto.RestApiResponseDto;
@@ -9,6 +10,7 @@ import com.example.youropinion.entity.UserRoleEnum;
 import com.example.youropinion.exception.PostNotFoundException;
 import com.example.youropinion.repository.CommentRepository;
 import com.example.youropinion.repository.PostRepository;
+import com.example.youropinion.repository.SecondCommentServiceRepository;
 import com.example.youropinion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final SecondCommentServiceRepository secondCommentServiceRepository;
 
     public ResponseEntity<RestApiResponseDto> getPostList() {
         List<Post> postList = postRepository.findAll();
@@ -103,8 +106,14 @@ public class PostService {
         Post post = postRepository.findById(id).orElseThrow(() ->
                 new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
         PostResponseDto responseDto = new PostResponseDto(post);
-
+        Long data = 8L;
         responseDto.setCommentResponseDtoList(commentRepository.findAllByPostIdOrderByCreatedAtAsc(id));
+
+        for( CommentResponseDto dto : responseDto.getCommentResponseDtoList()){
+            responseDto.setSecondCommentResponseDtoList(secondCommentServiceRepository.findAllByCommentIdOrderByCreatedAtAsc(dto.getId()));
+        }
+
+        // comment 아이디 필요 댓글에 해당하는 id 값 가져오기
         return responseDto;
     }
 
