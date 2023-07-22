@@ -59,12 +59,12 @@
 
                         <div class="row form-group" style="margin-left: 20px;">
                             <div class="col-md-6 mb-3 mb-md-0">
-                                <label class="text-black">First Option</label>
+                                <label class="text-black" for="opinionA">First Option</label>
                                 <input type="text" id="opinionA" placeholder="첫번째 투표" th:value="${info_post.opinionA}"
                                        class="form-control" style="font-family: 'Jua', sans-serif;">
                             </div>
                             <div class="col-md-6">
-                                <label class="text-black">Last Option</label>
+                                <label class="text-black" for="opinionB">Last Option</label>
                                 <input type="text" id="opinionB" placeholder="두번째 투표" th:value="${info_post.opinionB}"
                                        class="form-control" style="font-family: 'Jua', sans-serif;">
                             </div>
@@ -73,7 +73,7 @@
 
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <label class="text-black">제목</label>
+                                <label class="text-black" for="title">제목</label>
                                 <input type="text" id="title" th:value="${info_post.title}"
                                        class="form-control" style="font-family: 'Jua', sans-serif;">
                             </div>
@@ -82,7 +82,7 @@
 
                         <div class="row form-group">
                             <div class="col-md-12">
-                                <label class="text-black">내용</label>
+                                <label class="text-black" for="content">내용</label>
                                 <textarea id="content" cols="30" rows="7" class="form-control"
                                           placeholder="Write your contents" th:text="${info_post.content}"
                                           style="font-family: 'Jua', sans-serif;"></textarea>

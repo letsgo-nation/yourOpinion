@@ -21,8 +21,22 @@ function getUser(token) {
     // 예시 {sub: 'qw12345611', auth: 'USER', exp: 1689745728, iat: 1689742128}
     // 그중 username을 추출해야하니 sub를 가져옴. 만약 관리자 확인이면 auth를 가져올듯.
     const username = payload.sub;
-    console.log(username);
-    document.getElementById("username").innerText = username;
+    if(username === ""){
+        removeToken();
+    }else {
+        document.getElementById("username").innerText = username;
+    }
+}
+
+function removeToken(){
+    Cookies.remove('Authorization', {path: '/'});
+    Swal.fire({
+        icon: 'warning',
+        title: '로그인 만료',
+        text: '인증이 만료되어 재로그인 부탁드립니다.',
+    }).then(function () {
+        window.location.href = "/";
+    })
 }
 
 function updatePost() {

@@ -31,14 +31,6 @@ $(document).ready(function () {
 
     // 쿠키값 가져오기
     let token = Cookies.get('Authorization');
-
-    function getUser(token) {
-        const payload = JSON.parse(atob(token.split(".")[1]));
-        const username = payload.sub;
-        console.log(payload);
-        $("#profile").text(username + "님 환영합니다!");
-    }
-
     if (token) {
         //쿠키 있을때
         getUser(token)
@@ -47,6 +39,7 @@ $(document).ready(function () {
         //쿠키 없을때
         $("#profile").hide();
         $(".dropdown").hide();
+        removeToken();
     }
 
     $.ajax({
@@ -65,6 +58,26 @@ $(document).ready(function () {
         },
     });
 });
+
+function getUser(token) {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    const username = payload.sub;
+    if(username ===""){
+        removeToken();
+    }
+    console.log(payload);
+    $("#profile").text(username + "님 환영합니다!");
+}
+
+function removeToken() {
+    Cookies.remove('Authorization', {path: '/'});
+    Swal.fire({
+        icon: 'warning',
+        title: '로그인 만료',
+        text: '인증이 만료되어 재로그인 부탁드립니다.',
+    })
+}
+
 
 function displayPosts(posts) {
     const $tiles = $('#tiles'); // #tiles 요소를 찾습니다.

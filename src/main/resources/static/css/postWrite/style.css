@@ -15,7 +15,12 @@
 }
 
 
+.swal2-title{
+  font-family: 'Jua', sans-serif;
+}
+
 body {
+  font-family: 'Jua', sans-serif;
   background: url("https://images3.alphacoders.com/764/764967.png");
   line-height: 1.7;
   color: #4d4d4d;

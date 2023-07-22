@@ -59,35 +59,20 @@ $(document).ready(function () {
         // 그중 username을 추출해야하니 sub를 가져옴. 만약 관리자 확인이면 auth를 가져올듯.
         const payload = JSON.parse(atob(token.split(".")[1]));
         const userid = payload.sub;
-
-        setCommentNickname();
     }
     voteBtnDisplay();
 })
 
-// 댓글 작성자 닉네임을 적용하기 위한 통신 코드
-function setCommentNickname() {
-    $.ajax({
-        url: "/api/profile",
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            const nickname = data['proFileResponseDto']['nickname']; // 실제 사용자 닉네임값 가져오기
-            $('.commentNickname').text(nickname);
-        },
-        error: function (error) {
-            console.error("프로필 정보를 가져오는 데 실패했습니다.", error);
-            Swal.fire({
-                icon: 'warning',
-                title: '토큰 오류',
-                text: '프로필 정보를 가져오는 데 실패했습니다.',
-            }).then(function () {
-                window.location.href = "/"
-            });
-        }
-    });
-}// end of setCommentNickname();
-
+function removeToken(){
+    Cookies.remove('Authorization', {path: '/'});
+    Swal.fire({
+        icon: 'warning',
+        title: '로그인 만료',
+        text: '인증이 만료되어 재로그인 부탁드립니다.',
+    }).then(function () {
+        window.location.href = "/";
+    })
+}
 
 // 투표 데이터에 따라 버튼 활성화, 비활성화
 function voteBtnDisplay() {
