@@ -29,8 +29,6 @@ public class PostViewController {
                             Model model) {
         PostResponseDto result = postService.getPost(id);
         model.addAttribute("post", result);
-//        model.addAttribute("commentList", responseDto.getCommentResponseDtoList());
-
         return "postDetail";
     }
 

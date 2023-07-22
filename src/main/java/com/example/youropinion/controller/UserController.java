@@ -31,21 +31,4 @@ public class UserController {
 
         return ResponseEntity.status(200).body(new ApiResponseDto("회원가입 성공", HttpStatus.CREATED.value()));
     }
-
-//    @GetMapping("/login-page")
-//    public String loginPage() {
-//        return "login";
-//    }
-//
-//    // 프로필 확인
-//    @GetMapping("/profile-page")
-//    public String getProfilePage() {
-//        return "profile";
-//    }
-//
-//    //비밀번호 변경
-//    @GetMapping("/profile-page/pwchange")
-//    public String getPwChangePage() {
-//        return "pwchange";
-//    }
 }

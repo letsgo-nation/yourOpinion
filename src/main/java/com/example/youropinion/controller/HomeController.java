@@ -13,9 +13,4 @@ public class HomeController {
         System.out.println("test = " + userDetails);
         return "index";
     }
-
-    @GetMapping("/child")
-    public String single() {
-        return "child";
-    }
 }

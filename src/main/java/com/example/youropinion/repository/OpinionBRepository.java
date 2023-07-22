@@ -1,6 +1,5 @@
 package com.example.youropinion.repository;
 
-import com.example.youropinion.entity.OpinionA;
 import com.example.youropinion.entity.OpinionB;
 import com.example.youropinion.entity.Post;
 import com.example.youropinion.entity.User;
