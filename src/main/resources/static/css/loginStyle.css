@@ -17,6 +17,10 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+* {
+    font-family: 'Jua', sans-serif;
+}
+
 body {
     align-items: center;
     background-color: var(--white);

@@ -1,4 +1,16 @@
-console.log(logininfo)
+
+// alert 창 표시를 위한 변수 선언
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'center-center',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 
 // 서버로 부터 데이터를 받아옴
 const opinionResult = {
@@ -42,34 +54,31 @@ $(document).ready(function () {
         $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
             jqXHR.setRequestHeader('Authorization', token);
         });
+        // JWT 토큰 디코딩하여 페이로드 추출
+        // 예시 {sub: 'qw12345611', auth: 'USER', exp: 1689745728, iat: 1689742128}
+        // 그중 username을 추출해야하니 sub를 가져옴. 만약 관리자 확인이면 auth를 가져올듯.
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        const userid = payload.sub;
+
+        setCommentNickname();
     }
-    console.log(token)
-    // JWT 토큰 디코딩하여 페이로드 추출
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    console.log(payload)
+    voteBtnDisplay();
+})
 
-    // 예시 {sub: 'qw12345611', auth: 'USER', exp: 1689745728, iat: 1689742128}
-    // 그중 username을 추출해야하니 sub를 가져옴. 만약 관리자 확인이면 auth를 가져올듯.
-    const userid = payload.sub;
-
-    console.log(userid)
-
+// 댓글 작성자 닉네임을 적용하기 위한 통신 코드
+function setCommentNickname() {
     $.ajax({
         url: "/api/profile",
         type: "GET",
         dataType: "json",
         success: function (data) {
-            // 서버로부터 받은 데이터를 처리하는 로직을 작성합니다.
-            // 예시: 프로필 정보를 표시하는 함수 호출
-            // console.log(data)
-            const nickname = data['proFileResponseDto']['nickname']; // 실제 사용자 ID값 가져오기
+            const nickname = data['proFileResponseDto']['nickname']; // 실제 사용자 닉네임값 가져오기
             $('.commentNickname').text(nickname);
-
         },
         error: function (error) {
             console.error("프로필 정보를 가져오는 데 실패했습니다.", error);
-            Toast.fire({
-                icon: 'error',
+            Swal.fire({
+                icon: 'warning',
                 title: '토큰 오류',
                 text: '프로필 정보를 가져오는 데 실패했습니다.',
             }).then(function () {
@@ -77,7 +86,176 @@ $(document).ready(function () {
             });
         }
     });
-})
+}// end of setCommentNickname();
+
+
+// 투표 데이터에 따라 버튼 활성화, 비활성화
+function voteBtnDisplay() {
+    const url = `/api/posts/${postId}/opinions`;
+    $.ajax({
+        url: url,
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            const opinionA = data['opinionAresult']; // 투표할 경우 true, 투표 안하거나 취소한 경우 false
+            const opinionB = data['opinionBresult']; // 투표할 경우 true, 투표 안하거나 취소한 경우 false
+
+            if (opinionA) { // 옵션1이 true 일 경우
+                document.getElementById('inOpinionA').style.display = 'none';
+                document.getElementById('deOpinionA').style.display = 'block';
+                document.getElementById('inOpinionB').style.display = 'none';
+                document.getElementById('deOpinionB').style.display = 'none';
+            } else if (opinionB) { // 옵션1은 false고, 옵션2가 true이면
+                document.getElementById('inOpinionA').style.display = 'none';
+                document.getElementById('deOpinionA').style.display = 'none';
+                document.getElementById('inOpinionB').style.display = 'none';
+                document.getElementById('deOpinionB').style.display = 'block';
+            } else { // 투표 정보가 없는 사용자의 경우 결과를 보여줄지 말지
+            }
+        },
+        error: function (error) {
+            Swal.fire({
+                icon: 'warning',
+                title: '투표 불가',
+                text: '투표를 위해 로그인 부탁드립니다.',
+            }).then(function () {
+                document.getElementById('inOpinionA').style.display = 'none';
+                document.getElementById('deOpinionA').style.display = 'none';
+                document.getElementById('inOpinionB').style.display = 'none';
+                document.getElementById('deOpinionB').style.display = 'none';
+            });
+        }
+    });
+}// end of voteBtnDisplay();
+
+// 투표1 증가 시
+function increaseOpinionA() {
+    const token = Cookies.get('Authorization');
+    const url = `/api/posts/${postId}/opinionA`;
+    // 옵션1 투표
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers: {              // Http header
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST",
+            "Authorization": token
+        },
+        data: {},
+    })
+        .done(function (res, status, xhr) {
+            Swal.fire({
+                icon: 'success',
+                title: '투표 성공',
+                text: nickname + '님, 투표 완료되었습니다.'
+            }).then(function () {
+                window.location.reload();
+            })
+        })
+        .fail(function (jqXHR, textStatus) {
+            Toast.fire({
+                icon: 'warning',
+                title: '투표를 실패하였습니다.'
+            })
+        });
+}// end of increaseOpinionA();
+
+// 투표1 감소 시
+function decreaseOpinionA() {
+    const token = Cookies.get('Authorization');
+    const url = `/api/posts/${postId}/opinionA`;
+    // 옵션1 투표 취소
+    $.ajax({
+        type: "PUT",
+        url: url,
+        headers: {              // Http header
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "PUT",
+            "Authorization": token
+        },
+        data: {},
+    })
+        .done(function (res, status, xhr) {
+            Swal.fire({
+                icon: 'success',
+                title: '투표 취소 성공',
+                text: nickname + '님, 투표가 취소되었습니다.'
+            }).then(function () {
+                window.location.reload();
+            })
+        })
+        .fail(function (jqXHR, textStatus) {
+            Toast.fire({
+                icon: 'warning',
+                title: '투표 취소를 실패하였습니다.'
+            })
+        });
+}// end of decreaseOpinionA();
+
+// 투표2 증가 시
+function increaseOpinionB() {
+    const token = Cookies.get('Authorization');
+    const url = `/api/posts/${postId}/opinionB`;
+    // 옵션2 투표
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers: {              // Http header
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "POST",
+            "Authorization": token
+        },
+        data: {},
+    })
+        .done(function (res, status, xhr) {
+            Swal.fire({
+                icon: 'success',
+                title: '투표 성공',
+                text: nickname + '님, 투표 완료되었습니다.'
+            }).then(function () {
+                window.location.reload();
+            })
+        })
+        .fail(function (jqXHR, textStatus) {
+            Toast.fire({
+                icon: 'warning',
+                title: '투표를 실패하였습니다.'
+            })
+        });
+}// end of increaseOpinionB();
+
+// 투표2 감소 시
+function decreaseOpinionB() {
+    const token = Cookies.get('Authorization');
+    const url = `/api/posts/${postId}/opinionB`;
+    // 옵션2 투표 취소
+    $.ajax({
+        type: "PUT",
+        url: url,
+        headers: {              // Http header
+            "Content-Type": "application/json",
+            "X-HTTP-Method-Override": "PUT",
+            "Authorization": token
+        },
+        data: {},
+    })
+        .done(function (res, status, xhr) {
+            Swal.fire({
+                icon: 'success',
+                title: '투표 취소 성공',
+                text: nickname + '님, 투표가 취소되었습니다.'
+            }).then(function () {
+                window.location.reload();
+            })
+        })
+        .fail(function (jqXHR, textStatus) {
+            Toast.fire({
+                icon: 'warning',
+                title: '투표 취소를 실패하였습니다.'
+            })
+        });
+}// end of decreaseOpinionB();
+
 
 // 게시글 수정 버튼 클릭 시
 $('#editBtn').click(function () {
@@ -98,7 +276,9 @@ $('#replyBtn').click(function () {
     createReply(); // 함수 만들어야 함. 어떤 댓글인지 id 값이 필요
 });
 
+
 $(document).ready(function () {
+    showComments();
     const token = Cookies.get('Authorization');
 
     if (token) {
@@ -106,48 +286,20 @@ $(document).ready(function () {
             jqXHR.setRequestHeader('Authorization', token);
         });
         getUser(token);
-        //displayBtn(token);
-    } else {
-        console.log('로그인이 안 되어있습니다.');
     }
-
-    const commentUrl = "/api/posts/" + postId + "/comment";
-    // console.log(commentUrl)
 
     //아이디 암호화 함수
-    function maskingName() {
-        // console.log(username)
-        if (username.length >= 8) {
-            return (
-                username.slice(0, 3) +
-                "*".repeat(Math.max(0, username.length - 5)) +
-                username.slice(-3)
-            );
-        } else {
-            return (
-                username.slice(0, 2) +
-                "*".repeat(Math.max(0, username.length - 3)) +
-                username.slice(-1)
-            );
-        }
-    }
+    maskingName(username);
 
     const maskedUsername = maskingName(username);
-
     $('#userinfo').html(nickname + "(" + maskedUsername + ")")
 
+    // 게시글 날짜 표시
+    const formattedDate = setDateFormat(modifiedAt);
+    const postDate = document.getElementById('postDate');
+    postDate.textContent = formattedDate;
+
 })
-
-function getToken() {
-    const token = Cookies.get('Authorization');
-
-    if (token) {
-        return token;
-    } else {
-
-    }
-
-}
 
 function maskingName(username) {
     if (username.length >= 8) {
@@ -165,13 +317,7 @@ function maskingName(username) {
     }
 }
 
-const maskedUsername = maskingName(username);
-
-$('#userinfo').text(nickname + " (" + maskedUsername + ")");
-
-
 function getUser(token) {
-    // console.log(token);
     const editBtn = document.getElementById('editBtn');
     const deleteBtn = document.getElementById('deleteBtn');
 
@@ -194,16 +340,17 @@ function getUser(token) {
     }
 }
 
+function setDateFormat(inputDate){
+    const date = new Date(inputDate);
 
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+    });
 }
 
 // 게시글 삭제하기
@@ -239,13 +386,13 @@ function deletePost(url) {
     });
 }
 
-console.log("post", post);
-
-for (var i = 0; i < post['commentResponseDtoList'].length; i++) {
-    const dateString = post['commentResponseDtoList'][i].modifiedAt;
-    const formattedDate = formatDate(dateString);
-    let temp_html =
-        `<div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}">
+function showComments() {
+    console.log("post", post);
+    for (var i = 0; i < post['commentResponseDtoList'].length; i++) {
+        const dateString = post['commentResponseDtoList'][i].modifiedAt;
+        const formattedDate = setDateFormat(dateString);
+        let temp_html =
+            `<div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}">
                             <div class="grid_img">
                                 <a href=""><img src="" alt=""></a>
                             </div>
@@ -258,7 +405,8 @@ for (var i = 0; i < post['commentResponseDtoList'].length; i++) {
                             </div>
                             <div class="clear"></div>
                  </div>`;
-    $('#comment').append(temp_html);
+        $('#comment').append(temp_html);
+    }
 }
 
 function insert() {
@@ -277,9 +425,11 @@ function insert() {
         })
     }
 
+    console.log(postId);
+
     $.ajax({
         type: "POST",
-        url: `/api/posts/${post.id}/comment`,
+        url: `/api/posts/${postId}/comment`,
         headers: {              // Http header
             "Content-Type": "application/json",
             "X-HTTP-Method-Override": "POST",
@@ -295,12 +445,12 @@ function insert() {
                 title: '작성 성공',
                 text: '댓글 작성이 성공적으로 완료되었습니다.'
             }).then(function () {
-                window.location.href = `/api/post/detail-page/${post.id}`;
+                window.location.href = `/api/post/detail-page/${postId}`;
             })
 
 
             const dateString = response.modifiedAt;
-            const formattedDate = formatDate(dateString);
+            const formattedDate = setDateFormat(dateString);
 
             let temp_html =
                 `  <div class="grid1_of_2" id="${response['result'].id}" >
@@ -363,7 +513,7 @@ function updateComment(id) {
     //다시 불러오기
     $.ajax({
         type: "GET",
-        url: `/api/post/detail-page/${post.id}`,
+        url: `/api/post/detail-page/${postId}`,
         headers: {              // Http header
             "Content-Type": "application/json",
             "Authorization": token
@@ -374,7 +524,7 @@ function updateComment(id) {
             for (var i = 0; i < post['commentResponseDtoList'].length; i++) {
 
                 const dateString = post['commentResponseDtoList'][i].modifiedAt;
-                const formattedDate = formatDate(dateString);
+                const formattedDate = setDateFormat(dateString);
 
                 if (post['commentResponseDtoList'][i].id == id) {
 
