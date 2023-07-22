@@ -2,6 +2,7 @@ package com.example.youropinion.entity;
 
 
 import com.example.youropinion.dto.CommentRequestDto;
+import com.example.youropinion.dto.SecondCommentRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,15 +37,15 @@ public class  SecondComments extends Timestamped {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public SecondComments(CommentRequestDto requestDto, Comment comment, User user) {
-        this.content = requestDto.getContent();
+    public SecondComments(String second, Comment comment, User user) {
+        this.content = second;
         this.likeCnt = Long.getLong("0");
         this.dislikeCnt = Long.getLong("0");
         this.comment = comment;
         this.user = user;
     }
 
-//    public void update(CommentRequestDto requestDto) {
-//        this.content = requestDto.getContent();
-//    }
+    public void update(SecondCommentRequestDto requestDto) {
+        this.content = requestDto.getContent();
+    }
 }

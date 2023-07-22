@@ -39,7 +39,7 @@ public class Comment extends Timestamped {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany( mappedBy = "Comment", cascade = CascadeType.ALL)
+    @OneToMany( mappedBy = "comment", cascade = CascadeType.ALL)
     private List<SecondComments> SecondCommentList= new ArrayList<>();
 
     public Comment(CommentRequestDto requestDto, Post post, User user) {
