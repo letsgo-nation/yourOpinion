@@ -1,67 +1,27 @@
 package com.example.youropinion.controller;
 
 import com.example.youropinion.dto.PostRequestDto;
-import com.example.youropinion.dto.PostResponseDto;
-import com.example.youropinion.dto.ProFileResponseDto;
 import com.example.youropinion.dto.RestApiResponseDto;
 import com.example.youropinion.exception.TokenNotValidateException;
 import com.example.youropinion.security.UserDetailsImpl;
 import com.example.youropinion.service.PostService;
-import com.example.youropinion.service.ProFileService;
-import jakarta.validation.Valid;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class PostController {
 
     private final PostService postService;
-    private final ProFileService proFileService;
-
-
-    @GetMapping("/post/write-page")
-    public String writePage(){
-        return "postWrite";
-    }
 
     // 전체 게시글 조회
     @GetMapping("/posts")
     public @ResponseBody ResponseEntity<RestApiResponseDto> getPostList() {
         return postService.getPostList();
-    }
-
-    // 선택 게시글 조회
-/*   @GetMapping("/posts/{id}")
-    public @ResponseBody PostResponseDto getPost(
-            @PathVariable Long id) {
-        return postService.getPost(id);
-    }*/
-
-    // 게시글 페이지 보여주기
-    @GetMapping("/post/detail-page/{id}")
-    public String bringPost(@PathVariable Long id,
-                          Model model) {
-        PostResponseDto result = postService.getPost(id);
-        model.addAttribute("post", result);
-//        model.addAttribute("commentList", responseDto.getCommentResponseDtoList());
-
-        return "postDetail";
-    }
-
-    // 게시글 수정 페이지 보여주기
-    @GetMapping("/post/modify-page/{id}")
-    public String modifyPost(Model model,  @PathVariable Long id)
-            throws JsonProcessingException {
-        model.addAttribute("info_post",postService.getPost(id));
-        return "postModify";
     }
 
     // 게시글 작성

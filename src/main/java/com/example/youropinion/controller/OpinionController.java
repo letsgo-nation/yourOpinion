@@ -16,7 +16,7 @@ public class OpinionController {
     private final OpinionService opinionService;
 
 
-    @GetMapping("/posts/{id}/opinions")
+    @GetMapping("/posts/{id}/opinions") // 옵션1,2 정보 있는지 조회
     public CheckOpinionDto checkValue(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return opinionService.checkValue(id, userDetails.getUser());
     }
@@ -39,22 +39,3 @@ public class OpinionController {
         return opinionService.decreaseOpinionB(id, userDetails.getUser());
     }
 }
-
-//    // 게시글 Like 취소 API
-//    @DeleteMapping("/post/like/{id}")
-//    public LikeResponseDto deleteLikePost(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
-//        return likeService.deleteLikePost(id, userDetails.getUser());
-//    }
-//
-//    // 댓글 Like Api
-//    @PostMapping("/comment/like/{id}")
-//    public LikeResponseDto likeComment(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        return likeService.likeComment(id, userDetails.getUser());
-//    }
-//
-//    // 댓글 Like 취소 API
-//    @DeleteMapping("/comment/like/{id}")
-//    public LikeResponseDto deleteLikeComment(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails){
-//        return likeService.deleteLikeComment(id, userDetails.getUser());
-//    }
-//}

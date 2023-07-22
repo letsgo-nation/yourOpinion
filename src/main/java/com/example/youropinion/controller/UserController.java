@@ -7,13 +7,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
-public class userController {
+public class UserController {
 
     private final UserService userService;
 
@@ -30,20 +32,20 @@ public class userController {
         return ResponseEntity.status(200).body(new ApiResponseDto("회원가입 성공", HttpStatus.CREATED.value()));
     }
 
-    @GetMapping("/login-page")
-    public String loginPage() {
-        return "login";
-    }
-
-    // 프로필 확인
-    @GetMapping("/profile-page")
-    public String getProfilePage() {
-        return "profile";
-    }
-
-    //비밀번호 변경
-    @GetMapping("/profile-page/pwchange")
-    public String getPwChangePage() {
-        return "pwchange";
-    }
+//    @GetMapping("/login-page")
+//    public String loginPage() {
+//        return "login";
+//    }
+//
+//    // 프로필 확인
+//    @GetMapping("/profile-page")
+//    public String getProfilePage() {
+//        return "profile";
+//    }
+//
+//    //비밀번호 변경
+//    @GetMapping("/profile-page/pwchange")
+//    public String getPwChangePage() {
+//        return "pwchange";
+//    }
 }
