@@ -71,11 +71,6 @@ function getUser(token) {
 
 function removeToken() {
     Cookies.remove('Authorization', {path: '/'});
-    Swal.fire({
-        icon: 'warning',
-        title: '로그인 만료',
-        text: '인증이 만료되어 재로그인 부탁드립니다.',
-    })
 }
 
 
