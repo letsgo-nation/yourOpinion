@@ -234,4 +234,27 @@ function logout() {
     })
 
 }
+// 모달 버튼과 모달 창 요소를 가져옵니다.
+var modalBtn = document.getElementById("modalButton");
+var modal = document.getElementById("myModal");
+
+// 모달 버튼을 클릭하면 모달 창을 보여줍니다.
+modalBtn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// 모달 창 닫기 버튼을 클릭하면 모달 창을 닫습니다.
+var closeBtn = document.getElementsByClassName("close")[0];
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}
+
+// 모달 외부 영역을 클릭하면 모달 창을 닫습니다.
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+
+
+}
 
