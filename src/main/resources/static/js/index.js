@@ -32,10 +32,18 @@ $(document).ready(function () {
     // 쿠키값 가져오기
     let token = Cookies.get('Authorization');
 
+
     if (token) {
+        const payloads = JSON.parse(atob(token.split(".")[1]));
+        const userAuth = payloads.auth;
         //쿠키 있을때
         getUser(token)
         $("#login").hide();
+
+        if(userAuth=='ADMIN'){
+            $("#adminButton").show();
+
+        }
 
     } else {
         //쿠키 없을때

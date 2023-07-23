@@ -29,7 +29,7 @@ public class AdminService {
     private final CommentRepository commentRepository;
     private final OpinionARepository opinionARepository;
     private final OpinionBRepository opinionBRepository;
-
+    private final SecondCommentServiceRepository secondCommentServiceRepository;
     private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
     public List<AdminUserResponseDto> getAdminPageUsers() {
@@ -60,6 +60,8 @@ public class AdminService {
         // 회원이 쓴 게시글, 댓글 삭제
         List<Comment> comments = commentRepository.findByUser(user);
         commentRepository.deleteAll(comments);
+        List<SecondComments> secondComments = secondCommentServiceRepository.findByUser(user);
+        secondCommentServiceRepository.deleteAll(secondComments);
         List<OpinionA> opinionAList = opinionARepository.findByUser(user);
         List<OpinionB> opinionBList = opinionBRepository.findByUser(user);
         opinionARepository.deleteAll(opinionAList);
