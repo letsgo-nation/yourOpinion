@@ -27,25 +27,25 @@ public class AdminViewController {
 
     @GetMapping("/user-page")
     public String userPageLoad(Model model){
-        List<AdminUserResponseDto> result = userService.getAdminPageUsers();
+/*        List<AdminUserResponseDto> result = userService.getAdminPageUsers();
         log.info(result.toString());
-        model.addAttribute("userList", result);
+        model.addAttribute("userList", result);*/
         return "admin-page/adminUserPage";
     }
 
     @GetMapping("/post-page")
     public String getAdminPostPage(Model model) {
-        List<AdminPostResponseDto> result = postService.getAdminPagePosts();
+/*        List<AdminPostResponseDto> result = postService.getAdminPagePosts();
         log.info(result.toString());
-        model.addAttribute("postList", result);
+        model.addAttribute("postList", result);*/
         return "admin-page/adminPostPage";
     }
 
     @GetMapping("/comment-page")
     public String getAdminCommentPage(Model model) {
-        List<AdminCommentResponseDto> result = commentService.getAdminPageComments();
+/*        List<AdminCommentResponseDto> result = commentService.getAdminPageComments();
         log.info(result.toString());
-        model.addAttribute("commentList", result);
+        model.addAttribute("commentList", result);*/
         return "admin-page/adminCommentPage";
     }
 
