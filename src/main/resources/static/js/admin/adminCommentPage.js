@@ -153,4 +153,6 @@ function commentDelete(id) {
     }
 }
 
-
+function cancel(){
+    window.location.href = "/"
+}

@@ -48,8 +48,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
         UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
+        String nickname = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getNickname();
 
-        String token = jwtUtil.createToken(username, role);
+        String token = jwtUtil.createToken(username, role, nickname);
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
         log.info("로그인 성공");
     }

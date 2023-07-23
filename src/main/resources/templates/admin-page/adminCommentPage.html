@@ -22,7 +22,10 @@
     <script src="/js/admin/adminCommentPage.js"></script>
 </head>
 <body>
-
+<div class="top" id="top">
+    <p id="management" style="margin: 0">회원 관리</p>
+    <button onclick="cancel()" class="btn btn-primary" style="margin-left: auto">뒤로가기</button>
+</div>
 <div class="comments" id="comments" >
 
 </div>
@@ -30,7 +33,6 @@
 
 </body>
 <script>
-    $('#comments').css("overflow-y", "scroll");
     $('#comments').css("overflow-x", "hidden");
 </script>
 </html>

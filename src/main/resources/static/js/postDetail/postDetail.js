@@ -309,9 +309,11 @@ function getUser(token) {
     const payload = JSON.parse(atob(token.split(".")[1]));
     const loginUsername = payload.sub; // 로그인한 id
     const writerUsername = username;
-    // console.log(writerUsername);
+    const nickName = payload.nickName;
 
-    $('#loginUserName').text(loginUsername)
+    console.log("nickName",nickName);
+
+    $('#loginUserName').text(nickName)
 
     // 게시글 작성자일 경우
     if (loginUsername === writerUsername) {
@@ -382,7 +384,7 @@ function showComments() {
                 </div>
                     <div class="grid_text">
                     <hr style="border-top: 1px solid #6c757d;">
-                        <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#" style="font-family: 'Jua', sans-serif;">${post['commentResponseDtoList'][i].username}</a></h4>
+                        <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#" style="font-family: 'Jua', sans-serif;">${post['commentResponseDtoList'][i].nickname}</a></h4>
                         <p class="para top" style="font-family: 'Jua', sans-serif;" >${formattedDate}</p>
                         <h4 class="style1 list"> ${post['commentResponseDtoList'][i].content}</h4>
                         <a id="testid" class="btn1" style="font-family: 'Jua', sans-serif" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
@@ -420,7 +422,7 @@ function showComments() {
                                                         </div>
                                                         <div class="grid_text">
                                                             <hr style="border-top: 1px solid #6c757d;">
-                                                            <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#" style="font-family: 'Jua', sans-serif;">${post['secondCommentResponseDtoList'][j].username}</a></h4>
+                                                            <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#" style="font-family: 'Jua', sans-serif;">${post['secondCommentResponseDtoList'][j].nickname}</a></h4>
                                                             <p class="para top" style="font-family: 'Jua', sans-serif;" >${formattedDate}</p>
                                                             <h4 class="style1 list"  id="secondP-${post['secondCommentResponseDtoList'][j].id}"> ${post['secondCommentResponseDtoList'][j].content}</h4>
                                                             <input type="text" placeholder="대댓글을 수정해주세요" style="display: none"
@@ -487,8 +489,8 @@ function insert() {
                     </div>
                         <div class="grid_text">
                          <hr style="border-top: 1px solid #6c757d;">
-                            <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#"  style="font-family: 'Jua', sans-serif;">${response['result'].username}</a></h4>
-                            
+                            <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#"  style="font-family: 'Jua', sans-serif;">${response['result'].nickname}</a></h4>
+                
                             <p  class="para top" style="font-family: 'Jua', sans-serif;">${formattedDate}</p>
                             <h4 class="style1 list">${response['result'].content}</h4>
                             <a id="testid" class="btn1" style="font-family: 'Jua', sans-serif;" onclick="updateComment(${response['result'].id})">수정</a>
@@ -586,7 +588,7 @@ function updateComment(id) {
                                     </div>
                                     <div class="grid_text">
                                      <hr style="border-top: 1px solid #6c757d;">
-                                        <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#" style="font-family: 'Jua', sans-serif;">${post['commentResponseDtoList'][i].username}</a></h4>
+                                        <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#" style="font-family: 'Jua', sans-serif;">${post['commentResponseDtoList'][i].nickname}</a></h4>
                                         <p class="para top" style="font-family: 'Jua', sans-serif;">${formattedDate}</p>
                                         <h4 class="style1 list"><input id="input" value="${post['commentResponseDtoList'][i].content}"/></h4>
                                         <a class="btn1"  style="font-family: 'Jua', sans-serif;" onclick="update(${post['commentResponseDtoList'][i].id}, $('#input').val())">수정</a>
@@ -698,7 +700,7 @@ function secondCommentUpdateButton(id){
         if (post['secondCommentResponseDtoList'][i].id == id) {
 
             //작성자 확인
-            if ( getLoginUser(token) != `${post['secondCommentResponseDtoList'][i].username}`) {
+            if ( getLoginUser(token) != `${post['secondCommentResponseDtoList'][i].nickname}`) {
                 Swal.fire({
                     icon: 'warning',
                     title: '수정 실패',

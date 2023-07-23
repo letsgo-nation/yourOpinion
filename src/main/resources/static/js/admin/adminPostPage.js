@@ -164,3 +164,7 @@ function deleteUserPost(id){
         }
     });
 }
+
+function cancel(){
+    window.location.href = "/"
+}

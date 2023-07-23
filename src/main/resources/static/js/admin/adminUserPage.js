@@ -210,3 +210,7 @@ function userUpdate(id,role){
 
 }
 
+function cancel(){
+    window.location.href = "/"
+}
+
