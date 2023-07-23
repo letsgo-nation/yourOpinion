@@ -31,10 +31,12 @@ $(document).ready(function () {
 
     // 쿠키값 가져오기
     let token = Cookies.get('Authorization');
+
     if (token) {
         //쿠키 있을때
         getUser(token)
         $("#login").hide();
+
     } else {
         //쿠키 없을때
         $("#profile").hide();
@@ -72,7 +74,6 @@ function getUser(token) {
 function removeToken() {
     Cookies.remove('Authorization', {path: '/'});
 }
-
 
 function displayPosts(posts) {
     const $tiles = $('#tiles'); // #tiles 요소를 찾습니다.

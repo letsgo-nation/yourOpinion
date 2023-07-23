@@ -385,15 +385,18 @@ function showComments() {
                         <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#" style="font-family: 'Jua', sans-serif;">${post['commentResponseDtoList'][i].username}</a></h4>
                         <p class="para top" style="font-family: 'Jua', sans-serif;" >${formattedDate}</p>
                         <h4 class="style1 list"> ${post['commentResponseDtoList'][i].content}</h4>
-                        <a id="testid" class="btn1" style="font-family: 'Jua', sans-serif;" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
-                        <a class="btn1" style="font-family: 'Jua', sans-serif;" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
-                        <a class="btn1" onclick="secondComment(${post['commentResponseDtoList'][i].id})">대댓글달기</a>
+                        <a id="testid" class="btn1" style="font-family: 'Jua', sans-serif" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
+                        <a class="btn1" style="font-family: 'Jua', sans-serif" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
+                        <a class="btn1" style="font-family: 'Jua', sans-serif" onclick="secondComment(${post['commentResponseDtoList'][i].id})">reply</a>
+                        
                     </div>
-                <input type="text"  placeholder="대댓글을 입력해주세요" style="display: none" id ="${post['commentResponseDtoList'][i].id}" />
-                <button type="button" style="display: none"  id ="${post['commentResponseDtoList'][i].id}" onclick="insertSecondComment(${post['commentResponseDtoList'][i].id})" >대댓글 입력</button>
+                    <div class="grid_text">
+                        <input type="text"  placeholder="대댓글을 입력해주세요" style="display: none" id ="${post['commentResponseDtoList'][i].id}" />
+                        <button type="button" style="display: none"  id ="${post['commentResponseDtoList'][i].id}" onclick="insertSecondComment(${post['commentResponseDtoList'][i].id})" >대댓글 입력</button>     
+                    </div>
                 <div  class="grid1_of_2 left" id="secondComment-${post['commentResponseDtoList'][i].id}">
   
-             </div>`;
+                </div>`;
 
         $('#comment').append(temp_html);
 
@@ -423,7 +426,7 @@ function showComments() {
                                                             <input type="text" placeholder="대댓글을 수정해주세요" style="display: none"
                                                                     id="secondInput-${post['secondCommentResponseDtoList'][j].id}"/>
                                                             <button type="button" style="display: none" id="secondButton-${post['secondCommentResponseDtoList'][j].id}"
-                                                                    onClick="secondCommentUpdate(${post['secondCommentResponseDtoList'][j].id})">대댓글 수정</button>
+                                                                    onClick="secondCommentUpdate(${post['secondCommentResponseDtoList'][j].id})">reply 수정</button>
                                                             <a id="testid" class="btn1" style="font-family: 'Jua', sans-serif;" onClick="secondCommentUpdateButton(${post['secondCommentResponseDtoList'][j].id})">수정</a>
                                                             <a class="btn1" style="font-family: 'Jua', sans-serif;"  onClick="deleteSecondComment(${post['secondCommentResponseDtoList'][j].id})">삭제</a>
                                                         </div>`;
@@ -666,7 +669,7 @@ function insertSecondComment(id){
 
             Swal.fire({
                 icon: 'success',
-                title: '수정 성공',
+                title: '댓글입력 성공',
                 text: '댓글이 성공적으로 입력되었습니다.'
             }).then(function () {
                 window.location.reload();
@@ -677,8 +680,8 @@ function insertSecondComment(id){
 
             Swal.fire({
                 icon: 'success',
-                title: '수정 실패',
-                text: '작성자가 아닙니다.'
+                title: '입력 실패',
+                text: '로그인이 필요합니다.'
             }).then(function () {
                 window.location.reload();
             })
@@ -697,7 +700,7 @@ function secondCommentUpdateButton(id){
             //작성자 확인
             if ( getLoginUser(token) != `${post['secondCommentResponseDtoList'][i].username}`) {
                 Swal.fire({
-                    icon: 'success',
+                    icon: 'warning',
                     title: '수정 실패',
                     text: '작성자가 아닙니다.'
                 }).then(function () {
