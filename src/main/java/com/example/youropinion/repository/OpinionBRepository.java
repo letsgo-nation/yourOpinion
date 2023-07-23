@@ -12,10 +12,11 @@ import java.util.Optional;
 public interface OpinionBRepository extends JpaRepository<OpinionB, Long>{
 
     Optional<OpinionB> findByUserAndPost(User user, Post post);
-    //Collection<OpinionB> findByUser(User user);
 
     Collection<Object> findByUserAndOpinionB(User user, boolean opinionB);
 
     List<OpinionB> findByUser(User user);
+
+    List<OpinionB> findByPost(Post post);
 }
 

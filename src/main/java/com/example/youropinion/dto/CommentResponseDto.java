@@ -23,6 +23,7 @@ public class CommentResponseDto {
 /*        this.likeCnt = comment.getLikeCnt();
         this.dislikeCnt = comment.getDislikeCnt();*/
         this.postId = comment.getPost().getId();
+        this.postTitle = comment.getPost().getTitle();
         this.userId = comment.getUser().getId();
         this.username = comment.getUser().getUsername();
         this.nickname = comment.getUser().getNickname();
