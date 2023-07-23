@@ -30,7 +30,6 @@ public class UserService {
     private final CommentRepository commentRepository;
     private final OpinionARepository opinionARepository;
     private final OpinionBRepository opinionBRepository;
-
     private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
     public void signup(SignupRequestDto requestDto) {

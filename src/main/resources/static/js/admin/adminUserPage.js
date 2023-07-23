@@ -13,8 +13,11 @@ function displayPosts(adminUserResponseDtoList){
        const html_temp = `<div class="user">
                                     <form class="row gy-2 gx-3 align-items-center">
                       
-                                            <label class="visually-hidden" for="autoSizingInput">nickname</label>
-                                            <input type="text" class="form-control" placeholder="${nickname}" disabled='disabled'>
+                                            <label class="visually-hidden" for="Username">id</label>
+                                            <div class="input-group">
+                                                <div class="input-group-text">id</div>
+                                                <input type="text" class="form-control" placeholder="${id}" disabled='disabled'>
+                                            </div>
                            
                            
                                             <label class="visually-hidden" for="Username">username</label>
@@ -65,12 +68,14 @@ function displayPosts(adminUserResponseDtoList){
                                                 <div class="input-group-text">commentCnt</div>
                                                 <input type="text" class="form-control" placeholder="${commentCnt}" disabled='disabled'>
                                             </div>
-                                
-                                          <div class="col-auto">
-                                            <button type="submit" class="btn btn-primary">권한 수정</button>
-                                            <button type="submit" class="btn btn-primary">유저 삭제</button>
-                                          </div>
+                                            <div class="col-auto" id="authUdate" > 
+                                                <input type="text" class="form-control" id="auth" placeholder="권한 수정">
+                                            </div>
                                     </form>
+                                          <div class="col-auto">
+                                            <button onclick="userUpdate(${id})" class="btn btn-primary">권한 수정</button>
+                                            <button onclick="userDelete(${id})" class="btn btn-primary">유저 삭제</button>
+                                          </div>
                                 </div>`;
 
        $('#users').append(html_temp);
@@ -78,12 +83,23 @@ function displayPosts(adminUserResponseDtoList){
     }
 }
 
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'center-center',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
+
 function getUsers() {
     fetch("/api/admin/user")
         .then(response => response.json())
         .then(data => displayPosts(data))
         .catch(error => console.error("Error fetching data:" , error));
-
 
 }
 
@@ -92,6 +108,40 @@ window.onload = function() {
     getUsers();
 }
 
-function checkAdmin() {
+function userDelete(id) {
+    const token = Cookies.get('Authorization');
 
+    $.ajax({
+        url: `/api/admin/users/${id}`,
+        type: "DELETE",
+        dataType: "json",
+        headers: {              // Http header
+            "Content-Type": "application/json",
+            "Authorization": token
+        },
+        success: function (data) {
+            Swal.fire({
+                    icon: 'success',
+                    title: '삭제 성공',
+                    text: '게시글 삭제가 성공적으로 완료되었습니다.'
+                }
+            ).then(function () {
+                window.location.reload();
+            })
+        },
+        error: function (error) {
+            Toast.fire({
+                icon: 'error',
+                title: '삭제 실패',
+                text: '작성자가 맞는지 확인 부탁드립니다.',
+            }).then(function () {
+                window.location.reload();
+            });
+        }
+    });
 }
+
+function userUpdate(){
+    $('#authUdate').show()
+}
+

@@ -1,8 +1,7 @@
 package com.example.youropinion.controller;
 
 import com.example.youropinion.dto.RestApiResponseDto;
-import com.example.youropinion.dto.admin.AdminCommentResponseDto;
-import com.example.youropinion.dto.admin.AdminPostResponseDto;
+
 import com.example.youropinion.dto.admin.AdminUserResponseDto;
 import com.example.youropinion.dto.admin.RoleChangeRequestDto;
 import com.example.youropinion.service.CommentService;
@@ -10,10 +9,7 @@ import com.example.youropinion.service.PostService;
 import com.example.youropinion.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -50,15 +46,16 @@ public class AdminController {
     }
 
 
-    // 게시글 정보 가져오기
-    @GetMapping("/post")
-    public List<AdminPostResponseDto> getAdminPostPage(Model model) {
-        return postService.getAdminPagePosts();
-    }
-
-    // 댓글 정보 가져오기
-    @GetMapping("/comment")
-    public List<AdminCommentResponseDto> getAdminCommentPage(Model model) {
-       return commentService.getAdminPageComments();
-    }
+//    // 게시글 정보 가져오기
+//    @GetMapping("/post")
+//    public List<AdminPostResponseDto> getAdminPostPage(Model model) {
+//        return postService.getAdminPagePosts();
+//    }
+//
+//    // 댓글 정보 가져오기
+//    @GetMapping("/comment")
+//    public List<AdminCommentResponseDto> getAdminCommentPage(Model model) {
+//       return commentService.getAdminPageComments();
+//    }
+//
 }
