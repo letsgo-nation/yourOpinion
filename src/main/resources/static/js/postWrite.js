@@ -141,8 +141,8 @@ function postRequest(title,content,opinionA,opinionB) {
             console.error("게시글 작성이 실패했습니다.", error);
             Toast.fire({
                 icon: 'error',
-                title: '입력 오류',
-                text: '게시글 작성을 실패했습니다. 다시 작성 부탁드립니다.',
+                title: '인증 오류',
+                text: '게시글 작성을 실패했습니다. 로그인 후 입력 부탁드립니다.',
             }).then(function () {
                 window.location.reload();
             });
