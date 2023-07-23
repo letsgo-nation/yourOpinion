@@ -111,7 +111,17 @@ const Toast = Swal.mixin({
 })
 
 function getUsers() {
-    fetch("/api/admin/post")
+    const token = Cookies.get('Authorization');
+
+    const headers = new Headers();
+    headers.append("Authorization", token); // Add your custom header here
+
+    const options = {
+        method: "GET",
+        headers: headers,
+    }
+
+    fetch("/api/admin/post", options)
         .then(response => response.json())
         .then(data => displayPosts(data))
         .catch(error => console.error("Error fetching data:" , error));
