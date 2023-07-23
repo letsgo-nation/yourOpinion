@@ -1,16 +1,29 @@
+function setDateFormat(inputDate){
+    const date = new Date(inputDate);
+
+    return date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+    });
+}
+
 function displayComments(commentList) {
     for (const comment of commentList) {
         console.log(comment);
         const id = comment.id;
         const content = comment.content;
         const createdAt = comment.createdAt;
-        const modifiedAt = comment.modifiedAt;
         const postId = comment.postId;
         const postTitle = comment.postTitle;
         const userId = comment.userId;
         const username = comment.username;
         const nickname = comment.nickname;
 
+        const formattedCreatedAt = setDateFormat(createdAt);
 
         const html_temp = `
                               <hr style="border-top: 1px solid #6c757d;">
@@ -20,40 +33,27 @@ function displayComments(commentList) {
                                             <label class="visually-hidden" for="Username">댓글 ID</label>
                                             <div class="input-group">
                                                 <div class="input-group-text">댓글 ID</div>
-                                                <input type="text" class="form-control" placeholder="${id}" disabled='disabled'>
+                                                <input type="text" class="form-control" placeholder="${id}번" disabled='disabled'>
                                             </div>
-                           
-                                            <label class="visually-hidden" for="voteCnt">댓글 작성자 ID</label>
-                                            <div class="input-group">
-                                                <div class="input-group-text">댓글 작성자 ID</div>
-                                                <input type="text" class="form-control" placeholder="${userId}번" disabled='disabled'>
-                                            </div>
-                             
-                                
-                                            <label class="visually-hidden" for="postCnt">ID(nickname)</label>
-                                            <div class="input-group">
-                                                <div class="input-group-text">ID(nickname)</div>
-                                                <input type="text" class="form-control" placeholder="${username} (${nickname})" 
-                                                disabled='disabled'>
-                                            </div>
+                                            
                                             
                                             <label class="visually-hidden" for="Username">댓글 내용</label>
                                             <div class="input-group">
                                                 <div class="input-group-text">댓글 내용</div>
                                                 <input type="text" class="form-control" placeholder="${content}" disabled='disabled'>
                                             </div>
-                              
+                                            
+                                            <label class="visually-hidden" for="postCnt">댓글 작성자 ID(닉네임)</label>
+                                            <div class="input-group">
+                                                <div class="input-group-text">ID(nickname)</div>
+                                                <input type="text" class="form-control" placeholder="${username} (${nickname})" 
+                                                disabled='disabled'>
+                                            </div>
                           
-                                            <label class="visually-hidden" for="nickName">댓글 작성 일자</label>
+                                            <label class="visually-hidden" for="nickName">댓글 작성일자</label>
                                             <div class="input-group">
                                                 <div class="input-group-text">댓글 작성 일자</div>
-                                                <input type="text" class="form-control" placeholder="${createdAt}" disabled='disabled'>
-                                            </div>
-                                            
-                                            <label class="visually-hidden" for="nickName">최근 수정 일자</label>
-                                            <div class="input-group">
-                                                <div class="input-group-text">최근 수정 일자</div>
-                                                <input type="text" class="form-control" placeholder="${modifiedAt}" disabled='disabled'>
+                                                <input type="text" class="form-control" placeholder="${formattedCreatedAt}" disabled='disabled'>
                                             </div>
                              
                              
@@ -78,7 +78,6 @@ function displayComments(commentList) {
                                 </div>`;
 
         $('#comments').append(html_temp);
-
     }
 }
 
