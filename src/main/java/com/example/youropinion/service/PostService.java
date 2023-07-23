@@ -27,7 +27,6 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final SecondCommentServiceRepository secondCommentServiceRepository;
 
@@ -40,8 +39,7 @@ public class PostService {
     }
 
     public PostResponseDto getPost(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(() ->
-                new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
+        Post post = findPost(id);
         PostResponseDto responseDto = new PostResponseDto(post);
         Long data = 8L;
         responseDto.setCommentResponseDtoList(commentRepository.findAllByPostIdOrderByCreatedAtAsc(id));
@@ -54,7 +52,6 @@ public class PostService {
         return responseDto;
     }
 
-
     public ResponseEntity<RestApiResponseDto> createPost(PostRequestDto requestDto, User user) {
         Post post = new Post(requestDto,user);
         postRepository.save(post);
@@ -64,8 +61,7 @@ public class PostService {
     @Transactional
     public ResponseEntity<RestApiResponseDto> updatePost(Long id, PostRequestDto requestDto, User user) {
         // 게시글이 있는지
-        Post post = postRepository.findById(id).orElseThrow(() ->
-                new PostNotFoundException("해당 게시글이 존재하지 않습니다"));
+        Post post = findPost(id);
 
         // 게시글 작성자인지
         Long writerId = post.getUser().getId(); // 게시글 작성자 id
@@ -82,8 +78,7 @@ public class PostService {
 
     public ResponseEntity<RestApiResponseDto> deletePost(Long id, User user) {
         // 게시글이 있는지
-        Post post = postRepository.findById(id).orElseThrow(() ->
-                new PostNotFoundException("해당 게시글이 없습니다."));
+        Post post = findPost(id);
 
         // 게시글 작성자인지
         Long writerId = post.getUser().getId();
@@ -99,6 +94,10 @@ public class PostService {
         return this.resultResponse(HttpStatus.OK,"게시글 삭제 완료",null);
     }
 
+    private Post findPost(Long id){
+        return postRepository.findById(id).orElseThrow(() ->
+                new PostNotFoundException("해당 게시글이 존재하지 않습니다."));
+    }
 
     private ResponseEntity<RestApiResponseDto> resultResponse(HttpStatus status, String message, Object result) {
         RestApiResponseDto restApiResponseDto = new RestApiResponseDto(status.value(), message, result);
@@ -107,6 +106,4 @@ public class PostService {
                 status
         );
     }
-
-
 }

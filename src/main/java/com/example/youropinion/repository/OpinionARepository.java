@@ -13,10 +13,10 @@ public interface OpinionARepository extends JpaRepository<OpinionA, Long> {
 
     Optional<OpinionA> findByUserAndPost(User user, Post post);
 
-    //Collection<OpinionA> findByUser(User user);
-
     Collection<Object> findByUserAndOpinionA(User user, boolean opinionA);
 
     List<OpinionA> findByUser(User user);
+
+    List<OpinionA> findByPost(Post post);
 }
 

@@ -27,7 +27,7 @@ $(document).ready(function () {
             title: '인증 오류',
             text: '게시글 작성을 위해 로그인을 부탁드립니다.',
         }).then(function () {
-            window.location.href = "/";
+            window.location.href = "/api/user/login-page";
         })
     }
 });
@@ -54,7 +54,7 @@ function removeToken() {
         title: '로그인 만료',
         text: '인증이 만료되어 재로그인 부탁드립니다.',
     }).then(function () {
-        window.location.href = "/";
+        window.location.href = "/api/user/login-page";
     })
 }
 
@@ -141,10 +141,10 @@ function postRequest(title,content,opinionA,opinionB) {
             console.error("게시글 작성이 실패했습니다.", error);
             Toast.fire({
                 icon: 'error',
-                title: '입력 오류',
-                text: '게시글 작성을 실패했습니다. 다시 작성 부탁드립니다.',
+                title: '인증 오류',
+                text: '게시글 작성을 실패했습니다. 로그인 후 입력 부탁드립니다.',
             }).then(function () {
-                window.location.reload();
+                window.location.href = "/api/user/login-page";
             });
         })
     })

@@ -115,35 +115,37 @@ window.onload = function() {
 
 function userDelete(id) {
     const token = Cookies.get('Authorization');
-
-    $.ajax({
-        url: `/api/admin/users/${id}`,
-        type: "DELETE",
-        dataType: "json",
-        headers: {              // Http header
-            "Content-Type": "application/json",
-            "Authorization": token
-        },
-        success: function (data) {
-            Swal.fire({
-                    icon: 'success',
-                    title: '삭제 성공',
-                    text: '게시글 삭제가 성공적으로 완료되었습니다.'
-                }
-            ).then(function () {
-                window.location.reload();
-            })
-        },
-        error: function (error) {
-            Toast.fire({
-                icon: 'error',
-                title: '삭제 실패',
-                text: '작성자가 맞는지 확인 부탁드립니다.',
-            }).then(function () {
-                window.location.reload();
-            });
-        }
-    });
+    const isConfirmed = confirm("정말로 삭제하시겠습니까? \n삭제할 경우 회원과 관련된 데이터 모두 삭제 됩니다.");
+    if (isConfirmed) {
+        $.ajax({
+            url: `/api/admin/users/${id}`,
+            type: "DELETE",
+            dataType: "json",
+            headers: {              // Http header
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            success: function (data) {
+                Swal.fire({
+                        icon: 'success',
+                        title: '회원 삭제 성공',
+                        text: '회원 삭제가 성공적으로 완료되었습니다.'
+                    }
+                ).then(function () {
+                    window.location.reload();
+                })
+            },
+            error: function (error) {
+                Toast.fire({
+                    icon: 'error',
+                    title: '회원 삭제 실패',
+                    text: '회원 삭제를 실패하였습니다.',
+                }).then(function () {
+                    window.location.reload();
+                });
+            }
+        });
+    }
 }
 
 function userUpdateBtn(id){
@@ -157,7 +159,6 @@ function userUpdate(id,role){
     let bool;
 
     //true면 user
-
     //false면 dmin
 
     if(role == 'USER'){
