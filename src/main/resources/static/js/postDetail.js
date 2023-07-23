@@ -372,25 +372,63 @@ function deletePost(url) {
 }
 
 function showComments() {
-    console.log("post", post);
-    for (var i = 0; i < post['commentResponseDtoList'].length; i++) {
-        const dateString = post['commentResponseDtoList'][i].modifiedAt;
-        const formattedDate = setDateFormat(dateString);
+    for( var i =0;  i < post['commentResponseDtoList'].length; i++){
         let temp_html =
             `<div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}">
-                            <div class="grid_img">
-                                <a href=""><img src="" alt=""></a>
-                            </div>
-                            <div class="grid_text">
-                                <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
-                                <h3 class="style">${formattedDate}</h3>
-                                <p class="para top"> ${post['commentResponseDtoList'][i].content}</p>
-                                <a id="testid" class="btn1" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
-                                <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
-                            </div>
-                            <div class="clear"></div>
-                 </div>`;
+                <div class="grid_img">
+                <a href=""><img src="" alt=""></a>
+                </div>
+                    <div class="grid_text">
+                    <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
+                    <h3 class="style">${post['commentResponseDtoList'][i].modifiedAt}</h3>
+                    <p class="para top"> ${post['commentResponseDtoList'][i].content}</p>
+                    <a id="testid" class="btn1" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
+                    <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
+                    <a class="btn1" onclick="secondComment(${post['commentResponseDtoList'][i].id})">대댓글달기</a>
+                    </div>
+                <input type="text"  placeholder="대댓글을 입력해주세요" style="display: none" id ="${post['commentResponseDtoList'][i].id}" />
+                <button type="button" style="display: none"  id ="${post['commentResponseDtoList'][i].id}" onclick="insertSecondComment(${post['commentResponseDtoList'][i].id})" >대댓글 입력</button>
+                <div  class="grid1_of_2 left" id="secondComment-${post['commentResponseDtoList'][i].id}">
+                
+                </div>
+             </div>`;
+
         $('#comment').append(temp_html);
+
+
+
+        //대댓글이 없는지 확인
+        if(`${post['secondCommentResponseDtoList'].length}` != 0){
+
+            console.log(`${post['secondCommentResponseDtoList'].length}`);
+
+            //댓글에 해당하는 대댓글만 달기
+
+            for (var j = 0; j < post['secondCommentResponseDtoList'].length; j++) {
+                if( `${post['commentResponseDtoList'][i].id}` == `${post['secondCommentResponseDtoList'][j].comment_id}`) {
+
+                    let secondComment_html = `  <div class="grid_img">
+                                                        <a href=""><img src="" alt=""></a>
+                                                        </div>
+                                                        <div class="grid_text">
+                                                        <h4 class="style1 list"><a href="#">${post['secondCommentResponseDtoList'][j].username}</a></h4>
+                                                        <h3 class="style">${post['secondCommentResponseDtoList'][j].modifiedAt}</h3>
+                                                        <p class="para top"  id="secondP-${post['secondCommentResponseDtoList'][j].id}"> ${post['secondCommentResponseDtoList'][j].content}</p>
+                                                        <input type="text" placeholder="대댓글을 수정해주세요" style="display: none"
+                                                                id="secondInput-${post['secondCommentResponseDtoList'][j].id}"/>
+                                                        <button type="button" style="display: none" id="secondButton-${post['secondCommentResponseDtoList'][j].id}"
+                                                                onClick="secondCommentUpdate(${post['secondCommentResponseDtoList'][j].id})">대댓글 수정</button>
+                                                        <a id="testid" class="btn1" onClick="secondCommentUpdateButton(${post['secondCommentResponseDtoList'][j].id})">수정</a>
+                                                        <a class="btn1" onClick="deleteSecondComment(${post['secondCommentResponseDtoList'][j].id})">삭제</a>
+                                                        </div>`;
+
+                    $(`#secondComment-${post['commentResponseDtoList'][i].id}`).append(secondComment_html);
+                }
+            }
+
+        }
+
+
     }
 }
 
@@ -414,48 +452,36 @@ function insert() {
 
     $.ajax({
         type: "POST",
-        url: `/api/posts/${postId}/comment`,
-        headers: {              // Http header
-            "Content-Type": "application/json",
-            "X-HTTP-Method-Override": "POST",
-            "Authorization": token
-        },
+        url: `/api/posts/${post.id}/comment`,
+        contentType: "application/json",
         data: JSON.stringify({content: $('#userComment').val()}),
     })
         .done(function (response, status, xhr) {
-            console.log("resultL", response['result']);
-            // 댓글 작성 성공 안내창
-            Swal.fire({
-                icon: 'success',
-                title: '작성 성공',
-                text: '댓글 작성이 성공적으로 완료되었습니다.'
-            }).then(function () {
-                window.location.href = `/api/post/detail-page/${postId}`;
-            })
-
-
-            const dateString = response.modifiedAt;
-            const formattedDate = setDateFormat(dateString);
-
+            console.log("resultL",response['result']);
             let temp_html =
                 `  <div class="grid1_of_2" id="${response['result'].id}" >
-                            <div class="grid_img">
-                                <a href=""><img src="" alt=""></a>
-                            </div>
-                            <div class="grid_text">
-                                <h4 class="style1 list"><a href="#">${response['result'].username}</a></h4>
-                                <h3 class="style">${formattedDate}</h3>
-                                <p class="para top"> ${response['result'].content}</p>
-                                <a id="testid" class="btn1" onclick="updateComment(${response['result'].id})">수정</a>
-                                <a class="btn1" onclick="deleteComment(${response['result'].id})">삭제</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>`;
+                    <div class="grid_img">
+                    <a href=""><img src="" alt=""></a>
+                    </div>
+                        <div class="grid_text">
+                        <h4 class="style1 list"><a href="#">${response['result'].username}</a></h4>
+                        <h3 class="style">${response['result'].modifiedAt}</h3>
+                        <p class="para top"> ${response['result'].content}</p>
+                        <a id="testid" class="btn1" onclick="updateComment(${response['result'].id})">수정</a>
+                        <a class="btn1" onclick="deleteComment(${response['result'].id})">삭제</a>
+                        </div>
+                    <input type="text"  placeholder="대댓글을 입력해주세요" style="display: none" id ="${response['result'].id}" />
+                    <button type="button" style="display: none"  id ="${response['result'].id}" onclick="insertSecondComment(${response['result'].id})" >대댓글 입력</button>
+                   </div>`;
 
             $('#comment').append(temp_html);
             $('#userComment').val('');
+
+            window.location.href = `/api/post/detail-page/${post.id}`;
+
         })
         .fail(function (jqXHR, textStatus) {
+
         });
 }
 
@@ -598,4 +624,89 @@ function update(id, value) {
         .fail(function (jqXHR, textStatus) {
 
         });
+}
+
+function secondComment(id){
+    $('#leaveComment').empty();
+    $('#comment').find($(`input[id^='${id}']`)).show();
+    $('#comment').find($(`button[id^='${id}']`)).show();
+}
+
+function insertSecondComment(id){
+
+    $.ajax({
+        type: "POST",
+        url: `/api/comment/${id}/secondComment`,
+        contentType: "application/json",
+        data: JSON.stringify({content:  $('#comment').find($(`input[id^='${id}']`)).val()}),
+    })
+        .done(function (response, status, xhr) {
+            alert("생성 완료")
+            window.location.href = `/api/post/detail-page/${post.id}`;
+        })
+        .fail(function (jqXHR, textStatus) {
+            alert("생성 오류")
+        });
+
+}
+
+function secondCommentUpdateButton(id){
+    const token = Cookies.get('Authorization');
+    // 대댓글 아이디와 로그인 아이디가 다를경우 새로고침
+    for(var i = 0; i<post['secondCommentResponseDtoList'].length;i++) {
+
+        if (post['secondCommentResponseDtoList'][i].id == id) {
+
+            //작성자 확인
+            if ( getLoginUser(token) != `${post['secondCommentResponseDtoList'][i].username}`) {
+                alert("작성자가 아닙니다.");
+                window.location.href = `/api/post/detail-page/${post.id}`;
+
+            }
+        }
+    }
+
+    $(`#secondInput-${id}`).show();
+    $(`#secondButton-${id}`).show();
+    $('#comment').find($("a[id^='testid']")).empty()
+}
+
+function secondCommentUpdate(id){
+
+    $.ajax({
+        type: "PUT",
+        url: `/api/secondComments/${id}`,
+        contentType: "application/json",
+        data: JSON.stringify({content:  $('#comment').find($(`input[id^='secondInput-${id}']`)).val()}),
+    })
+        .done(function (response, status, xhr) {
+            alert("수정 완료")
+            window.location.href = `/api/post/detail-page/${post.id}`;
+        })
+        .fail(function (jqXHR, textStatus) {
+            alert("수정 오류")
+        });
+
+}
+
+function deleteSecondComment(id){
+
+    $.ajax({
+        type: "DELETE",
+        url: `/api/secondComments/${id}`,
+        contentType: "application/json",
+    })
+        .done(function (response, status, xhr) {
+            alert("삭제완료")
+            window.location.href = `/api/post/detail-page/${post.id}`;
+        })
+        .fail(function (jqXHR, textStatus) {
+            alert("작성자가 다릅니다.")
+            window.location.href = `/api/post/detail-page/${post.id}`;
+        });
+}
+
+function getLoginUser(token){
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.sub; // 로그인한 id
 }
