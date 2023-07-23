@@ -7,6 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
+
+    @GetMapping("/cover")
+    public String cover(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        System.out.println("test = " + userDetails);
+        return "cover";
+    }
+
     @GetMapping("/")
     public String home(@AuthenticationPrincipal UserDetailsImpl userDetails) {
 

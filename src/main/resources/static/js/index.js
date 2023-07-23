@@ -195,7 +195,7 @@ function createPostElement(post) {
           </div>
           <div class="post-info-rate-share">
             <div>
-              <p class="txt-center">댓글수 : ${post.commentList}</p>
+              <p class="txt-center">댓글수 : ${post.commentCnt}</p>
             </div>
             <div class="clear"></div>
           </div>
@@ -232,6 +232,37 @@ function logout() {
         }
 
     })
+
+}
+// 모달 버튼과 모달 창 요소를 가져옵니다.
+const adminBtn = document.getElementById("adminButton");
+const adminModal = document.getElementById("adminModal");
+const closeBtn = document.getElementsByClassName("close")[0];
+const headArea = document.getElementsByClassName("header")[0];
+const contentArea = document.getElementsByClassName("content")[0];
+
+// 모달 버튼을 클릭하면 모달 창을 보여줍니다.
+adminBtn.onclick = function() {
+    adminModal.style.display = "block";
+    headArea.style.display = "none";
+    contentArea.style.display = "none";
+}
+
+// 모달 창 닫기 버튼을 클릭하면 모달 창을 닫습니다.
+closeBtn.onclick = function() {
+    adminModal.style.display = "none";
+    headArea.style.display = "block";
+    contentArea.style.display = "block";
+}
+
+// 모달 외부 영역을 클릭하면 모달 창을 닫습니다.
+window.onclick = function(event) {
+    if (event.target == adminModal) {
+        adminModal.style.display = "none";
+        headArea.style.display = "block";
+        contentArea.style.display = "block";
+    }
+
 
 }
 

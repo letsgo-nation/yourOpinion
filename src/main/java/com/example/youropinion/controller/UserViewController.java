@@ -25,4 +25,19 @@ public class UserViewController {
         return "pwchange";
     }
 
+    @GetMapping("/admin-page/user")
+    public String getAdminUserPage() {
+        return "adminUserPage";
+    }
+
+    @GetMapping("/admin-page/post")
+    public String getAdminPostPage() {
+        return "adminPostPage";
+    }
+
+    @GetMapping("/admin-page/comment")
+    public String getAdminCommenttPage() {
+        return "adminCommentPage";
+    }
+
 }

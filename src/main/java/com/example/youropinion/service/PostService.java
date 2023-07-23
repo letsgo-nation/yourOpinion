@@ -1,6 +1,5 @@
 package com.example.youropinion.service;
 
-import com.example.youropinion.dto.CommentResponseDto;
 import com.example.youropinion.dto.PostRequestDto;
 import com.example.youropinion.dto.PostResponseDto;
 import com.example.youropinion.dto.RestApiResponseDto;
@@ -10,7 +9,6 @@ import com.example.youropinion.entity.UserRoleEnum;
 import com.example.youropinion.exception.PostNotFoundException;
 import com.example.youropinion.repository.CommentRepository;
 import com.example.youropinion.repository.PostRepository;
-import com.example.youropinion.repository.SecondCommentServiceRepository;
 import com.example.youropinion.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +27,6 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
-    private final SecondCommentServiceRepository secondCommentServiceRepository;
 
     public ResponseEntity<RestApiResponseDto> getPostList() {
         List<Post> postList = postRepository.findAll();
@@ -117,17 +114,4 @@ public class PostService {
         return responseDto;
     }
 
-//  public PostResponseDto bringPost(Long id) {
-//        Post post = findPost(id);
-//        return new PostResponseDto(post);
-//    }
-//    private Post findPost(Long id) {
-//        return postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("선택한 게시물은 존재하지 않습니다."));
-//    }
-
-//    public PostResponseDto updatePost() {
-//        Post post = findPost(id);
-//        return new PostResponseDto(post);
-//    }
-//    }
 }

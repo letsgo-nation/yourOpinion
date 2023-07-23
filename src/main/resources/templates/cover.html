@@ -1,0 +1,97 @@
+<!--
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>Cover Template · Bootstrap v5.2</title>-->
+
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <title>커버 페이지</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="#">
+
+    <!-- bootstrap cover import-->
+    <link type='text/css' rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/cover/">
+
+    <!-- Custom styles for this template -->
+    <link type='text/css' href="/css/cover/cover.css" rel="stylesheet">
+    <link type="text/css" href="/css/cover/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--너의 의견은 폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+
+    <!--성민님 폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+    <script src="/js/cover.js"></script>
+
+</head>
+
+<body>
+<!-- 모달 창 -->
+<div id="admin-modal" class="modal" style="width: 100%;">
+    <div class="modal-content" style="width: 27%;">
+        <span class="adminClose" style="font-size:28px;">&times;</span>
+        <br>
+        <p>관리자용</p>
+        <br>
+        <button type="button" class="btn btn-primary btn m-2" style="--bs-btn-hover-color:#000; --bs-btn-color:#fff"
+                href="/api/user/admin-page/user">회원 관리</button>
+        <button type="button" class="btn btn-primary btn m-2" style="--bs-btn-hover-color:#000; --bs-btn-color:#fff"
+                href="/api/user/admin-page/post">게시물 관리</button>
+        <button type="button" class="btn btn-primary btn m-2" style="--bs-btn-hover-color:#000; --bs-btn-color:#fff"
+                href="/api/user/admin-page/comment">댓글 관리</button>
+    </div>
+</div>
+
+<div class="back-img">
+    <div class="d-flex h-100 text-center text-bg-bright" style="width: 40%;">
+        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+            <header class="mb-auto" style="margin-bottom: 35%">
+                <div class="btn-id">
+                    <h3 class="float-md-start mb-0" style="margin-left: -44%; color: #ffffff; font-family: 'Noto Serif KR', serif;">너의 의견은｡</h3>
+                    <nav class="nav nav-masthead justify-content-center float-md-end">
+                        <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link fw-bold py-1 px-0" href="/api/user/login-page">Login</a>
+                        <a class="nav-link fw-bold py-1 px-0" id="adminBtn"
+                           href="javascript:void(0);" onclick="showModal();">Admin</a>
+                    </nav>
+                </div>
+            </header>
+
+            <main class="px-3" style="color:#ffffff">
+                <h1 style="font-family: 'Noto Serif KR', serif;">너의 의견은｡</h1>
+                <p class="lead">君 の 意見 いけん は｡
+<!--                    Cover is a one-page template for building simple and beautiful home pages. Download,
+                    edit
+                    the
+                    text, and add your own fullscreen background photo to make it your own.-->
+                </p>
+                <br/><br/><br/><br/>
+                <p class="lead">
+                    <a href="/" class="btn btn-lg btn-outline-light fw-bold border-white bg-white">Go To｡</a>
+                </p>
+            </main>
+
+            <footer class="mt-auto text-white-50" style="--bs-btn-color: #000000; display: none;">
+                <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a
+                        href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>
+            </footer>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
