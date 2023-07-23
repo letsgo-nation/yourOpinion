@@ -144,14 +144,7 @@ footer a {
 		width: 266px;
 	}
 }
-.model-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+
 /* 모달 창 스타일 */
 .modal {
     display: none;
@@ -178,7 +171,7 @@ footer a {
     padding: 20px;
     display: flex; /* Flexbox 사용 */
     flex-direction: column; /* 수직 방향(column)으로 정렬 */
-    align-items: center; /* 가로 정렬을 중앙으로 설정 */
+    text-align: center; /* 가로 정렬을 중앙으로 설정 */
 }
 
 /* 모달 닫기 버튼 스타일 */

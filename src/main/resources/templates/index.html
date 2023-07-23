@@ -45,7 +45,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
     <!----//webfonts---->
     <!-- Global CSS for the page and tiles -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/index.css">
 
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 
@@ -54,15 +54,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <body>
 <!-- 모달 창 -->
-<div id="myModal" class="modal">
+<div id="adminModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <br>
         <p>관리자용</p>
         <br>
-        <button type="button" class="btn btn-primary btn m-2"  >회원 관리</button>
-        <button type="button" class="btn btn-primary btn m-2" >게시물 관리</button>
-        <button type="button" class="btn btn-primary btn m-2" >댓글 관리</button>
+        <button type="button" class="btn btn-primary btn m-2" style="--bs-btn-hover-color:#000; --bs-btn-color:#fff"
+                href="/api/user/admin-page/user">회원 관리</button>
+        <button type="button" class="btn btn-primary btn m-2" style="--bs-btn-hover-color:#000; --bs-btn-color:#fff"
+                href="/api/user/admin-page/post">게시물 관리</button>
+        <button type="button" class="btn btn-primary btn m-2" style="--bs-btn-hover-color:#000; --bs-btn-color:#fff"
+                href="/api/user/admin-page/comment">댓글 관리</button>
     </div>
 </div>
 
@@ -103,7 +106,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </button>
                             </li>
                         </ul>
-                        <button type="button" id="modalButton" class="btn btn-secondary" >관리자 메뉴</button>
+                        <button type="button" id="adminButton" class="btn btn-secondary" >관리자 메뉴</button>
                     </div>
                 </ul>
             </div>
