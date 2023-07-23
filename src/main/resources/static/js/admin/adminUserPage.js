@@ -68,14 +68,16 @@ function displayPosts(adminUserResponseDtoList){
                                                 <div class="input-group-text">commentCnt</div>
                                                 <input type="text" class="form-control" placeholder="${commentCnt}" disabled='disabled'>
                                             </div>
-                                            <div class="col-auto" id="authUdate" > 
-                                                <input type="text" class="form-control" id="auth" placeholder="권한 수정">
-                                            </div>
                                     </form>
-                                          <div class="col-auto">
-                                            <button onclick="userUpdate(${id})" class="btn btn-primary">권한 수정</button>
-                                            <button onclick="userDelete(${id})" class="btn btn-primary">유저 삭제</button>
-                                          </div>
+                                            <div class="col-auto" id="${id}" style="display: none" > 
+                                                <input type="text" class="form-control" id="auth-${id}" placeholder="권한 수정">
+                                                <button onclick="userUpdate(${id}, '${role}')" class="btn btn-primary">수정하기</button>
+                                            </div>
+                                            
+                                              <div class="col-auto" id="btns">
+                                                <button onclick="userUpdateBtn(${id})" class="btn btn-primary">권한 수정</button>
+                                                <button onclick="userDelete(${id})" class="btn btn-primary">유저 삭제</button>
+                                              </div>
                                 </div>`;
 
        $('#users').append(html_temp);
@@ -141,7 +143,55 @@ function userDelete(id) {
     });
 }
 
-function userUpdate(){
-    $('#authUdate').show()
+function userUpdateBtn(id){
+    $(`#${id}`).show();
+    $(`#users`).find($("div[id^='btns']")).empty();
+}
+
+function userUpdate(id,role){
+    const token = Cookies.get('Authorization');
+
+    let bool;
+
+    //true면 user
+
+    //false면 dmin
+
+    if(role == 'USER'){
+        bool = true;
+    }else {
+        bool = false;
+    }
+
+    $.ajax({
+        url: `/api/admin/users/${id}`,
+        type: "PUT",
+        dataType: "json",
+        headers: {              // Http header
+            "Content-Type": "application/json",
+            "Authorization": token
+        },
+        data: JSON.stringify({admin: bool,adminToken: $(`#auth-${id}`).val() }),
+        success: function (data) {
+            Swal.fire({
+                    icon: 'success',
+                    title: '권한 수정 성공',
+                    text: '권한 수정이 성공적으로 완료되었습니다.'
+                }
+            ).then(function () {
+                window.location.reload();
+            })
+        },
+        error: function (error) {
+            Toast.fire({
+                icon: 'error',
+                title: '권한 수정 실패',
+                text: '권한이 있는지 확인 부탁드립니다.',
+            }).then(function () {
+                window.location.reload();
+            });
+        }
+    });
+
 }
 
