@@ -61,7 +61,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <p>관리자용</p>
         <br>
         <button type="button" class="btn btn-primary btn m-2" style="--bs-btn-hover-color:#000; --bs-btn-color:#fff"
-                href="/api/user/admin-page/user">회원 관리</button>
+               onclick="adminUserPage()">회원 관리</button>
         <button type="button" class="btn btn-primary btn m-2" style="--bs-btn-hover-color:#000; --bs-btn-color:#fff"
                 href="/api/user/admin-page/post">게시물 관리</button>
         <button type="button" class="btn btn-primary btn m-2" style="--bs-btn-hover-color:#000; --bs-btn-color:#fff"
@@ -137,6 +137,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <button type="button" class="btn btn-secondary" onclick="location.href='/api/post/write-page'">작성하기</button>
 </div>
 </body>
-
+<script>
+    function adminUserPage(){
+        window.location.href = `/api/user/admin-page/user`;
+    }
+</script>
 <script src="/js/index.js"></script>
 </html>

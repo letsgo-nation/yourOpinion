@@ -3,6 +3,7 @@ package com.example.youropinion.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequestMapping("/api/user")
@@ -27,7 +28,7 @@ public class UserViewController {
 
     @GetMapping("/admin-page/user")
     public String getAdminUserPage() {
-        return "adminUserPage";
+        return "/admin-page/adminUserPage";
     }
 
     @GetMapping("/admin-page/post")

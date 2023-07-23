@@ -778,3 +778,4 @@ function getLoginUser(token){
     const payload = JSON.parse(atob(token.split(".")[1]));
     return payload.sub; // 로그인한 id
 }
+
