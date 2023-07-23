@@ -24,7 +24,7 @@ public class AdminController {
     private final CommentService commentService;
 
     @GetMapping("/user")
-    public List<AdminUserResponseDto> userPageLoad(Model model){
+    public List<AdminUserResponseDto> userPageLoad(){
         return userService.getAdminPageUsers();
     }
 
