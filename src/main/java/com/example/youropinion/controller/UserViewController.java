@@ -3,7 +3,6 @@ package com.example.youropinion.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequestMapping("/api/user")
@@ -24,21 +23,6 @@ public class UserViewController {
     @GetMapping("/profile-page/pwchange")
     public String getPwChangePage() {
         return "pwchange";
-    }
-
-    @GetMapping("/admin-page/user")
-    public String getAdminUserPage() {
-        return "/admin-page/adminUserPage";
-    }
-
-    @GetMapping("/admin-page/post")
-    public String getAdminPostPage() {
-        return "adminPostPage";
-    }
-
-    @GetMapping("/admin-page/comment")
-    public String getAdminCommenttPage() {
-        return "adminCommentPage";
     }
 
 }

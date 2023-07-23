@@ -5,11 +5,17 @@ import com.example.youropinion.entity.Post;
 import com.example.youropinion.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
-public interface OpinionBRepository extends JpaRepository<OpinionB, Long> {
+public interface OpinionBRepository extends JpaRepository<OpinionB, Long>{
 
-    // User, Post에서 단건 조회하기
     Optional<OpinionB> findByUserAndPost(User user, Post post);
+    //Collection<OpinionB> findByUser(User user);
+
+    Collection<Object> findByUserAndOpinionB(User user, boolean opinionB);
+
+    List<OpinionB> findByUser(User user);
 }
 

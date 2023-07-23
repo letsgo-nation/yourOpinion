@@ -6,7 +6,6 @@ import com.example.youropinion.entity.OpinionA;
 import com.example.youropinion.entity.OpinionB;
 import com.example.youropinion.entity.Post;
 import com.example.youropinion.entity.User;
-import com.example.youropinion.jwt.JwtUtil;
 import com.example.youropinion.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +23,6 @@ public class OpinionService {
     private final PostRepository postRepository;
     private final OpinionARepository opinionARepository;
     private final OpinionBRepository opinionBRepository;
-    private final JwtUtil jwtUtil;
 
     // OpinionA 추가
     @Transactional

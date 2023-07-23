@@ -2,124 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <title>회원 관리 페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 
-    <title>회원 관리 페이지</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-    <style>
-        html, body {
-
-            margin: 0;
-            width: 100%;
-            height: 100%;
-
-            overflow: hidden;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-
-        }
-        div #over2{
-
-            width: 400px;
-
-            height: 150px;
-
-            border: 1px solid black;
-
-            margin-bottom:10px;
-
-        }
-
-    </style>
+    <link type="text/css" href="/css/admin/adminUserPage.css" rel="stylesheet">
+    <script src="/js/admin/adminUserPage.js"></script>
 </head>
 <body>
-    <div class="users">
-        <div id="over2" style="overflow:auto;">
 
-            overflow1overflow2overflow3
+<div class="users" id="users" >
 
-            <br/>
+</div>
 
-            overflow1overflow2overflow3
-
-            </br>
-
-            overflow1overflow2overflow3
-
-            </br>
-
-            overflow1overflow2overflow3
-
-            <br/>
-
-            overflow1overflow2overflow3
-
-            </br>
-
-            overflow1overflow2overflow3
-
-            </br>
-
-            overflow1overflow2overflow3
-
-            <br/>
-
-            overflow1overflow2overflow3
-
-            </br>
-
-            overflow1overflow2overflow3
-
-        </div>
-    </div>
-
-    <div class="userinfo">
-        <div class="input-group mb-3">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon1">Button</button>
-            <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-        </div>
-
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-        </div>
-
-        <div class="input-group mb-3">
-            <button class="btn btn-outline-secondary" type="button">Button</button>
-            <button class="btn btn-outline-secondary" type="button">Button</button>
-            <input type="text" class="form-control" placeholder="" aria-label="Example text with two button addons">
-        </div>
-
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username with two button addons">
-            <button class="btn btn-outline-secondary" type="button">Button</button>
-            <button class="btn btn-outline-secondary" type="button">Button</button>
-        </div>
-    </div>
 
 </body>
 <script>
-    $(document).ready(function(){
-
-            const token = Cookies.get('Authorization');
-            if (token) {
-                $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
-                    jqXHR.setRequestHeader('Authorization', token);
-                });
-                // JWT 토큰 디코딩하여 페이로드 추출
-                // 예시 {sub: 'qw12345611', auth: 'USER', exp: 1689745728, iat: 1689742128}
-                // 그중 username을 추출해야하니 sub를 가져옴. 만약 관리자 확인이면 auth를 가져올듯.
-                const payload = JSON.parse(atob(token.split(".")[1]));
-                const userid = payload.sub;
-            }
-            voteBtnDisplay();
-
-    });
+    $('#users').css("overflow-y", "scroll");
+    $('#users').css("overflow-x", "hidden");
 </script>
 </html>

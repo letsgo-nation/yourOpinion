@@ -20,3 +20,15 @@ window.onload = function() {
         }
     };
 }
+
+function goToUserPage(){
+    window.location.href="/api/admin/user-page";
+}
+
+function goToPostPage(){
+    window.location.href="/api/admin/post-page";
+}
+
+function goToCommentPage() {
+    window.location.href="/api/admin/comment-page";
+}
