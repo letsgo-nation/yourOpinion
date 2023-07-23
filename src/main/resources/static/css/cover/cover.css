@@ -109,3 +109,54 @@ body {
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
 }
+
+
+
+/* 모달 창 스타일 */
+.modal {
+    font-family: Jua, sans-serif;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* 배경에 어두운 투명도를 줍니다. */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    border: 1px solid #888;
+    width: 300px; /* 원하는 크기로 수정 */
+    height: 350px; /* 원하는 크기로 수정 */
+    position: absolute;
+    top: 50%; /* 모달 창의 상단을 기준으로 50% 위치로 이동합니다. */
+    left: 50%; /* 모달 창의 좌측을 기준으로 50% 위치로 이동합니다. */
+    transform: translate(-50%, -50%); /* 좌상단을 기준으로 50%만큼 왼쪽과 위로 이동하여 세로 가운데로 정렬합니다. */
+    padding: 20px;
+    display: flex; /* Flexbox 사용 */
+    flex-direction: column; /* 수직 방향(column)으로 정렬 */
+    text-align: center; /* 가로 정렬을 중앙으로 설정 */
+    color: #ffffff;
+}
+
+/* 모달 닫기 버튼 스타일 */
+.adminClose {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.adminClose:hover,
+.adminClose:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content p {
+    font-size: 20px; /* 원하는 크기로 수정 */
+    font-weight: bold; /* 원하는 두께로 수정 */
+}
