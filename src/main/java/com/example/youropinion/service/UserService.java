@@ -89,7 +89,6 @@ public class UserService {
             log.info("commentCnt: " + commentCnt);
             log.info("voteCnt: " + voteCnt);
 
-
             AdminUserResponseDto responseDto = new AdminUserResponseDto(
                     user,voteCnt,postCnt,commentCnt);
             responseDtoList.add(responseDto);
