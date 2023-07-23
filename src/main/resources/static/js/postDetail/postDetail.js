@@ -373,24 +373,26 @@ function deletePost(url) {
 
 function showComments() {
     for( var i =0;  i < post['commentResponseDtoList'].length; i++){
+        const dateString = post['commentResponseDtoList'][i].modifiedAt;
+        const formattedDate = setDateFormat(dateString);
         let temp_html =
             `<div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}">
                 <div class="grid_img">
                 <a href=""><img src="" alt=""></a>
                 </div>
                     <div class="grid_text">
-                    <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
-                    <h3 class="style">${post['commentResponseDtoList'][i].modifiedAt}</h3>
-                    <p class="para top"> ${post['commentResponseDtoList'][i].content}</p>
-                    <a id="testid" class="btn1" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
-                    <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
-                    <a class="btn1" onclick="secondComment(${post['commentResponseDtoList'][i].id})">대댓글달기</a>
+                    <hr style="border-top: 1px solid #6c757d;">
+                        <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#" style="font-family: 'Jua', sans-serif;">${post['commentResponseDtoList'][i].username}</a></h4>
+                        <p class="para top" style="font-family: 'Jua', sans-serif;" >${formattedDate}</p>
+                        <h4 class="style1 list"> ${post['commentResponseDtoList'][i].content}</h4>
+                        <a id="testid" class="btn1" style="font-family: 'Jua', sans-serif;" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
+                        <a class="btn1" style="font-family: 'Jua', sans-serif;" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
+                        <a class="btn1" onclick="secondComment(${post['commentResponseDtoList'][i].id})">대댓글달기</a>
                     </div>
                 <input type="text"  placeholder="대댓글을 입력해주세요" style="display: none" id ="${post['commentResponseDtoList'][i].id}" />
                 <button type="button" style="display: none"  id ="${post['commentResponseDtoList'][i].id}" onclick="insertSecondComment(${post['commentResponseDtoList'][i].id})" >대댓글 입력</button>
                 <div  class="grid1_of_2 left" id="secondComment-${post['commentResponseDtoList'][i].id}">
-                
-                </div>
+  
              </div>`;
 
         $('#comment').append(temp_html);
@@ -407,19 +409,23 @@ function showComments() {
             for (var j = 0; j < post['secondCommentResponseDtoList'].length; j++) {
                 if( `${post['commentResponseDtoList'][i].id}` == `${post['secondCommentResponseDtoList'][j].comment_id}`) {
 
+                    const dateString = post['secondCommentResponseDtoList'][j].modifiedAt;
+                    const formattedDate = setDateFormat(dateString);
+
                     let secondComment_html = `  <div class="grid_img">
                                                         <a href=""><img src="" alt=""></a>
                                                         </div>
                                                         <div class="grid_text">
-                                                        <h4 class="style1 list"><a href="#">${post['secondCommentResponseDtoList'][j].username}</a></h4>
-                                                        <h3 class="style">${post['secondCommentResponseDtoList'][j].modifiedAt}</h3>
-                                                        <p class="para top"  id="secondP-${post['secondCommentResponseDtoList'][j].id}"> ${post['secondCommentResponseDtoList'][j].content}</p>
-                                                        <input type="text" placeholder="대댓글을 수정해주세요" style="display: none"
-                                                                id="secondInput-${post['secondCommentResponseDtoList'][j].id}"/>
-                                                        <button type="button" style="display: none" id="secondButton-${post['secondCommentResponseDtoList'][j].id}"
-                                                                onClick="secondCommentUpdate(${post['secondCommentResponseDtoList'][j].id})">대댓글 수정</button>
-                                                        <a id="testid" class="btn1" onClick="secondCommentUpdateButton(${post['secondCommentResponseDtoList'][j].id})">수정</a>
-                                                        <a class="btn1" onClick="deleteSecondComment(${post['secondCommentResponseDtoList'][j].id})">삭제</a>
+                                                            <hr style="border-top: 1px solid #6c757d;">
+                                                            <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#" style="font-family: 'Jua', sans-serif;">${post['secondCommentResponseDtoList'][j].username}</a></h4>
+                                                            <p class="para top" style="font-family: 'Jua', sans-serif;" >${formattedDate}</p>
+                                                            <h4 class="style1 list"  id="secondP-${post['secondCommentResponseDtoList'][j].id}"> ${post['secondCommentResponseDtoList'][j].content}</h4>
+                                                            <input type="text" placeholder="대댓글을 수정해주세요" style="display: none"
+                                                                    id="secondInput-${post['secondCommentResponseDtoList'][j].id}"/>
+                                                            <button type="button" style="display: none" id="secondButton-${post['secondCommentResponseDtoList'][j].id}"
+                                                                    onClick="secondCommentUpdate(${post['secondCommentResponseDtoList'][j].id})">대댓글 수정</button>
+                                                            <a id="testid" class="btn1" style="font-family: 'Jua', sans-serif;" onClick="secondCommentUpdateButton(${post['secondCommentResponseDtoList'][j].id})">수정</a>
+                                                            <a class="btn1" style="font-family: 'Jua', sans-serif;"  onClick="deleteSecondComment(${post['secondCommentResponseDtoList'][j].id})">삭제</a>
                                                         </div>`;
 
                     $(`#secondComment-${post['commentResponseDtoList'][i].id}`).append(secondComment_html);
@@ -457,18 +463,33 @@ function insert() {
         data: JSON.stringify({content: $('#userComment').val()}),
     })
         .done(function (response, status, xhr) {
-            console.log("resultL",response['result']);
+            // 댓글 작성 성공 안내창
+            Swal.fire({
+                icon: 'success',
+                title: '작성 성공',
+                text: '댓글 작성이 성공적으로 완료되었습니다.'
+            }).then(function () {
+                window.location.href = `/api/post/detail-page/${postId}`;
+            })
+
+
+            const dateString = response.modifiedAt;
+            const formattedDate = setDateFormat(dateString);
+
+
             let temp_html =
                 `  <div class="grid1_of_2" id="${response['result'].id}" >
                     <div class="grid_img">
                     <a href=""><img src="" alt=""></a>
                     </div>
                         <div class="grid_text">
-                        <h4 class="style1 list"><a href="#">${response['result'].username}</a></h4>
-                        <h3 class="style">${response['result'].modifiedAt}</h3>
-                        <p class="para top"> ${response['result'].content}</p>
-                        <a id="testid" class="btn1" onclick="updateComment(${response['result'].id})">수정</a>
-                        <a class="btn1" onclick="deleteComment(${response['result'].id})">삭제</a>
+                         <hr style="border-top: 1px solid #6c757d;">
+                            <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#"  style="font-family: 'Jua', sans-serif;">${response['result'].username}</a></h4>
+                            
+                            <p  class="para top" style="font-family: 'Jua', sans-serif;">${formattedDate}</p>
+                            <h4 class="style1 list">${response['result'].content}</h4>
+                            <a id="testid" class="btn1" style="font-family: 'Jua', sans-serif;" onclick="updateComment(${response['result'].id})">수정</a>
+                            <a class="btn1" style="font-family: 'Jua', sans-serif;" onclick="deleteComment(${response['result'].id})">삭제</a>
                         </div>
                     <input type="text"  placeholder="대댓글을 입력해주세요" style="display: none" id ="${response['result'].id}" />
                     <button type="button" style="display: none"  id ="${response['result'].id}" onclick="insertSecondComment(${response['result'].id})" >대댓글 입력</button>
@@ -561,11 +582,12 @@ function updateComment(id) {
                                         <a href=""><img src="" alt=""></a>
                                     </div>
                                     <div class="grid_text">
-                                        <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
-                                        <h3 class="style">${formattedDate}"</h3>
-                                        <p class="para top"><input id="input" value="${post['commentResponseDtoList'][i].content}"/></p>
-                                        <a class="btn1" onclick="update(${post['commentResponseDtoList'][i].id}, $('#input').val())">수정</a>
-                                        <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
+                                     <hr style="border-top: 1px solid #6c757d;">
+                                        <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#" style="font-family: 'Jua', sans-serif;">${post['commentResponseDtoList'][i].username}</a></h4>
+                                        <p class="para top" style="font-family: 'Jua', sans-serif;">${formattedDate}</p>
+                                        <h4 class="style1 list"><input id="input" value="${post['commentResponseDtoList'][i].content}"/></h4>
+                                        <a class="btn1"  style="font-family: 'Jua', sans-serif;" onclick="update(${post['commentResponseDtoList'][i].id}, $('#input').val())">수정</a>
+                                        <a class="btn1" style="font-family: 'Jua', sans-serif;" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
                                     </div>
                                     <div class="clear"></div>
                                 </div>`;
@@ -641,11 +663,26 @@ function insertSecondComment(id){
         data: JSON.stringify({content:  $('#comment').find($(`input[id^='${id}']`)).val()}),
     })
         .done(function (response, status, xhr) {
-            alert("생성 완료")
-            window.location.href = `/api/post/detail-page/${post.id}`;
+
+            Swal.fire({
+                icon: 'success',
+                title: '수정 성공',
+                text: '댓글이 성공적으로 입력되었습니다.'
+            }).then(function () {
+                window.location.reload();
+            })
+
         })
         .fail(function (jqXHR, textStatus) {
-            alert("생성 오류")
+
+            Swal.fire({
+                icon: 'success',
+                title: '수정 실패',
+                text: '작성자가 아닙니다.'
+            }).then(function () {
+                window.location.reload();
+            })
+
         });
 
 }
@@ -659,8 +696,13 @@ function secondCommentUpdateButton(id){
 
             //작성자 확인
             if ( getLoginUser(token) != `${post['secondCommentResponseDtoList'][i].username}`) {
-                alert("작성자가 아닙니다.");
-                window.location.href = `/api/post/detail-page/${post.id}`;
+                Swal.fire({
+                    icon: 'success',
+                    title: '수정 실패',
+                    text: '작성자가 아닙니다.'
+                }).then(function () {
+                    window.location.reload();
+                })
 
             }
         }
@@ -680,30 +722,56 @@ function secondCommentUpdate(id){
         data: JSON.stringify({content:  $('#comment').find($(`input[id^='secondInput-${id}']`)).val()}),
     })
         .done(function (response, status, xhr) {
-            alert("수정 완료")
-            window.location.href = `/api/post/detail-page/${post.id}`;
+            Swal.fire({
+                icon: 'success',
+                title: '수정 성공',
+                text: '댓글 수정이 성공적으로 완료되었습니다.'
+            }).then(function () {
+                window.location.reload();
+            })
         })
         .fail(function (jqXHR, textStatus) {
-            alert("수정 오류")
+            Swal.fire({
+                icon: 'success',
+                title: '수정 실패',
+                text: '작성자가 아닙니다.'
+            }).then(function () {
+                window.location.reload();
+            })
         });
 
 }
 
 function deleteSecondComment(id){
+    const isConfirmed = confirm("정말로 삭제하시겠습니까?");
 
-    $.ajax({
-        type: "DELETE",
-        url: `/api/secondComments/${id}`,
-        contentType: "application/json",
-    })
-        .done(function (response, status, xhr) {
-            alert("삭제완료")
-            window.location.href = `/api/post/detail-page/${post.id}`;
-        })
-        .fail(function (jqXHR, textStatus) {
-            alert("작성자가 다릅니다.")
-            window.location.href = `/api/post/detail-page/${post.id}`;
-        });
+
+  if(isConfirmed){
+      $.ajax({
+          type: "DELETE",
+          url: `/api/secondComments/${id}`,
+          contentType: "application/json",
+      })
+          .done(function (response, status, xhr) {
+              Swal.fire({
+                  icon: 'success',
+                  title: '삭제 성공',
+                  text: '댓글 삭제가 성공적으로 완료되었습니다.'
+              }).then(function () {
+                  window.location.reload();
+              })
+          })
+          .fail(function (jqXHR, textStatus) {
+              Swal.fire({
+                  icon: 'error',
+                  title: '삭제 실패',
+                  text: '본인이 작성한 댓글만 삭제 부탁드립니다.',
+              }).then(function () {
+                  window.location.reload();
+              });
+          });
+
+  }
 }
 
 function getLoginUser(token){
