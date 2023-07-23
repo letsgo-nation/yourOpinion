@@ -1,7 +1,7 @@
 package com.example.youropinion.controller;
 
-import com.example.youropinion.dto.admin.AdminCommentResponseDto;
-import com.example.youropinion.dto.admin.AdminPostResponseDto;
+//import com.example.youropinion.dto.admin.AdminCommentResponseDto;
+//import com.example.youropinion.dto.admin.AdminPostResponseDto;
 import com.example.youropinion.dto.admin.AdminUserResponseDto;
 import com.example.youropinion.service.CommentService;
 import com.example.youropinion.service.PostService;
@@ -28,13 +28,13 @@ public class AdminController {
         return userService.getAdminPageUsers();
     }
 
-    @GetMapping("/post")
-    public List<AdminPostResponseDto> getAdminPostPage(Model model) {
-        return postService.getAdminPagePosts();
-    }
-
-    @GetMapping("/comment")
-    public List<AdminCommentResponseDto> getAdminCommentPage(Model model) {
-       return commentService.getAdminPageComments();
-    }
+//    @GetMapping("/post")
+//    public List<AdminPostResponseDto> getAdminPostPage(Model model) {
+//        return postService.getAdminPagePosts();
+//    }
+//
+//    @GetMapping("/comment")
+//    public List<AdminCommentResponseDto> getAdminCommentPage(Model model) {
+//       return commentService.getAdminPageComments();
+//    }
 }
