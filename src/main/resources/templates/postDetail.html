@@ -14,6 +14,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
+    <!--너의 의견은 폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+
     <!--    alert 창 import-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -175,10 +180,11 @@
                     <div class="comment-section" style="padding:30px;">
                         <div class="grids_of_2">
                             <hr style="border-top: 1px solid #000;">
-                            <h2 style="font-family: 'Jua', sans-serif;">Comments</h2>
+                            <h2 style="font-family: 'Jua', sans-serif;" th:text="Comments + '(' + ${post.commentCnt} + ')'"></h2>
                             <div class="grids_of_2" id="comment">
                             </div>
                             <div class="artical-commentbox">
+                                <hr style="border-top: 1px solid #6c757d;">
                                 <h2 style="font-family: 'Jua', sans-serif;">Leave a Comment</h2>
                                 <div class="table-form">
                                     <form action="#" method="post" name="post_comment">

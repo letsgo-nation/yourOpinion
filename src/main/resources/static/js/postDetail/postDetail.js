@@ -382,11 +382,15 @@ function showComments() {
                                 <a href=""><img src="" alt=""></a>
                             </div>
                             <div class="grid_text">
-                                <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
-                                <h3 class="style">${formattedDate}</h3>
-                                <p class="para top"> ${post['commentResponseDtoList'][i].content}</p>
-                                <a id="testid" class="btn1" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
-                                <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
+                                <hr style="border-top: 1px solid #6c757d;">
+                                <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#" style="font-family: 'Jua', sans-serif;"
+                                >${post['commentResponseDtoList'][i].username}</a></h4>
+                                <p class="para top" style="font-family: 'Jua', sans-serif;">${formattedDate}</p>
+                                <h4 class="style1 list"> ${post['commentResponseDtoList'][i].content}</h4>
+                                <a id="testid" class="btn1" style="font-family: 'Jua', sans-serif;"
+                                onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
+                                <a class="btn1" style="font-family: 'Jua', sans-serif;"
+                                onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
                             </div>
                             <div class="clear"></div>
                  </div>`;
@@ -443,11 +447,15 @@ function insert() {
                                 <a href=""><img src="" alt=""></a>
                             </div>
                             <div class="grid_text">
-                                <h4 class="style1 list"><a href="#">${response['result'].username}</a></h4>
-                                <h3 class="style">${formattedDate}</h3>
-                                <p class="para top"> ${response['result'].content}</p>
-                                <a id="testid" class="btn1" onclick="updateComment(${response['result'].id})">수정</a>
-                                <a class="btn1" onclick="deleteComment(${response['result'].id})">삭제</a>
+                                <hr style="border-top: 1px solid #6c757d;">
+                                <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#" 
+                                 style="font-family: 'Jua', sans-serif;">${response['result'].username}</a></h4>
+                                <p class="para top" style="font-family: 'Jua', sans-serif;">${formattedDate}</p>
+                                <h4 class="style1 list">${response['result'].content}</h4>
+                                <a id="testid" class="btn1" style="font-family: 'Jua', sans-serif;"
+                                onclick="updateComment(${response['result'].id})">수정</a>
+                                <a class="btn1" style="font-family: 'Jua', sans-serif;"
+                                onclick="deleteComment(${response['result'].id})">삭제</a>
                             </div>
                             <div class="clear"></div>
                         </div>`;
@@ -535,11 +543,15 @@ function updateComment(id) {
                                         <a href=""><img src="" alt=""></a>
                                     </div>
                                     <div class="grid_text">
-                                        <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
-                                        <h3 class="style">${formattedDate}"</h3>
-                                        <p class="para top"><input id="input" value="${post['commentResponseDtoList'][i].content}"/></p>
-                                        <a class="btn1" onclick="update(${post['commentResponseDtoList'][i].id}, $('#input').val())">수정</a>
-                                        <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
+                                        <hr style="border-top: 1px solid #6c757d;">
+                                        <h4 class="style1 list" style="font-family: 'Jua', sans-serif;"><a href="#"
+                                         style="font-family: 'Jua', sans-serif;">${post['commentResponseDtoList'][i].username}</a></h4>
+                                        <p class="para top" style="font-family: 'Jua', sans-serif;">${formattedDate}</p>
+                                        <h4 class="style1 list"><input id="input" value="${post['commentResponseDtoList'][i].content}"/></h4>
+                                        <a class="btn1" style="font-family: 'Jua', sans-serif;"
+                                        onclick="update(${post['commentResponseDtoList'][i].id}, $('#input').val())">수정</a>
+                                        <a class="btn1" style="font-family: 'Jua', sans-serif;"
+                                        onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
                                     </div>
                                     <div class="clear"></div>
                                 </div>`;
