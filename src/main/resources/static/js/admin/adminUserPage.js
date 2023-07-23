@@ -15,59 +15,52 @@ function displayPosts(adminUserResponseDtoList){
                                  <div class="user">
                                     <form class="row gy-2 gx-3 align-items-center">
                       
-                                            <label class="visually-hidden" for="Username">id</label>
+                                            <label class="visually-hidden" for="Username">회원 식별값</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">id</div>
-                                                <input type="text" class="form-control" placeholder="${id}" disabled='disabled'>
+                                                <div class="input-group-text">회원 식별값</div>
+                                                <input type="text" class="form-control" placeholder="${id}번" disabled='disabled'>
                                             </div>
                            
                            
-                                            <label class="visually-hidden" for="Username">username</label>
+                                            <label class="visually-hidden" for="Username">회원 ID(닉네임)</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">username</div>
-                                                <input type="text" class="form-control" placeholder="${username}" disabled='disabled'>
-                                            </div>
-                              
-                          
-                                            <label class="visually-hidden" for="nickName">nickname</label>
-                                            <div class="input-group">
-                                                <div class="input-group-text">nickname</div>
-                                                <input type="text" class="form-control" placeholder="${nickname}" disabled='disabled'>
+                                                <div class="input-group-text">회원 ID(닉네임)</div>
+                                                <input type="text" class="form-control" placeholder="${username} (${nickname})" disabled='disabled'>
                                             </div>
                              
                              
-                                            <label class="visually-hidden" for="email">email</label>
+                                            <label class="visually-hidden" for="email">이메일</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">email</div>
+                                                <div class="input-group-text">이메일</div>
                                                 <input type="text" class="form-control" placeholder="${email}" disabled='disabled'>
                                             </div>
                                 
                                 
                             
-                                            <label class="visually-hidden" for="Role">role</label>
+                                            <label class="visually-hidden" for="Role">회원 권한</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">role</div>
+                                                <div class="input-group-text">회원 권한</div>
                                                 <input type="text" class="form-control" placeholder="${role}" disabled='disabled'>
                                             </div>
                           
                    
-                                            <label class="visually-hidden" for="voteCnt">voteCnt</label>
+                                            <label class="visually-hidden" for="voteCnt">투표에 참여한 갯수 합계</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">voteCnt</div>
+                                                <div class="input-group-text">투표에 참여한 갯수 합계</div>
                                                 <input type="text" class="form-control" placeholder="${voteCnt}" disabled='disabled'>
                                             </div>
                              
                                 
-                                            <label class="visually-hidden" for="postCnt">postCnt</label>
+                                            <label class="visually-hidden" for="postCnt">작성한 게시글 갯수 합계</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">postCnt</div>
+                                                <div class="input-group-text">작성한 게시글 갯수 합계</div>
                                                 <input type="text" class="form-control" placeholder="${postCnt}" disabled='disabled'>
                                             </div>
                                   
                                
-                                            <label class="visually-hidden" for="commentCnt">commentCnt</label>
+                                            <label class="visually-hidden" for="commentCnt">작성한 댓글 갯수 합계</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">commentCnt</div>
+                                                <div class="input-group-text">작성한 댓글 갯수 합계</div>
                                                 <input type="text" class="form-control" placeholder="${commentCnt}" disabled='disabled'>
                                             </div>
                                     </form>

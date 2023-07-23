@@ -1,4 +1,17 @@
-function displayPosts(setPostResponseDtoList){
+function setDateFormat(inputDate) {
+    const date = new Date(inputDate);
+
+    return date.toLocaleString("ko-KR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+    });
+}
+
+function displayPosts(setPostResponseDtoList) {
     for (const postResponseDto of setPostResponseDtoList) {
         console.log(postResponseDto);
         const id = postResponseDto.id;
@@ -8,80 +21,80 @@ function displayPosts(setPostResponseDtoList){
         const nickname = postResponseDto.nickname;
         const opinionA = postResponseDto.opinionA;
         const opinionB = postResponseDto.opinionB;
+        const opinionACnt = postResponseDto.opinionACnt;
+        const opinionBCnt = postResponseDto.opinionBCnt;
         const createdAt = postResponseDto.createdAt;
         const modifiedAt = postResponseDto.modifiedAt;
         const commentCnt = postResponseDto.commentCnt;
+
+        const formattedCreatedAt = setDateFormat(createdAt);
 
         const html_temp = `
                               <hr style="border-top: 1px solid #6c757d;">
                                  <div class="user">
                                     <form class="row gy-2 gx-3 align-items-center">
                       
-                                            <label class="visually-hidden" for="Username">id</label>
+                                            <label class="visually-hidden" for="Username">게시글 ID</label>
                                             <div class="input-group">
                                                 <div class="input-group-text">id</div>
-                                                <input type="text" class="form-control" placeholder="${id}" disabled='disabled'>
+                                                <input type="text" class="form-control" placeholder="${id}번" disabled='disabled'>
                                             </div>
                            
                            
-                                            <label class="visually-hidden" for="Username">title</label>
+                                            <label class="visually-hidden" for="Username">게시글 제목</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">title</div>
+                                                <div class="input-group-text">게시글 제목</div>
                                                 <input type="text" class="form-control" placeholder="${title}" disabled='disabled'>
                                             </div>
                               
                           
-                                            <label class="visually-hidden" for="nickName">content</label>
+                                            <label class="visually-hidden" for="nickName">게시글 내용</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">content</div>
+                                                <div class="input-group-text">게시글 내용</div>
                                                 <input type="text" class="form-control" placeholder="${content}" disabled='disabled'>
                                             </div>
                              
                              
-                                            <label class="visually-hidden" for="email">username</label>
+                                            <label class="visually-hidden" for="email">작성자 ID(닉네임)</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">username</div>
-                                                <input type="text" class="form-control" placeholder="${username}" disabled='disabled'>
+                                                <div class="input-group-text">작성자 ID(닉네임)</div>
+                                                <input type="text" class="form-control" placeholder="${username} (${nickname})" disabled='disabled'>
                                             </div>
-                                
-                                
-                            
-                                            <label class="visually-hidden" for="Role">nickname</label>
-                                            <div class="input-group">
-                                                <div class="input-group-text">nickname</div>
-                                                <input type="text" class="form-control" placeholder="${nickname}" disabled='disabled'>
-                                            </div>
-                          
                    
-                                            <label class="visually-hidden" for="voteCnt">opinionA</label>
+                                            <label class="visually-hidden" for="voteCnt">1번째 투표 옵션 내용</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">opinionA</div>
+                                                <div class="input-group-text">1번째 투표 옵션 내용</div>
                                                 <input type="text" class="form-control" placeholder="${opinionA}" disabled='disabled'>
                                             </div>
                              
-                                
-                                            <label class="visually-hidden" for="postCnt">opinionB</label>
+                                            <label class="visually-hidden" for="voteCnt">1번째 투표 계수</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">opinionB</div>
+                                                <div class="input-group-text">1번째 투표 계수</div>
+                                                <input type="text" class="form-control" placeholder="${opinionACnt}개" disabled='disabled'>
+                                            </div>
+                                
+                                            <label class="visually-hidden" for="postCnt">2번째 투표 옵션 내용</label>
+                                            <div class="input-group">
+                                                <div class="input-group-text">2번째 투표 옵션 내용</div>
                                                 <input type="text" class="form-control" placeholder="${opinionB}" disabled='disabled'>
                                             </div>
                                   
+                                            <label class="visually-hidden" for="voteCnt">2번째 투표 계수</label>
+                                            <div class="input-group">
+                                                <div class="input-group-text">2번째 투표 계수</div>
+                                                <input type="text" class="form-control" placeholder="${opinionBCnt}개" disabled='disabled'>
+                                            </div>
                                
-                                            <label class="visually-hidden" for="commentCnt">createdAt</label>
+                                            <label class="visually-hidden" for="commentCnt">게시글 작성일자</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">createdAt</div>
-                                                <input type="text" class="form-control" placeholder="${createdAt}" disabled='disabled'>
+                                                <div class="input-group-text">게시글 작성일자</div>
+                                                <input type="text" class="form-control" placeholder="${formattedCreatedAt}" disabled='disabled'>
                                             </div>
+                                           
                                             
-                                             <label class="visually-hidden" for="commentCnt">modifiedAt</label>
+                                             <label class="visually-hidden" for="commentCnt">게시글에 따른 댓글 갯수</label>
                                             <div class="input-group">
-                                                <div class="input-group-text">modifiedAt</div>
-                                                <input type="text" class="form-control" placeholder="${modifiedAt}" disabled='disabled'>
-                                            </div>
-                                            
-                                             <label class="visually-hidden" for="commentCnt">commentCnt</label>
-                                            <div class="input-group">
-                                                <div class="input-group-text">commentCnt</div>
+                                                <div class="input-group-text">게시글에 따른 댓글 갯수</div>
                                                 <input type="text" class="form-control" placeholder="${commentCnt}" disabled='disabled'>
                                             </div>
                                     </form>
@@ -124,15 +137,16 @@ function getUsers() {
     fetch("/api/admin/post", options)
         .then(response => response.json())
         .then(data => displayPosts(data))
-        .catch(error => console.error("Error fetching data:" , error));
+        .catch(error => console.error("Error fetching data:", error));
 
 }
 
-window.onload = function() {
+window.onload = function () {
     //checkAdmin();
     getUsers();
 }
-function deleteUserPost(id){
+
+function deleteUserPost(id) {
     const token = Cookies.get('Authorization');
     const isConfirmed = confirm("정말로 삭제하시겠습니까? \n삭제할 경우 게시글과 관련된 데이터 모두 삭제 됩니다.");
     $.ajax({
