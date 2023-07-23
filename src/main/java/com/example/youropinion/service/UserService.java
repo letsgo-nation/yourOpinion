@@ -75,6 +75,7 @@ public class UserService {
         log.info(inputUsername + "님이 회원 가입에 성공하였습니다");
     }
 
+
     public List<AdminUserResponseDto> getAdminPageUsers() {
         List<User> users = userRepository.findAll();
 
@@ -91,7 +92,7 @@ public class UserService {
 
             AdminUserResponseDto responseDto = new AdminUserResponseDto(
                     user,voteCnt,postCnt,commentCnt);
-
+            responseDtoList.add(responseDto);
         }
         return responseDtoList;
     }
