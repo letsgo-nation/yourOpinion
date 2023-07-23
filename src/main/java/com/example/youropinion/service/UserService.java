@@ -1,15 +1,18 @@
 package com.example.youropinion.service;
 
 import com.example.youropinion.dto.SignupRequestDto;
+import com.example.youropinion.dto.admin.AdminUserResponseDto;
 import com.example.youropinion.entity.User;
 import com.example.youropinion.entity.UserRoleEnum;
-import com.example.youropinion.repository.UserRepository;
+import com.example.youropinion.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j(topic = "User Service")
@@ -19,6 +22,10 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
+    private final OpinionARepository opinionARepository;
+    private final OpinionBRepository opinionBRepository;
 
     private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
@@ -66,5 +73,26 @@ public class UserService {
         userRepository.save(user);
 
         log.info(inputUsername + "님이 회원 가입에 성공하였습니다");
+    }
+
+    public List<AdminUserResponseDto> getAdminPageUsers() {
+        List<User> users = userRepository.findAll();
+
+        List<AdminUserResponseDto> responseDtoList = new ArrayList<>();
+        for (User user : users) {
+            int voteCnt = opinionARepository.findByUserAndOpinionA(user,true).size()
+                    + opinionBRepository.findByUserAndOpinionB(user,true).size(); // 투표한 내역 갯수
+            int postCnt = postRepository.findByUser(user).size(); // 작성한 게시글 갯수
+            int commentCnt = commentRepository.findByUser(user).size(); // 작성한 댓글 갯수
+            log.info("postCnt: " + postCnt);
+            log.info("commentCnt: " + commentCnt);
+            log.info("voteCnt: " + voteCnt);
+
+
+            AdminUserResponseDto responseDto = new AdminUserResponseDto(
+                    user,voteCnt,postCnt,commentCnt);
+
+        }
+        return responseDtoList;
     }
 }
