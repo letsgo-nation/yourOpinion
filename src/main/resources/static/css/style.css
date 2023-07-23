@@ -14,7 +14,9 @@ table{border-collapse:collapse;border-spacing:0;}
 a{text-decoration:none;}
 .txt-rt{text-align:right;}/* text align right */
 .txt-lt{text-align:left;}/* text align left */
-.txt-center{text-align:center;}/* text align center */
+.txt-center{
+	text-align: right;
+	margin-right: 20px;}/* text align center */
 .float-rt{float:right;}/* float right */
 .float-lt{float:left;}/* float left */
 .clear{clear:both;}/* clear float */
@@ -715,7 +717,7 @@ span.mail a:hover{
 		padding: 0.5em 0 0;
 	}
 	.artical-content p:nth-child(1){
-		display:none;	
+		display:none;
 	}
 	.userinfo {
 		width: 17%;
@@ -805,7 +807,7 @@ span.mail a:hover{
 		padding: 0.5em 0 0;
 	}
 	.artical-content p:nth-child(1){
-		display:none;	
+		display:none;
 	}
 	.userinfo {
 		display:none;
@@ -928,7 +930,7 @@ span.mail a:hover{
 		display:block;
 	}
 	.artical-content p:nth-child(1){
-		display:none;	
+		display:none;
 	}
 	.userinfo {
 		display:none;
@@ -1060,7 +1062,7 @@ span.mail a:hover{
 		display:block;
 	}
 	.artical-content p:nth-child(1){
-		display:none;	
+		display:none;
 	}
 	.userinfo {
 		display:none;

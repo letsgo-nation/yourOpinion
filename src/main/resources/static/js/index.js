@@ -195,7 +195,7 @@ function createPostElement(post) {
           </div>
           <div class="post-info-rate-share">
             <div>
-              <p class="txt-center">댓글수 : ${post.commentList}</p>
+              <p class="txt-center">댓글수 : ${post.commentCnt}</p>
             </div>
             <div class="clear"></div>
           </div>
