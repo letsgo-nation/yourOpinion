@@ -10,7 +10,9 @@ function displayPosts(adminUserResponseDtoList){
         const postCnt = adminUserResponseDto.postCnt;
         const commentCnt = adminUserResponseDto.commentCnt;
 
-       const html_temp = `<div class="user">
+       const html_temp = `
+                              <hr style="border-top: 1px solid #6c757d;">
+                                 <div class="user">
                                     <form class="row gy-2 gx-3 align-items-center">
                       
                                             <label class="visually-hidden" for="Username">id</label>
@@ -70,8 +72,9 @@ function displayPosts(adminUserResponseDtoList){
                                             </div>
                                     </form>
                                             <div class="col-auto" id="${id}" style="display: none" > 
-                                                <input type="text" class="form-control" id="auth-${id}" placeholder="권한 수정">
+                                                <input type="text" class="form-control" id="auth-${id}" placeholder="수정에 필요한 키값을 입력하세요">
                                                 <button onclick="userUpdate(${id}, '${role}')" class="btn btn-primary">수정하기</button>
+                                                <button onclick="window.location.reload()" class="btn btn-primary">수정 취소</button>
                                             </div>
                                             
                                               <div class="col-auto" id="btns">

@@ -153,7 +153,13 @@ public class UserService {
             if (user.getRole() == UserRoleEnum.USER) {
                 throw new IllegalArgumentException("동일한 권한으로 수정 요청하였습니다.");
             } else {
-                user.setRole(UserRoleEnum.USER);
+                if (!StringUtils.hasText(requestDto.getAdminToken())) {
+                    throw new IllegalArgumentException("관리자 암호를 입력해주세요");
+                } else if (!ADMIN_TOKEN.equals(requestDto.getAdminToken())) {
+                    throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
+                } else if (ADMIN_TOKEN.equals(requestDto.getAdminToken())) {
+                    user.setRole(UserRoleEnum.USER);
+                }
             }
         }
         return resultResponse(HttpStatus.OK, "권한 수정 완료", null);
