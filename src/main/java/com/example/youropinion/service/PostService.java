@@ -4,14 +4,9 @@ import com.example.youropinion.dto.CommentResponseDto;
 import com.example.youropinion.dto.PostRequestDto;
 import com.example.youropinion.dto.PostResponseDto;
 import com.example.youropinion.dto.RestApiResponseDto;
-import com.example.youropinion.entity.Post;
-import com.example.youropinion.entity.User;
-import com.example.youropinion.entity.UserRoleEnum;
+import com.example.youropinion.entity.*;
 import com.example.youropinion.exception.PostNotFoundException;
-import com.example.youropinion.repository.CommentRepository;
-import com.example.youropinion.repository.PostRepository;
-import com.example.youropinion.repository.SecondCommentServiceRepository;
-import com.example.youropinion.repository.UserRepository;
+import com.example.youropinion.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,6 +23,8 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
+    private final OpinionARepository opinionARepository;
+    private final OpinionBRepository opinionBRepository;
     private final SecondCommentServiceRepository secondCommentServiceRepository;
 
     public ResponseEntity<RestApiResponseDto> getPostList() {
@@ -79,7 +76,6 @@ public class PostService {
     public ResponseEntity<RestApiResponseDto> deletePost(Long id, User user) {
         // 게시글이 있는지
         Post post = findPost(id);
-
         // 게시글 작성자인지
         Long writerId = post.getUser().getId();
         Long loginId = user.getId();
@@ -89,6 +85,12 @@ public class PostService {
             throw new IllegalArgumentException("작성자 혹은 관리자만 삭제/수정 할 수 있습니다.");
         }
 
+        List<Comment> comments = commentRepository.findByPost(post);
+        commentRepository.deleteAll(comments);
+        List<OpinionA> opinionAList = opinionARepository.findByPost(post);
+        opinionARepository.deleteAll(opinionAList);
+        List<OpinionB> opinionBList = opinionBRepository.findByPost(post);
+        opinionBRepository.deleteAll(opinionBList);
         // 게시글 내용 삭제
         postRepository.delete(post);
         return this.resultResponse(HttpStatus.OK,"게시글 삭제 완료",null);

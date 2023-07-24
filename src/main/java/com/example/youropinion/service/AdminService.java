@@ -58,10 +58,10 @@ public class AdminService {
         User user = findUser(id);
 
         // 회원이 쓴 게시글, 댓글 삭제
-        List<Comment> comments = commentRepository.findByUser(user);
-        commentRepository.deleteAll(comments);
         List<SecondComments> secondComments = secondCommentServiceRepository.findByUser(user);
         secondCommentServiceRepository.deleteAll(secondComments);
+        List<Comment> comments = commentRepository.findByUser(user);
+        commentRepository.deleteAll(comments);
         List<OpinionA> opinionAList = opinionARepository.findByUser(user);
         List<OpinionB> opinionBList = opinionBRepository.findByUser(user);
         opinionARepository.deleteAll(opinionAList);

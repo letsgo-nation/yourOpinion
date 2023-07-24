@@ -1,5 +1,6 @@
 package com.example.youropinion.repository;
 
+import com.example.youropinion.entity.Post;
 import com.example.youropinion.entity.SecondComments;
 import com.example.youropinion.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,5 @@ public interface SecondCommentServiceRepository extends JpaRepository<SecondComm
     List<SecondComments> findAllByCommentIdOrderByCreatedAtAsc(Long id);
 
     List<SecondComments> findByUser(User user);
+
 }
