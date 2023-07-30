@@ -1,0 +1,142 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+<!--    <link href="https://hangeul.pstatic.net/hangeul_static/css/NanumAJumMaJaYu.css" rel="stylesheet">-->
+
+    <!--너의 의견은 폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+
+    <title>메인 페이지</title>
+    <link href="/css/style.css" rel='stylesheet' type='text/css'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="/js/jquery.imagesloaded.js"></script>
+    <script src="/js/jquery.wookmark.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <!----webfonts---->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!----//webfonts---->
+    <!-- Global CSS for the page and tiles -->
+    <link rel="stylesheet" href="/css/index.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+</head>
+
+
+<body>
+<!-- 모달 창 -->
+<div id="adminModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <br>
+        <p>관리자용</p>
+        <br>
+        <button type="button" class="btn btn-primary btn m-2" style="--bs-btn-hover-color:#000; --bs-btn-color:#fff"
+                onclick="goToUserPage()">회원 관리</button>
+        <button type="button" class="btn btn-primary btn m-2" style="--bs-btn-hover-color:#000; --bs-btn-color:#fff"
+                onclick="goToPostPage()">게시물 관리</button>
+        <button type="button" class="btn btn-primary btn m-2" style="--bs-btn-hover-color:#000; --bs-btn-color:#fff"
+                onclick="goToCommentPage()">댓글 관리</button>
+    </div>
+</div>
+
+<!---start-header---->
+<div class="header">
+    <div class="wrap">
+        <div class="logo">
+            <div class="logo"
+                 style="font-family: 'Noto Serif KR', serif; position: absolute; bottom: 15px; color: white; font-size: 35px">
+                너의 의견은｡
+            </div>
+        </div>
+        <!--    <div class="nav-icon">-->
+        <!--      <a href="#" class="right_bt" id="activator"><span> </span> </a>-->
+        <!--    </div>-->
+        <div class="userinfo" style="float: right;">
+            <div class="user">
+                <ul>
+                    <button type="button" class="btn btn-secondary" id="login"
+                            onclick="location.href='/api/user/login-page'" style="margin-top: 10px;">로그인&회원가입
+                    </button>
+
+                    <div class="dropdown" style="margin-top: 10px;">
+                        <span id="profile" style="color: white; font-size: 20px; margin-right: 10px;"></span>
+                        <button class="btn btn-secondary d-inline-block dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            프로필 메뉴
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <button class="dropdown-item" type="button"
+                                        onclick="location.href='/api/user/profile-page'">프로필 수정
+                                </button>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" id="logout" onclick="logout()" type="button">로그아웃
+                                </button>
+                            </li>
+                        </ul>
+                        <button type="button" id="adminButton" class="btn btn-secondary" style="display: none">관리자 메뉴</button>
+                    </div>
+                </ul>
+            </div>
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!---End-header---->
+
+<!---start-content---->
+<div class="content">
+
+    <div class="wrap">
+        <div id="main" role="main">
+            <ul id="tiles">
+                <div id="loadingMessage" class="spinner-border text-warning" role="status">
+                    <span class="visually-hidden" style="color: white;">게시물을 불러오는 중...</span>
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>
+<!---End-content---->
+
+<!----footer--->
+<div class="footer">
+    <button type="button" class="btn btn-secondary" onclick="location.href='/api/post/write-page'">작성하기</button>
+</div>
+</body>
+
+<script src="/js/index.js"></script>
+</html>

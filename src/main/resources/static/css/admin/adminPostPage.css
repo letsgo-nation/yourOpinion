@@ -1,0 +1,12 @@
+#top{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#management{
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+}

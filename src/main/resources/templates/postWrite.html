@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>게시글 작성 페이지</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="#">
+
+    <link rel="stylesheet" href="/css/postWrite/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/postWrite/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+    <!--    Button css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"></script>
+    <!--    Button css-->
+
+    <!-- alert창 import-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- alert창 import-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+<button type="button" class="btn btn-secondary" onclick="location.href='/'" style="margin: 20px;">Back</button>
+
+<div class="site-wrap">
+    <section id="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="col" style="padding:20px;">
+                    <form class="p-8 bg-white" style="padding:30px;">
+                        <div class="row mb-5">
+                            <div class="col-12 text-center">
+                                <h2 class="site-section-heading"
+                                    style="margin-top: 20px; font-family: 'Jua', sans-serif;">투표 작성</h2>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label class="text-black" for="opinionA">First Option</label>
+                                <input type="text" id="opinionA" placeholder="첫번째 투표" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="text-black" for="opinionB">Last Option</label>
+                                <input type="text" id="opinionB" placeholder="두번째 투표" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <label class="text-black" for="title">제목</label>
+                                <input type="text" id="title" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <label class="text-black" for="content">내용</label>
+                                <textarea type="text" id="content" cols="30" rows="7" class="form-control"
+                                          placeholder="Write your contents"></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-secondary" onclick="createPost()">작성 완료</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+<script src="/js/postWrite.js"></script>
+</html>

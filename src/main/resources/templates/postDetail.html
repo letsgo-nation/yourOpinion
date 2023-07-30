@@ -1,0 +1,863 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+    <title>너의 의견은.</title>
+    <link rel="shortcut icon" href="#">
+
+    <!-- ajax , cookies 사용 lib -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <!-- ajax , cookies 사용 lib -->
+
+    <!-- 구글 폰트 사용-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <!--너의 의견은 폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+
+    <!--    alert 창 import-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <!-- css import-->
+    <link rel='stylesheet' href="/css/postDetail.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!---start-click-drop-down-menu----->
+    <script src="/js/postDetail/jquery.min.js"></script>
+
+    <!-- Button css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+
+    <style>
+        *, input[type="text"], textarea[type="text"] {
+            font-family: 'Jua', sans-serif;
+        }
+
+        body {
+            font-family: 'Jua', sans-serif;
+        }
+    </style>
+
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+<iframe class="hidden-player" width="560" height="315" src="https://www.youtube.com/embed/yvcWghp0a-g?autoplay=1" frameborder="0" allowfullscreen></iframe>
+
+<div class="header">
+    <button type="button" class="btn btn-secondary" onclick="location.href='/'" style="margin: 20px;">
+        Back
+    </button>
+    <div class="wrap">
+        <div class="clear"></div>
+    </div>
+</div>
+<!---End-header---->
+
+<!---start-content---->
+<div class="content" style="background: url('https://images3.alphacoders.com/764/764967.png');">
+    <div class="wrap">
+        <div class="single-page">
+            <div class="single-page-artical">
+                <div class="artical-content">
+                    <div class="row form-group" style="padding-left:0px;">
+                        <div class="col-md-12" style="width: 95%;text-align: left;">
+                            <div>
+                                <label class="text-black h4">작성자</label> :
+                                <label id="userinfo" class="text-black h4"></label>
+                            </div>
+                            <div style="float:right;">
+                                <label class="text-black h4">작성일자</label> :
+                                <label class="text-black h4" id="postDate">
+                                       <!--th:text="${#temporals.format(post.modifiedAt, 'yyyy-MM-dd HH:mm:ss')}"--></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="container bootstrap snippets bootdey" style="width: 100%;">
+                            <div class="row">
+                                <div class="voteBack">
+                                    <div class="well" style="background-color: unset; border:0px;">
+                                        <h1 class="text-center">
+                                            <b><span th:text="${post.title}" style="color: #ffffff;"></span></b>
+                                        </h1>
+                                        <br/>
+                                        <p class="txt-center" th:text="${post.content}"></p>
+
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item"
+                                               style="background: rgba(0,0,0,0); border:0px;">
+                                                <div class="col-md-3">
+                                                    <div id="opinionArea">
+                                                        <p id="opinionPercentA" class="txt-center"></p>
+                                                        <div id="progressAdiv" class="progress">
+                                                            <div id="progressA"
+                                                                 class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                                                                 role="progressbar" style="width: 0%;" aria-valuenow="0"
+                                                                 aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media col-md-12">
+                                                        <button type="button"
+                                                                class="btn btn-default btn-lg btn-block"><span
+                                                                th:text="${post.opinionA}"></span></button>
+                                                        <button type="button" id="inOpinionA"
+                                                                onclick="increaseOpinionA()"
+                                                                class="btn btn-default btn-lg btn-block">
+                                                            <span onclick="OpinionA()">투표 </span>
+                                                        </button>
+                                                        <button type="button" style="display: none;"
+                                                                id="deOpinionA" onclick="decreaseOpinionA()"
+                                                                class="btn btn-default btn-lg btn-block">
+                                                            <span>투표 취소</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 text-center">
+                                                    <h1 class="vs-title" style="color:white;">VS</h1>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div id="opinionBrea">
+                                                        <p id="opinionPercentB" class="txt-center"></p>
+                                                        <div id="progressBdiv" class="progress">
+                                                            <div id="progressB"
+                                                                 class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+                                                                 role="progressbar" style="width: 0%;" aria-valuenow="0"
+                                                                 aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="media col-md-12">
+                                                        <button type="button"
+                                                                class="btn btn-default btn-lg btn-block"><span
+                                                                th:text="${post.opinionB}"></span></button>
+                                                        <button type="button"
+                                                                id="inOpinionB" onclick="increaseOpinionB()"
+                                                                class="btn btn-default btn-lg btn-block">
+                                                            <span>투표</span>
+                                                        </button>
+                                                        <button type="button" style="display: none;"
+                                                                id="deOpinionB" onclick="decreaseOpinionB()"
+                                                                class="btn btn-default btn-lg btn-block">
+                                                            <span>투표 취소</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div style="width: 57%;">
+                                        <button type="button" class="btn btn-secondary" id="editBtn"
+                                                style="margin-left: 20px;float: right; margin-bottom: 10px;">수정
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" id="deleteBtn"
+                                                style="margin-left: 20px;float: right; margin-bottom: 10px;">삭제
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                    <br/><br/><br/><br/><br/>
+                    <!---start-comments-section--->
+                    <div class="comment-section" style="padding:30px;">
+                        <div class="grids_of_2">
+                            <hr style="border-top: 1px solid #000;">
+                            <h2 style="font-family: 'Jua', sans-serif;" th:text="Comments + '(' + ${post.commentCnt} + ')'"></h2>
+                            <div class="grids_of_2" id="comment">
+                            </div>
+                            <div class="artical-commentbox">
+                                <hr style="border-top: 1px solid #6c757d;">
+                                <h2 style="font-family: 'Jua', sans-serif;">Leave a Comment</h2>
+                                <div class="table-form">
+                                    <form action="#" method="post" name="post_comment">
+                                        <div>
+                                            <label style="font-family: 'Jua', sans-serif;">Name<span>*</span></label>
+                                            <h4 id="loginUserName"></h4>
+                                        </div>
+                                        <div>
+                                            <label for="userComment" style="font-family: 'Jua', sans-serif;">Your
+                                                Comment<span>*</span></label>
+                                            <textarea type="text" id="userComment" name="content"> </textarea>
+                                        </div>
+                                    </form>
+                                    <button class="btn btn-secondary" type="button" onclick="insert()">댓글 작성</button>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!---//End-comments-section--->
+                </div>
+            </div>
+        </div>
+        <!----start-footer--->
+        <div class="footer">
+            <p>Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+        </div>
+    </div> <!---//End-wrap---->
+</div> <!---//End-content---->
+
+</body>
+
+<script th:inline="javascript">
+
+    // model 객체에서 가져와서 전역 변수 선언
+    const post = [[${post}]];
+    const postId = [[${post.id}]];
+    const nickname = [[${post.nickname}]];
+    const username = [[${post.username}]];
+    const modifiedAt = [[${post.modifiedAt}]];
+
+    //투표시 게이지와 퍼센트 반영 시작
+    const opinionA = [[${post.opinionACnt}]];
+    const opinionB = [[${post.opinionBCnt}]];
+
+
+    // 성민님께서 아래 코드들 postDetail.js에 분리, 주석풀면 겹쳐서 오류남.
+
+    // alert 창 표시를 위한 변수 선언
+    /*
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'center-center',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+    */
+
+    /*
+    // 서버로 부터 데이터를 받아옴
+    const opinionResult = {
+        opinionA: opinionA,
+        opinionB: opinionB,
+    };
+
+    // 전체 투표 수 합산
+    const totalOpinion = opinionResult.opinionA + opinionResult.opinionB;
+
+    // 퍼센트 계산 (반올림)
+    const opinionPercentA = Math.round((opinionResult.opinionA / totalOpinion) * 100);
+    const opinionPercentB = Math.round((opinionResult.opinionB / totalOpinion) * 100);
+
+    // NaN 검사 후 표시
+    $('#opinionPercentA').text(isNaN(opinionPercentA) ? "투표를 시작하세요!" : "투표수: " + opinionA + "개(" + opinionPercentA + "%" + ")");
+    $('#opinionPercentB').text(isNaN(opinionPercentB) ? "투표를 시작하세요!" : "투표수: " + opinionB + "개(" + opinionPercentB + "%" + ")");
+
+    // 게이지 업데이트 -> 옵션1
+    if (isNaN(opinionPercentA)) {
+        $('#progressAdiv').hide();
+    } else {
+        $('#progressAdiv').show();
+        $('#progressA').css('width', opinionPercentA + "%");
+    }
+    // 게이지 업데이트 -> 옵션2
+    if (isNaN(opinionPercentB)) {
+        $('#progressBdiv').hide();
+    } else {
+        $('#progressBdiv').show();
+        $('#progressB').css('width', opinionPercentB + "%");
+    }
+
+    $(document).ready(function () {
+        const token = Cookies.get('Authorization');
+        if (token) {
+            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+                jqXHR.setRequestHeader('Authorization', token);
+            });
+            // JWT 토큰 디코딩하여 페이로드 추출
+            // 예시 {sub: 'qw12345611', auth: 'USER', exp: 1689745728, iat: 1689742128}
+            // 그중 username을 추출해야하니 sub를 가져옴. 만약 관리자 확인이면 auth를 가져올듯.
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            const userid = payload.sub;
+            setCommentNickname();
+        }
+        voteBtnDisplay();
+    })
+
+   // 댓글 작성자 닉네임을 적용하기 위한 통신 코드
+    function setCommentNickname() {
+        $.ajax({
+            url: "/api/profile",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                const nickname = data['proFileResponseDto']['nickname']; // 실제 사용자 닉네임값 가져오기
+                $('.commentNickname').text(nickname);
+            },
+            error: function (error) {
+                console.error("프로필 정보를 가져오는 데 실패했습니다.", error);
+                Swal.fire({
+                    icon: 'warning',
+                    title: '토큰 오류',
+                    text: '프로필 정보를 가져오는 데 실패했습니다.',
+                }).then(function () {
+                    window.location.href = "/"
+                });
+            }
+        });
+    }// end of setCommentNickname();*/
+
+    // 투표 데이터에 따라 버튼 활성화, 비활성화
+    /*function voteBtnDisplay() {
+        const url = `/api/posts/${postId}/opinions`;
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                const opinionA = data['opinionAresult']; // 투표할 경우 true, 투표 안하거나 취소한 경우 false
+                const opinionB = data['opinionBresult']; // 투표할 경우 true, 투표 안하거나 취소한 경우 false
+
+                if (opinionA) { // 옵션1이 true 일 경우
+                    document.getElementById('inOpinionA').style.display = 'none';
+                    document.getElementById('deOpinionA').style.display = 'block';
+                    document.getElementById('inOpinionB').style.display = 'none';
+                    document.getElementById('deOpinionB').style.display = 'none';
+                } else if (opinionB) { // 옵션1은 false고, 옵션2가 true이면
+                    document.getElementById('inOpinionA').style.display = 'none';
+                    document.getElementById('deOpinionA').style.display = 'none';
+                    document.getElementById('inOpinionB').style.display = 'none';
+                    document.getElementById('deOpinionB').style.display = 'block';
+                } else { // 투표 정보가 없는 사용자의 경우 결과를 보여줄지 말지
+                }
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '투표 불가',
+                    text: '투표를 위해 로그인 부탁드립니다.',
+                }).then(function () {
+                    document.getElementById('inOpinionA').style.display = 'none';
+                    document.getElementById('deOpinionA').style.display = 'none';
+                    document.getElementById('inOpinionB').style.display = 'none';
+                    document.getElementById('deOpinionB').style.display = 'none';
+                });
+            }
+        });
+    }// end of voteBtnDisplay();*/
+
+    // 투표1 증가 시
+    /*function increaseOpinionA() {
+        const token = Cookies.get('Authorization');
+        const url = `/api/posts/${postId}/opinionA`;
+        // 옵션1 투표
+        $.ajax({
+            type: "POST",
+            url: url,
+            headers: {              // Http header
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "POST",
+                "Authorization": token
+            },
+            data: {},
+        })
+            .done(function (res, status, xhr) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '투표 성공',
+                    text: nickname + '님, 투표 완료되었습니다.'
+                }).then(function () {
+                    window.location.reload();
+                })
+            })
+            .fail(function (jqXHR, textStatus) {
+                Toast.fire({
+                    icon: 'warning',
+                    title: '투표를 실패하였습니다.'
+                })
+            });
+    }*/// end of increaseOpinionA();
+    // 투표1 감소 시
+    /*function decreaseOpinionA() {
+        const token = Cookies.get('Authorization');
+        const url = `/api/posts/${postId}/opinionA`;
+        // 옵션1 투표 취소
+        $.ajax({
+            type: "PUT",
+            url: url,
+            headers: {              // Http header
+                "Content-Type": "application/json",
+                "X-HTTP-Method-Override": "PUT",
+                "Authorization": token
+            },
+            data: {},
+        })
+            .done(function (res, status, xhr) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '투표 취소 성공',
+                    text: nickname + '님, 투표가 취소되었습니다.'
+                }).then(function () {
+                    window.location.reload();
+                })
+            })
+            .fail(function (jqXHR, textStatus) {
+                Toast.fire({
+                    icon: 'warning',
+                    title: '투표 취소를 실패하였습니다.'
+                })
+            });
+    }// end of decreaseOpinionA();*/
+    // 투표2 증가 시
+    /*
+        function increaseOpinionB() {
+            const token = Cookies.get('Authorization');
+            const url = `/api/posts/${postId}/opinionB`;
+            // 옵션2 투표
+            $.ajax({
+                type: "POST",
+                url: url,
+                headers: {              // Http header
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST",
+                    "Authorization": token
+                },
+                data: {},
+            })
+                .done(function (res, status, xhr) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '투표 성공',
+                        text: nickname + '님, 투표 완료되었습니다.'
+                    }).then(function () {
+                        window.location.reload();
+                    })
+                })
+                .fail(function (jqXHR, textStatus) {
+                    Toast.fire({
+                        icon: 'warning',
+                        title: '투표를 실패하였습니다.'
+                    })
+                });
+        }// end of increaseOpinionB();
+    */
+    // 투표2 감소 시
+    /*
+        function decreaseOpinionB() {
+            const token = Cookies.get('Authorization');
+            const url = `/api/posts/${postId}/opinionB`;
+            // 옵션2 투표 취소
+            $.ajax({
+                type: "PUT",
+                url: url,
+                headers: {              // Http header
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "PUT",
+                    "Authorization": token
+                },
+                data: {},
+            })
+                .done(function (res, status, xhr) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '투표 취소 성공',
+                        text: nickname + '님, 투표가 취소되었습니다.'
+                    }).then(function () {
+                        window.location.reload();
+                    })
+                })
+                .fail(function (jqXHR, textStatus) {
+                    Toast.fire({
+                        icon: 'warning',
+                        title: '투표 취소를 실패하였습니다.'
+                    })
+                });
+        }// end of decreaseOpinionB();
+    */
+
+    // 성민님 코드에 있음.
+    /*
+        // 게시글 수정 버튼 클릭 시
+        $('#editBtn').click(function () {
+            window.location.href = "/api/post/modify-page/" + postId;
+        });
+
+        // 게시글 삭제 버튼 클릭 시
+        $('#deleteBtn').click(function () {
+            const isConfirmed = confirm("정말로 삭제하시겠습니까?");
+            if (isConfirmed) {
+                const url = "/api/posts/" + postId;
+                deletePost(url);
+            }
+        });
+
+        // Reply 버튼 클릭 시
+        $('#replyBtn').click(function () {
+            createReply(); // 함수 만들어야 함. 어떤 댓글인지 id 값이 필요
+        });*/
+
+    /*$(document).ready(function () {
+        showComments();
+        const token = Cookies.get('Authorization');
+
+        if (token) {
+            $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+                jqXHR.setRequestHeader('Authorization', token);
+            });
+            getUser(token);
+        }
+
+        //아이디 암호화 함수
+        function maskingName() {
+            if (username.length >= 8) {
+                return (
+                    username.slice(0, 3) +
+                    "*".repeat(Math.max(0, username.length - 5)) +
+                    username.slice(-3)
+                );
+            } else {
+                return (
+                    username.slice(0, 2) +
+                    "*".repeat(Math.max(0, username.length - 3)) +
+                    username.slice(-1)
+                );
+            }
+        }// end of maskingName();
+        const maskedUsername = maskingName(username);
+        $('#userinfo').html(nickname + "(" + maskedUsername + ")")
+    })*/
+
+    /*    function maskingName(username) {
+            if (username.length >= 8) {
+                return (
+                    username.slice(0, 3) +
+                    "*".repeat(Math.max(0, username.length - 5)) +
+                    username.slice(-3)
+                );
+            } else {
+                return (
+                    username.slice(0, 2) +
+                    "*".repeat(Math.max(0, username.length - 3)) +
+                    username.slice(-1)
+                );
+            }
+        }*/
+
+    /*    const maskedUsername = maskingName(username);
+        $('#userinfo').text(nickname + " (" + maskedUsername + ")");
+
+
+        function getUser(token) {
+            const editBtn = document.getElementById('editBtn');
+            const deleteBtn = document.getElementById('deleteBtn');
+
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            const loginUsername = payload.sub; // 로그인한 id
+            const writerUsername = username
+
+            $('#loginUserName').text(loginUsername)
+
+            // 게시글 작성자일 경우
+            if (loginUsername === writerUsername) {
+                // 수정, 삭제 버튼 활성화
+                editBtn.style.display = 'block';
+                deleteBtn.style.display = 'block';
+            } else {// 수정, 삭제 버튼 비활성화
+                editBtn.style.display = 'none';
+                deleteBtn.style.display = 'none';
+            }
+        }*/
+    // 날짜 출력 형식
+    /*    function formatDate(dateString) {
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }*/
+
+    // 게시글 삭제하기
+    /*    function deletePost(url) {
+            const token = Cookies.get('Authorization');
+            $.ajax({
+                url: url,
+                type: "DELETE",
+                dataType: "json",
+                headers: {              // Http header
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                },
+                success: function (data) {
+                    Swal.fire({
+                            icon: 'success',
+                            title: '삭제 성공',
+                            text: '게시글 삭제가 성공적으로 완료되었습니다.'
+                        }
+                    ).then(function () {
+                        window.location.href = "/";
+                    })
+                },
+                error: function (error) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: '삭제 실패',
+                        text: '작성자가 맞는지 확인 부탁드립니다.',
+                    }).then(function () {
+                        window.location.reload();
+                    });
+                }
+            });
+        }*/
+
+    // 게시글에 달린 댓글 모두 출력
+    /*    function showComments(){
+            const post = [[${post}]];
+            console.log("post", post);
+
+            for (var i = 0; i < post['commentResponseDtoList'].length; i++) {
+                const dateString = post['commentResponseDtoList'][i].modifiedAt;
+                const formattedDate = formatDate(dateString);
+                let temp_html =
+                    `<div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}">
+                                <div class="grid_img">
+                                    <a href=""><img src="" alt=""></a>
+                                </div>
+                                <div class="grid_text">
+                                    <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
+                                    <h3 class="style">${formattedDate}</h3>
+                                    <p class="para top"> ${post['commentResponseDtoList'][i].content}</p>
+                                    <a id="testid" class="btn1" onclick="updateComment(${post['commentResponseDtoList'][i].id})">수정</a>
+                                    <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
+                                </div>
+                                <div class="clear"></div>
+                     </div>`;
+                $('#comment').append(temp_html);
+            }
+        }*/
+
+    // 댓글 등록
+    /*    function insert() {
+            const token = Cookies.get('Authorization');
+            // 댓글 내용 입력 안 했을 경우
+            let userComment = document.getElementById('userComment').value;
+
+            if (userComment.trim() === "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '댓글 내용 입력 오류',
+                    text: '댓글 내용을 입력해주세요.',
+                }).then(function () {
+                    userComment.focus();
+                    return false;
+                })
+            }
+
+            $.ajax({
+                type: "POST",
+                url: `/api/posts/${postId}/comment`,
+                headers: {              // Http header
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "POST",
+                    "Authorization": token
+                },
+                data: JSON.stringify({content: $('#userComment').val()}),
+            })
+                .done(function (response, status, xhr) {
+                    console.log("resultL", response['result']);
+                    // 댓글 작성 성공 안내창
+                    Swal.fire({
+                        icon: 'success',
+                        title: '작성 성공',
+                        text: '댓글 작성이 성공적으로 완료되었습니다.'
+                    }).then(function () {
+                        window.location.href = `/api/post/detail-page/${postId}`;
+                    })
+
+
+                    const dateString = response.modifiedAt;
+                    const formattedDate = formatDate(dateString);
+
+                    let temp_html =
+                        `  <div class="grid1_of_2" id="${response['result'].id}" >
+                                <div class="grid_img">
+                                    <a href=""><img src="" alt=""></a>
+                                </div>
+                                <div class="grid_text">
+                                    <h4 class="style1 list"><a href="#">${response['result'].username}</a></h4>
+                                    <h3 class="style">${formattedDate}</h3>
+                                    <p class="para top"> ${response['result'].content}</p>
+                                    <a id="testid" class="btn1" onclick="updateComment(${response['result'].id})">수정</a>
+                                    <a class="btn1" onclick="deleteComment(${response['result'].id})">삭제</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>`;
+
+                    $('#comment').append(temp_html);
+                    $('#userComment').val('');
+                })
+                .fail(function (jqXHR, textStatus) {
+                });
+        }*/
+    // 댓글 삭제
+    /*    function deleteComment(id) {
+            const token = Cookies.get('Authorization');
+
+            const isConfirmed = confirm("정말로 삭제하시겠습니까?");
+            if (isConfirmed) {
+                $.ajax({
+                    type: "DELETE",
+                    url: `/api/comments/${id}`,
+                    headers: {              // Http header
+                        "Content-Type": "application/json",
+                        "Authorization": token
+                    },
+                })
+                    .done(function (response, status, xhr) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '삭제 성공',
+                            text: '댓글 삭제가 성공적으로 완료되었습니다.'
+                        }).then(function () {
+                            window.location.reload();
+                        })
+                    })
+                    .fail(function (jqXHR, textStatus) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '삭제 실패',
+                            text: '본인이 작성한 댓글만 삭제 부탁드립니다.',
+                        }).then(function () {
+                            window.location.reload();
+                        });
+                    });
+            }
+        }*/
+    // 댓글 수정 후에 다시 불러오기
+    /*    function updateComment(id) {
+            const token = Cookies.get('Authorization');
+            //다시 불러오기
+            $.ajax({
+                type: "GET",
+                url: `/api/post/detail-page/${postId}`,
+                headers: {              // Http header
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                },
+            })
+                .done(function (response, status, xhr) {
+
+                    for (var i = 0; i < post['commentResponseDtoList'].length; i++) {
+
+                        const dateString = post['commentResponseDtoList'][i].modifiedAt;
+                        const formattedDate = formatDate(dateString);
+
+                        if (post['commentResponseDtoList'][i].id == id) {
+
+                            //작성자 확인
+                            if (`${post.username}` != `${post['commentResponseDtoList'][i].username}`) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '수정 불가',
+                                    text: '본인이 작성한 댓글만 수정 부탁드립니다.',
+                                }).then(function () {
+                                    window.location.reload();
+                                    return false;
+                                });
+                            }
+
+                            //비우기
+                            const node = document.getElementById(`${id}`);
+                            node.remove();
+                            // 수정 append
+                            let temp_html =
+                                `  <div class="grid1_of_2" id="${post['commentResponseDtoList'][i].id}" >
+                                        <div class="grid_img">
+                                            <a href=""><img src="" alt=""></a>
+                                        </div>
+                                        <div class="grid_text">
+                                            <h4 class="style1 list"><a href="#">${post['commentResponseDtoList'][i].username}</a></h4>
+                                            <h3 class="style">${formattedDate}"</h3>
+                                            <p class="para top"><input id="input" value="${post['commentResponseDtoList'][i].content}"/></p>
+                                            <a class="btn1" onclick="update(${post['commentResponseDtoList'][i].id}, $('#input').val())">수정</a>
+                                            <a class="btn1" onclick="deleteComment(${post['commentResponseDtoList'][i].id})">삭제</a>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>`;
+                            $('#comment').find($("a[id^='testid']")).empty();
+                            $('#comment').append(temp_html);
+                        }
+                    }
+
+                })
+                .fail(function (jqXHR, textStatus) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '수정 불가',
+                        text: '본인이 작성한 댓글만 수정 부탁드립니다.',
+                    }).then(function () {
+                        window.location.reload();
+                    });
+                });
+        }*/
+    // 댓글 수정
+    /*    function update(id, value) {
+            const token = Cookies.get('Authorization');
+            // 댓글 내용 입력 안 했을 경우
+            let userComment = document.getElementById('userComment').value;
+
+            if (value.trim() === "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '댓글 내용 입력 오류',
+                    text: '댓글 내용을 입력해주세요.',
+                }).then(function () {
+                    value.focus();
+                    return false;
+                });
+            }
+
+            $.ajax({
+                type: "PUT",
+                url: `/api/comments/${id}`,
+                headers: {              // Http header
+                    "Content-Type": "application/json",
+                    "X-HTTP-Method-Override": "PUT",
+                    "Authorization": token
+                },
+                data: JSON.stringify({content: value}),
+            })
+                .done(function (response, status, xhr) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '수정 성공',
+                        text: '댓글 수정이 성공적으로 완료되었습니다.'
+                    }).then(function () {
+                        window.location.reload();
+                    })
+                })
+                .fail(function (jqXHR, textStatus) {
+
+                });
+        }*/
+
+</script>
+
+<!--모든 바닐라JS, jqury, ajax는 여기서 작성-->
+<script src="/js/postDetail/postDetail.js"></script>
+</html>
