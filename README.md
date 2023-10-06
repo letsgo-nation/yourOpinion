@@ -34,11 +34,11 @@
 5. develop 브랜치에 반영할 때에는 모든 팀원의 동의를 구하기.
 6. Issue와 Commit 내역 연결하기
 
-#### - 진행 과정 : https://www.notion.so/2-c446b07351924a9d8fc2cb6522c76421?pvs=40
+#### - 진행 과정 : [팀 노션](https://rowan-pufferfish-a5a.notion.site/372f2b524f1e42c99267a3aaa1efd8cc?pvs=4)
 #### - 시연 영상 :  
  [![Video Label](http://img.youtube.com/vi/jh5lQzd4veA/0.jpg)](https://youtu.be/jh5lQzd4veA )
  
-<br/><br/>
+<br/>
 
 ## 기능 요구사항
 ### 1. 필수 기능
@@ -59,19 +59,15 @@
 <br/><br/>
 
 ## API 설계
-상단의 진행 과정 노션 링크 참조 부탁드립니다.
-<br/><br/>
+[API](https://rowan-pufferfish-a5a.notion.site/372f2b524f1e42c99267a3aaa1efd8cc?pvs=4)
+<br/>
 
 ## ERD 구성
 ![image](https://github.com/Chaeyounglim/yourOpinion/assets/55676554/62bfdb2a-1f0f-4496-b841-e892dcce6a47)
-<br/><br/><br/><br/><br/><br/>
-
-
-
+<br/><br/><br/>
 
 ## 핵심 코드 리뷰
 <br/>
-
 
 ### 1. 최근 사용한 3개의 비밀번호로 수정 불가하도록 합니다.
 <br/>
@@ -146,7 +142,7 @@
         return false; // 일치하지않을경우 거짓을 반환한후 위에 if문에서 벗어나게됨.
     }
 ```
-<br/><br/><br/><br/>
+<br/><br/>
 
 ### 2. 투표 기능 구현 
 
